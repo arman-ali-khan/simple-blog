@@ -10,7 +10,7 @@ const Blogs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/post`).then((res) => {
+    axios.get(`/api/post`).then((res) => {
       setGetPosts(res.data.posts);
       setLoading(false);
     });

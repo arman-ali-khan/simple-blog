@@ -1,4 +1,5 @@
-import { connectToDatabase } from "../../../utils/db";
+import { connectToDatabase } from "@/lib/db";
+
 
 
 export default async function handler(req, res) {
