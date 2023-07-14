@@ -10,7 +10,7 @@ const Blogs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`/api/post`).then((res) => {
+    axios.get(`https://simple-blog-dun.vercel.app/api/post`).then((res) => {
       setGetPosts(res.data.posts);
       setLoading(false);
     });
