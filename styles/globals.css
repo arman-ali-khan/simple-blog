@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ql-toolbar.ql-snow {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+@media screen and (max-width: 780px) {
+  .ql-toolbar.ql-snow .ql-formats {
+    background: #98c8ff;
+    margin: 2px 2px;
+  }
+}
+@media screen and (min-width: 781px) {
+  .ql-toolbar.ql-snow .ql-formats {
+    background: #98c8ff;
+  }
+}
