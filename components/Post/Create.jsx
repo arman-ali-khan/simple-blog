@@ -146,7 +146,7 @@ const handlePost = () =>{
     view:0,
   }
   
-  axios.post('http://localhost:3000/post/create',postData)
+  axios.post('/post/create',postData)
   .then(res=>{
     console.log(res.data)
     setPostLoading(false)

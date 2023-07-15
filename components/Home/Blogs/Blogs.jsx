@@ -10,7 +10,7 @@ const Blogs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`https://simple-blog-dun.vercel.app/api/post`).then((res) => {
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/post`).then((res) => {
       setGetPosts(res.data.posts);
       setLoading(false);
     });
@@ -27,15 +27,15 @@ const Blogs = () => {
             {loading ? (
              <>
               <div className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
-                <div className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
+                <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
                 <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
               </div>
               <div className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
-                <div className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
+                <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
                 <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
               </div>
               <div className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
-                <div className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
+                <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
                 <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
               </div>
               
