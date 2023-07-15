@@ -1,6 +1,4 @@
 import SingleBlog from '@/components/Home/Blogs/SingleBlog';
-import Layout from '@/layout/Layout';
-import parse from 'html-react-parser';
 import { useRouter } from 'next/router';
 
 
@@ -13,9 +11,9 @@ const index = ({data}) => {
   }
   
     return (
-        <Layout title={`${data.title} || ${"Arman's Blog"}`} desc={parse(data.body)} thumb={data.featured_image}>
+        <div>
        <SingleBlog blog={data} />
-        </Layout>
+        </div>
     );
 };
 

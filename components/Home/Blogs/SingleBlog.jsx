@@ -1,9 +1,12 @@
+import Layout from '@/layout/Layout';
 import parse from 'html-react-parser';
 import Categories from "../Categories/Categories";
 
 const SingleBlog = ({blog}) => {
+	const description = parse(blog.body)
+	const desc = description[0].props.children
     return (
-        <div>
+        <Layout title={`${blog.title} || ${"Arman's Blog"}`} desc={desc} thumb={blog.featured_image}>
              <div className='md:flex justify-between'>
         <div className=" md:w-4/5 w-full sm:p-0 md:p-1 lg:p-14 bg-base-100">
 	<div className="flex flex-col  overflow-hidden rounded">
@@ -25,7 +28,7 @@ const SingleBlog = ({blog}) => {
 <Categories />
 </div>
         </div>
-        </div>
+        </Layout>
     );
 };
 
