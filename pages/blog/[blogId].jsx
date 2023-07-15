@@ -17,7 +17,7 @@ export default blogId;
 export const getStaticPaths = async () => {
 
     //fetch data from api
-    const res = await fetch(`https://simple-blog-dun.vercel.app/blog`);
+    const res = await fetch(`https://simple-blog-dun.vercel.app/api/blog`);
     const data = await res.json();
     const posts = data.posts
     //create paths for each item in the data
@@ -38,7 +38,7 @@ export const getStaticPaths = async () => {
   // write a get staticprops function for nextjs dynamic api call
   export async function getStaticProps(context) {
     const id = context.params.blogId
-    const res = await fetch(`https://simple-blog-dun.vercel.app/blog/${id}`);
+    const res = await fetch(`https://simple-blog-dun.vercel.app/api/blog/${id}`);
     const data = await res.json();
     return {
       props: {
