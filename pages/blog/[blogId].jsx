@@ -1,58 +1,49 @@
-// import SingleBlog from '@/components/Home/Blogs/SingleBlog';
-// import Layout from '@/layout/Layout';
-// import parse from 'html-react-parser';
+import SingleBlog from '@/components/Home/Blogs/SingleBlog';
+import Layout from '@/layout/Layout';
+import parse from 'html-react-parser';
 
-// const blogId = ({data}) => {
+const blogId = ({data}) => {
     
-//     return (
-//         <Layout title={`${data.title} || ${"Arman's Blog"}`} desc={parse(data.body)} thumb={data.featured_image}>
-//        <SingleBlog blog={data} />
-//         </Layout>
-//     );
-// };
-
-// export default blogId;
-
-
-// export const getStaticPaths = async () => {
-
-//     //fetch data from api
-//     const res = await fetch(`https://blog-server-sparmankhan.vercel.app/blogs`);
-//     const data = await res.json();
-//     const posts = data.posts
-//     //create paths for each item in the data
-//     const paths = posts.map(item => ({
-//       params: {
-//         blogId: item.postId,
-//       },
-//     }));
-  
-//     //return paths
-//     return {
-//       paths,
-//       fallback: false,
-//     };
-//   };
-  
-  
-//   // write a get staticprops function for nextjs dynamic api call
-//   export async function getStaticProps(context) {
-//     const id = context.params.blogId
-//     const res = await fetch(`https://blog-server-sparmankhan.vercel.app/blog/${id}`);
-//     const data = await res.json();
-//     return {
-//       props: {
-//         data
-//       }
-//     };
-//   }
-
-const blogId = () => {
-  return (
-    <div>
-      Hello
-    </div>
-  );
+    return (
+        <Layout title={`${data.title} || ${"Arman's Blog"}`} desc={parse(data.body)} thumb={data.featured_image}>
+       <SingleBlog blog={data} />
+        </Layout>
+    );
 };
 
 export default blogId;
+
+
+export const getStaticPaths = async () => {
+
+    //fetch data from api
+    const res = await fetch(`https://simple-blog-dun.vercel.app/blog`);
+    const data = await res.json();
+    const posts = data.posts
+    //create paths for each item in the data
+    const paths = posts.map(item => ({
+      params: {
+        blogId: item.postId,
+      },
+    }));
+  
+    //return paths
+    return {
+      paths,
+      fallback: false,
+    };
+  };
+  
+  
+  // write a get staticprops function for nextjs dynamic api call
+  export async function getStaticProps(context) {
+    const id = context.params.blogId
+    const res = await fetch(`https://simple-blog-dun.vercel.app/blog/${id}`);
+    const data = await res.json();
+    return {
+      props: {
+        data
+      }
+    };
+  }
+
