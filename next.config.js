@@ -2,8 +2,5 @@
 const nextConfig = {
   reactStrictMode: true,
 }
-module.exports = {
-  // time in seconds of no pages generating during static
-  // generation before timing out
-  staticPageGenerationTimeout: 1000,
-},nextConfig
+
+module.exports = nextConfig
