@@ -18,7 +18,7 @@ const Blogs = () => {
   console.log(getPosts);
   return (
     <div className="md:flex justify-between w-full">
-      <div className="flex md:w-2/3 w-full  flex-wrap flex-row items-center justify-start">
+      <div className="flex md:w-2/3 w-full  flex-wrap flex-row justify-start">
         <div className="md:p-3 p-1 w-full">
           <div className="bg-base-200 w-full px-4 py-2 ">
             <h2>Recent</h2>

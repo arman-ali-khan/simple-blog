@@ -1,37 +1,28 @@
+import Link from "next/link";
 
 const Featured = () => {
     return (
        <section className="w-full md:flex justify-between">
         <div className="md:w-2/3  md:p-3 p-1">
-         <div className="bg-base-100 ">
-        <div className="container grid grid-cols-12 mx-auto bg-base-50">
-            <div className="bg-no-repeat bg-cover bg-base-200 col-span-full lg:col-span-4" ></div>
-            <div className="flex flex-col p-6 col-span-full row-span-full lg:col-span-8 lg:p-10">
-                <div className="flex justify-start">
-                    <span className="px-2 py-1 text-xs rounded-full bg-violet-600 text-gray-50">Featured</span>
-                </div>
-                <div className="font-bold md:text-xl sm:text-base text-sm mb-2 leading-tight">
-                Can coffee make you a bitter developer?
-              </div>
-                <p className="flex-1 pt- sm:text-base text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, reprehenderit adipisci tempore voluptas laborum quod.</p>
-                <a rel="noopener noreferrer" href="#" className="inline-flex items-center pt-2 pb-6 space-x-2 text-sm text-violet-600">
-                    <span>Read more</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd"></path>
-                    </svg>
-                </a>
-                <div className="flex items-center justify-between pt-">
-                    <div className="flex space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 text-gray-600">
-                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path>
-                        </svg>
-                        <span className="self-center text-sm">by Leroy Jenkins</span>
-                    </div>
-                    <span className="text-xs">3 min read</span>
-                </div>
-            </div>
+        <div className="flex flex-row-reverse overflow-hidden md:h-40 bg-base-100 sm:h-24  shadow-lg">
+        <img
+          className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
+          src='https://res.cloudinary.com/dl1cxduy0/image/upload/v1689334991/simpleblog/z9fkeqztermxsvpqzuls.png'
+        />
+        <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
+          <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
+           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/1}`}>লেবু দিয়ে ওজন কমানোর উপায়! নিয়মিত সেবনে শরীরে জমাট বাধা চর্বি ক্ষরণে বেশ কার্যকর।</Link>
+          </div>
+          <div className="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+         <div>
+         <div className='flex justify-between items-center w-full'>
+            <p className='hidden sm:block md:hidden lg:block w-full text-xs sm:text-sm md:text-base'>Cateogry</p>
+            <p className='w-full text-xs sm:text-sm md:text-base'>{'a day ago'}</p>
+            <span className='w-full text-xs sm:text-sm md:text-base'>View: 0</span>
+          </div>
+         </div>
         </div>
-    </div>
+      </div>
        </div>
        <div className="md:w-1/3 md:p-3 p-1">
         <div className="bg-base-100 flex justify-center items-center md:h-full w-full h-44">
