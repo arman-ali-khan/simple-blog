@@ -23,7 +23,7 @@ export const getStaticPaths = async () => {
     //create paths for each item in the data
     const paths = posts.map(item => ({
       params: {
-        blogId: item.postId,
+        blogId: item.postId.toString(),
       },
     }));
   
