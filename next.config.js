@@ -5,5 +5,5 @@ const nextConfig = {
 module.exports = {
   // time in seconds of no pages generating during static
   // generation before timing out
-  staticPageGenerationTimeout: 100,
+  staticPageGenerationTimeout: 1000,
 },nextConfig
