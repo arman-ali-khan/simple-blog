@@ -14,7 +14,7 @@ if(userLoading){
     if(user?.email){
         return <>{children}</>
     }else{
-      return <Redirect route={'auth/login'} />
+      return <Redirect route={'start/login'} />
     }
     
 };

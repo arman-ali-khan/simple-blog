@@ -1,10 +1,13 @@
 import Create from '@/components/Post/Create';
+import PrivateRoute from '@/hooks/PrivateRouters/PrivateRoute';
 import Layout from '@/layout/Layout';
 
 const create = () => {
     return (
         <Layout title={'Create Post'}>
-            <Create />
+           <PrivateRoute>
+           <Create />
+           </PrivateRoute>
         </Layout>
     );
 };

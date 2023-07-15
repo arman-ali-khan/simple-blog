@@ -132,6 +132,20 @@ const [postTitle,setPostTitle] = useState('')
 // posting
 const [postLoading,setPostLoading] = useState(false)
 
+// get desc
+
+function removeTags(str) {
+  if ((str===null) || (str===''))
+      return false;
+  else
+      str = str.toString();
+        
+  // Regular expression to identify HTML tags in
+  // the input string. Replacing the identified
+  // HTML tag with a null string.
+  return str.replace( /(<([^>]+)>)/ig, '');
+}
+
 const handlePost = () =>{
   setPostLoading(true)
   setPublishBtn('Publishing...')
@@ -139,6 +153,7 @@ const handlePost = () =>{
     title: postTitle,
     body: postBody,
     categories: categories,
+    description: removeTags(postBody),
     featured_image: featuredImage,
     date: new Date(),
     postId,
@@ -146,7 +161,7 @@ const handlePost = () =>{
     view:0,
   }
   
-  axios.post('/post/create',postData)
+  axios.post('/api/post/create',postData)
   .then(res=>{
     console.log(res.data)
     setPostLoading(false)
