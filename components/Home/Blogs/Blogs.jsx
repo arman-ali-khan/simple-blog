@@ -8,20 +8,20 @@ const Blogs = () => {
   const [getPosts, setGetPosts] = useState({});
   // get post loading
   const [loading, setLoading] = useState(true);
-
+// pagination
+const [currentPage,setCurrentPage] = useState(0)
+console.log(currentPage);
   useEffect(() => {
-    axios.get(`/api/post`).then((res) => {
+    axios.get(`/api/post?page=${currentPage}`).then((res) => {
       setGetPosts(res.data);
       setLoading(false);
     });
   }, []);
   const posts = getPosts?.posts
 
-  // pagination
-  const [currentPage,setCurrentPage] = useState(0)
-  console.log(currentPage);
+  
   // count
-  const count = Math.ceil((getPosts?.count || 10 )/ 2)
+  const count = Math.ceil((getPosts?.count || 10 )/ 10)
 
   return (
     <div className="md:flex justify-between w-full">
