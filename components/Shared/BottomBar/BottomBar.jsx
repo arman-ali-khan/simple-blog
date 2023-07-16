@@ -1,6 +1,7 @@
 
+import { UserContext } from "@/context/ContextProvider";
 import Link from "next/link";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { AiOutlineHome } from "react-icons/ai";
 import { BiComment, BiUser } from "react-icons/bi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
@@ -8,10 +9,13 @@ import { RiSearch2Line } from "react-icons/ri";
 import Categories from "../../../components/Home/Categories/Categories";
 
 const BottomBar = () => {
+    // context
+    const {user} = useContext(UserContext)
     const [showCategory,setShowCategory] = useState(false)
     return (
        <div className="w-full flex justify-center">
-         <div className="fixed bottom-0 w-full sm:w-96 md:mx-auto bg-base-200 z-50 sm:rounded-full">
+         {
+            user?.email && <div className="fixed bottom-0 border border-black dark:border-white w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-60 backdrop-saturate-150 z-50 sm:rounded-full">
             <div className="sm:rounded-full">
                 <ul className="flex w-full justify-between items-center">
                     <li className="w-full">
@@ -44,6 +48,7 @@ const BottomBar = () => {
                 </div>
             }
         </div>
+         }
        </div>
     );
 };

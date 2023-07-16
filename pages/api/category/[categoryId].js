@@ -2,7 +2,6 @@ import { connectToDatabase } from "@/lib/db";
 
 export default async function handler(req, res) {
     const {categoryId}  = req.query;
-console.log(categoryId);
   const { db } = await connectToDatabase();
   const filter = { categories: { $elemMatch: { value: categoryId } } }
   const posts = await db.collection("posts").find(filter).toArray();

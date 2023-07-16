@@ -72,7 +72,7 @@ const Create = () => {
   // Category load from db
   const [category, setCategory] = useState([]);
   useEffect(() => {
-    fetch("https://blog-server-sparmankhan.vercel.app/category")
+    fetch("/api/category")
       .then((res) => res.json())
       .then((data) => {
         setCategory(data);

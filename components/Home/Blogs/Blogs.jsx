@@ -5,17 +5,24 @@ import Blog from "./Blog";
 
 const Blogs = () => {
   // posts get
-  const [getPosts, setGetPosts] = useState([]);
+  const [getPosts, setGetPosts] = useState({});
   // get post loading
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/post`).then((res) => {
-      setGetPosts(res.data.posts);
+    axios.get(`/api/post`).then((res) => {
+      setGetPosts(res.data);
       setLoading(false);
     });
   }, []);
-  console.log(getPosts);
+  const posts = getPosts?.posts
+
+  // pagination
+  const [currentPage,setCurrentPage] = useState(0)
+  console.log(currentPage);
+  // count
+  const count = Math.ceil((getPosts?.count || 10 )/ 2)
+
   return (
     <div className="md:flex justify-between w-full">
       <div className="flex md:w-2/3 w-full  flex-wrap flex-row justify-start">
@@ -41,14 +48,17 @@ const Blogs = () => {
               
              </>
             ) : (
-              getPosts?.map((post) => <Blog key={post._id} post={post} />)
+              posts?.map((post) => <Blog key={post._id} post={post} />)
             )}
           </div>
           <div className="flex justify-center my-3 space-x-1 ">
-            <button
+            {/* Decrease */}
+          <button
+          disabled={currentPage===0}
+           onClick={()=>setCurrentPage(currentPage-1)}
               title="previous"
               type="button"
-              className="inline-flex items-center justify-center w-8 h-8 py-0 border hover:bg-purple-400 hover:text-black duration-300 rounded-md shadow-md"
+              className="inline-flex disabled:bg-gray-100 items-center justify-center w-8 h-8 py-0 border hover:bg-purple-400 disabled:hover:bg-gray-300 hover:text-black duration-300 rounded-md shadow-md"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -62,35 +72,21 @@ const Blogs = () => {
                 <polyline points="15 18 9 12 15 6"></polyline>
               </svg>
             </button>
-            <button
+          {
+          [...Array(count).keys()].map((item,i)=>
+          <button key={i}
+          onClick={()=>setCurrentPage(item)}
               type="button"
               title="Page 1"
-              className="inline-flex items-center justify-center w-8 h-8 text-sm font-semibold border hover:bg-info hover:text-black duration-300 rounded shadow-md bg-info text-violet-600 border-violet-600"
+              className={`inline-flex items-center justify-center w-8 h-8 text-sm font-semibold border hover:bg- hover:text-black duration-300 rounded shadow-md bg- text-violet-600 border-violet-600 ${item===currentPage && 'bg-info'}`}
             >
-              1
+              {item+1}
             </button>
+            )
+  }
+           {/* Increase */}
             <button
-              type="button"
-              className="inline-flex items-center justify-center w-8 h-8 text-sm border hover:bg-info hover:text-black duration-300 rounded shadow-md"
-              title="Page 2"
-            >
-              2
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center w-8 h-8 text-sm border hover:bg-info hover:text-black duration-300 rounded shadow-md"
-              title="Page 3"
-            >
-              3
-            </button>
-            <button
-              type="button"
-              className="inline-flex items-center justify-center w-8 h-8 text-sm border hover:bg-info hover:text-black duration-300 rounded shadow-md"
-              title="Page 4"
-            >
-              4
-            </button>
-            <button
+            onClick={()=>setCurrentPage(parseInt(currentPage)+1)}
               title="next"
               type="button"
               className="inline-flex items-center justify-center w-8 h-8 py-0 border hover:bg-purple-400 hover:text-black duration-300 rounded-md shadow-md"

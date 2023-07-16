@@ -1,13 +1,13 @@
 import axios from "axios";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import SingleCategory from "./SingleCategory";
 
 const Categories = () => {
     // get all categories
     const [categories, setCategories] = useState([])
     //
     useEffect(()=>{
-        axios.get(`https://blog-server-sparmankhan.vercel.app/category`)
+        axios.get(`/api/category`)
         .then(res=>{
             setCategories(res.data);
         })
@@ -18,9 +18,7 @@ const Categories = () => {
     <div className="">
         <ul>
             {
-                categories.map(category => <li key={category._id} className="border-b flex items-center">
-                <Link className="hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500 w-full flex px-3 py-2" href={`/category/${category.value}`}>{category.label} </Link> <span>(10)</span>
-            </li>)
+                categories.map(category => <SingleCategory key={category._id} category={category} />)
             }
            
         </ul>
