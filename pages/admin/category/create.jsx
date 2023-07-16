@@ -1,10 +1,10 @@
-import PrivateRoute from "@/hooks/PrivateRouters/PrivateRoute";
-import Layout from "@/layout/Layout";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiArrowBack } from "react-icons/bi";
+import PrivateRoute from "../../../hooks/PrivateRouters/PrivateRoute";
+import Layout from "../../../layout/Layout";
 
 const create = () => {
     const {

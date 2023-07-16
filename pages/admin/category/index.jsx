@@ -1,8 +1,8 @@
-import PrivateRoute from '@/hooks/PrivateRouters/PrivateRoute';
-import Layout from '@/layout/Layout';
 import Link from 'next/link';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
+import PrivateRoute from '../../../hooks/PrivateRouters/PrivateRoute';
+import Layout from '../../../layout/Layout';
 
 const index = () => {
     return (

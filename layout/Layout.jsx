@@ -1,7 +1,7 @@
-import BottomBar from "@/components/Shared/BottomBar/BottomBar";
-import Footer from "@/components/Shared/Footer/Footer";
-import Navbar from "@/components/Shared/Navbar/Navbar";
 import Head from "next/head";
+import BottomBar from "../components/Shared/BottomBar/BottomBar";
+import Footer from "../components/Shared/Footer/Footer";
+import Navbar from "../components/Shared/Navbar/Navbar";
 
 const Layout = ({ children, title, thumb, desc }) => {
   return (

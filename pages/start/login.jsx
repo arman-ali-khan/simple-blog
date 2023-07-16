@@ -1,5 +1,5 @@
-import Login from "@/components/Auth/Login/Login";
-import Layout from "@/layout/Layout";
+import Login from "../../components/Auth/Login/Login";
+import Layout from "../../layout/Layout";
 
 const login = () => {
     return (

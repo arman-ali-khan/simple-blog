@@ -1,5 +1,4 @@
 
-import { UserContext } from "@/context/ContextProvider";
 import Link from "next/link";
 import { useContext, useState } from 'react';
 import { AiOutlineHome } from "react-icons/ai";
@@ -7,6 +6,7 @@ import { BiComment, BiUser } from "react-icons/bi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RiSearch2Line } from "react-icons/ri";
 import Categories from "../../../components/Home/Categories/Categories";
+import { UserContext } from "../../../context/ContextProvider";
 
 const BottomBar = () => {
     // context

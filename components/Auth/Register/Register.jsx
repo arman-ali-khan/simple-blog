@@ -1,8 +1,8 @@
-import { UserContext } from "@/context/ContextProvider";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { UserContext } from "../../../context/ContextProvider";
 
 const Register = () => {
   const router = useRouter()

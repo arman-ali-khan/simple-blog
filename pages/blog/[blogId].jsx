@@ -1,5 +1,5 @@
-import SingleBlog from '@/components/Home/Blogs/SingleBlog';
 import { useRouter } from 'next/router';
+import SingleBlog from '../../components/Home/Blogs/SingleBlog';
 
 
 const index = ({data}) => {

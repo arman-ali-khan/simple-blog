@@ -1,6 +1,6 @@
-import { UserContext } from '@/context/ContextProvider';
-import Redirect from '@/utl/Redirect/Redirect';
 import { useContext } from 'react';
+import { UserContext } from '../../context/ContextProvider';
+import Redirect from '../../utl/Redirect/Redirect';
 
 const PrivateRoute = ({children}) => {
     // context provider

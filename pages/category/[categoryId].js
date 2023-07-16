@@ -1,8 +1,8 @@
-import CategoryPost from '@/components/Category/CategoryPost';
-import Layout from '@/layout/Layout';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import CategoryPost from '../../components/Category/CategoryPost';
+import Layout from '../../layout/Layout';
 
 const categoryId = () => {
     const router = useRouter();

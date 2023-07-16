@@ -1,6 +1,6 @@
-import Layout from '@/layout/Layout';
 import { useRouter } from 'next/router';
 import User from '../../components/User/User';
+import Layout from '../../layout/Layout';
 
 const userId = () => {
     const router = useRouter();
