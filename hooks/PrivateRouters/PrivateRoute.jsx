@@ -7,9 +7,9 @@ const PrivateRoute = ({children}) => {
     const {user,userLoading} = useContext(UserContext)
 
 if(userLoading){
-    return <div>
-        Loading...
-    </div>
+    return <div className='flex h-screen items-center justify-center w-full'>
+    Loading...
+</div>
 }
     if(user?.email){
         return <>{children}</>

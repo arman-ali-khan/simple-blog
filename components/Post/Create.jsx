@@ -84,36 +84,42 @@ const Create = () => {
   const [postBody, setPostBody] = useState("");
   
 
+// handle featured image
 
+// Photo upload 
+const [featuredImage, setFeaturedImage] = useState("");
+console.log(featuredImage);
+// Uploading...
+const [uploadLoad, setUploadPhoto] = useState(false);
+// photo upload error
+  const [error, setError] = useState("");
+// handle upload
+const handlePhotoUpload = (data) => {
+  setUploadPhoto(true);
+  const photo = data;
+  const photoData = new FormData();
+  photoData.append("file", photo);
+  photoData.append("upload_preset", "simpleblog");
+  photoData.append("cloud_name", "dl1cxduy0");
+  fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
+    method: "POST",
+    body: photoData,
+  })
+    .then((resp) => resp.json())
+    .then((photoData) => {
+      const photoUrl = photoData.secure_url;
+      setFeaturedImage(photoUrl);
+      setUploadPhoto(false);
+      setError('')
+    })
+    .catch(err=>{
+      setError(err.message)
 
-// upload btn
-const [uploadBtn,setUploadBtn] = useState('Upload')
-// upload image
-const [uploading,setUploading] = useState(false)
-const [selectedImage,setSelectedImage] = useState('')
-const [selectedFile,setSelectedFile] = useState('')
-console.log(selectedFile);
+    })
+};
 
-const [getUrl,setUrl] = useState('')
-const handleUpload = async () =>{
-  setUploading(true)
-  setUploadBtn('Uploading...')
-  try {
-    if(!selectedFile) return;
-    const formData = new FormData();
-    formData.append('image', selectedFile);
-    const {data} = await axios.post('/api/upload/photo',formData)
-    console.log(data);
-    setUploadBtn('Uploaded')
-    setUrl(data.newFilename)
-  } catch (error) {
-    console.log(error.response?.data);
-    setUploadBtn('Try again')
-  }
-  setUploading(false)
-}
-console.log(getUrl);
-// upload image
+// handle featured image end
+
 
 
 
@@ -150,7 +156,7 @@ const handlePost = () =>{
     body: postBody,
     categories: categories,
     description: removeTags(postBody),
-    featured_image: `https://simple-blog-dun.vercel.app/images/${getUrl}`,
+    featured_image: featuredImage,
     date: new Date(),
     postId,
     email: user.email,
@@ -166,7 +172,6 @@ const handlePost = () =>{
   }).catch(err=>{
     setPublishBtn('Try Again')
     setPostLoading(false)
-    console.log(err);
   })
 
 }
@@ -220,7 +225,7 @@ const handlePost = () =>{
             />
           </div>
           {/* Featured Image */}
-          {/* <div className="bg-base-100 border">
+          <div className="bg-base-100 border">
            <div className="bg-base-200 px-4 py-2">
            <p className="font-bold">Featured Image</p>
            </div>
@@ -242,50 +247,6 @@ const handlePost = () =>{
             }
             <span>{error}</span>
            </div>
-          </div> */}
-          {/* Featured Image */}
-          {/* <label>
-     <input hidden type="file" />
-     <div className="w-40 aspect-video rounded flex items-center justify-center border-2 border-dashed cursor-pointer">
-{
-  selectedImage ? (
-    <img src={selectedImage} alt="" />
-  ):
-  (
-    <span>Select Image</span>
-  )
-}
-     </div>
-     </label> */}
-          <div className="bg-base-100 border">
-           <div className="bg-base-200 px-4 py-2">
-           <p className="font-bold">Featured Image</p>
-           </div>
-           <div className="relative">{
-           }
-            { selectedImage?.length === 0 ?  uploading ? <span className="py-32 flex justify-center relative">Uploading... <button onClick={()=>setUploading(false)} className="absolute right-1 top-1 bg-error rounded-full px-4 py-2">X</button></span> : <span className="underline text-blue-500 flex items-center justify-center">
-             <label htmlFor="image" className="py-32 px-[23%] relative">
-             <input hidden id="image" onChange={({target})=>{
-      if(target.files){
-        const file = target.files[0];
-        setSelectedImage(URL.createObjectURL(file))
-        setSelectedFile(file)
-      }
-     
-     }}  type="file" className=""  />
-             Click to upload
-             
-             </label>
-            </span>
-            :
-            <div className="relative">
-              <img className="w-full h-64 object-cover p-4" src={selectedImage} alt="" />
-              <button onClick={()=>setSelectedImage('')} className="absolute right-1 top-1 bg-error rounded-full px-4 py-2">X</button>
-            </div>
-             
-            }
-            <button className="w-full px-4 py-2 bg-blue-300 mt-2 hover:bg-blue-100 text-black border" onClick={()=>handleUpload()} >{uploadBtn}</button>
-           </div>
           </div>
           {/* Action */}
           <div className="bg-base-100 border">
@@ -303,7 +264,7 @@ const handlePost = () =>{
             </div>
           <div className="flex justify-end px-4 py-2">
             
-            <button onClick={()=>handlePost()} disabled={postTitle.length<30 || categories.length===0 || getUrl.length===0 || postBody.length<300} className="px-4 hover:bg-opacity-80 py-2 bg-warning disabled:bg-indigo-100 text-black disabled:cursor-not-allowed">{publishBtn}</button>
+            <button onClick={()=>handlePost()} disabled={postTitle.length<30 || categories.length===0 || featuredImage.length===0 || postBody.length<300} className="px-4 hover:bg-opacity-80 py-2 bg-warning disabled:bg-indigo-100 text-black disabled:cursor-not-allowed">{publishBtn}</button>
           </div>
           </div>
         </div>

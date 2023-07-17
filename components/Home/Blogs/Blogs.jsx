@@ -10,13 +10,13 @@ const Blogs = () => {
   const [loading, setLoading] = useState(true);
 // pagination
 const [currentPage,setCurrentPage] = useState(0)
-console.log(currentPage);
   useEffect(() => {
+    setLoading(true)
     axios.get(`/api/post?page=${currentPage}`).then((res) => {
       setGetPosts(res.data);
       setLoading(false);
     });
-  }, []);
+  }, [currentPage]);
   const posts = getPosts?.posts
 
   
