@@ -8,7 +8,9 @@ export default function Document() {
     <Html lang="en">
       <Head></Head>
       <title>Arman's Blog</title>
+      <meta name="google-site-verification" content="ZiyBEiGqRODvrZAxabxhF6org3HqInfnHcOgi3KK4iQ" />
       <body>
+        
         <Main />
         <NextScript />
        
