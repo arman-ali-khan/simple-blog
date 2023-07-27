@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@uiw/react-back-to-top": "^1.2.3",
     "auth0-js": "^9.22.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",

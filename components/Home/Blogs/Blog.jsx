@@ -14,7 +14,7 @@ const Blog = ({post}) => {
           </div>
          <div>
          <div className='flex justify-between items-center w-full'>
-            <p className='hidden sm:block md:hidden lg:block w-full text-xs sm:text-sm md:text-base'>{post.categories[0].label}</p>
+            <p className='hidden sm:block md:hidden lg:block w-full text-xs sm:text-sm md:text-base'>{post.categories && post.categories[0].label}</p>
             <p className='w-full text-xs sm:text-sm md:text-base'>{moment(post.date).fromNow()}</p>
             <span className='w-full text-xs sm:text-sm md:text-base'>View: {post.view}</span>
           </div>

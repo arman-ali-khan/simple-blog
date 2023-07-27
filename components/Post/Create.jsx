@@ -66,6 +66,8 @@ const Create = () => {
 
   const animatedComponents = makeAnimated();
   // categories
+  // category update
+  const [updateCat,setUpdateCat] = useState(false)
   // Category
   const [categories, setCategories] = useState([]);
   console.log(categories);
@@ -77,7 +79,7 @@ const Create = () => {
       .then((data) => {
         setCategory(data);
       });
-  }, []);
+  }, [updateCat]);
 
   // categories end
 // post body
@@ -215,7 +217,8 @@ const handlePost = () =>{
            <div className="bg-base-200 px-4 py-2">
            <p className="font-bold">Categories</p>
            </div>
-            <Select
+           {
+            category.length>0 ? <Select
               className="p-3  bg-transparent text-black"
               closeMenuOnSelect={false}
               components={animatedComponents}
@@ -223,6 +226,12 @@ const handlePost = () =>{
               onChange={(e) => setCategories(e)}
               options={category}
             />
+            :
+            <div className="flex justify-center">
+              <button className="bg-base-200 px-4 py-2" onClick={()=>setUpdateCat(!updateCat)}>Reload Category</button>
+            </div>
+           }
+            
           </div>
           {/* Featured Image */}
           <div className="bg-base-100 border">

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/ContextProvider';
+import Redirect from '../../utl/Redirect/Redirect';
 
 const ProfileRoute = ({children}) => {
     // context provider
@@ -11,23 +12,23 @@ const ProfileRoute = ({children}) => {
 
     // loading
     const [loading,setLoading] = useState(true)
-
+console.log(dbUser)
     useEffect(()=>{
         axios.get(`/api/user?email=${user.email}`).then(res=>{
             setDbUser(res.data)
-            if(dbUser.email){
-                setLoading(false)
+            if(dbUser){
+               return setLoading(false)
             }
             console.log(res.data);
         })
-    },[user.email,userLoading])
+    },[user.email])
 
-if(loading || userLoading){
+if(userLoading || loading){
     return <div className='flex h-screen items-center justify-center w-full'>
         Loading...
     </div>
 }
-    if(dbUser.username){
+    if(dbUser?.username){
         return <>{children}</>
     }else{
       return <Redirect route={'user/update/profile'} />
