@@ -19,7 +19,6 @@ const [currentPage,setCurrentPage] = useState(0)
   }, [currentPage]);
   const posts = getPosts?.posts
 
-  
   // count
   const count = Math.ceil((getPosts?.count || 10 )/ 10)
 
@@ -33,20 +32,14 @@ const [currentPage,setCurrentPage] = useState(0)
           <div className="space-y-2">
             {loading ? (
              <>
-              <div className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
+             { [...Array(10).keys()].map((i)=>{
+                <div key={i} className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
                 <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
                 <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
               </div>
-              <div className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
-                <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
-                <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
-              </div>
-              <div className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse">
-                <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
-                <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
-              </div>
-              
-             </>
+              })}
+              </>
+             
             ) : (
               posts?.map((post) => <Blog key={post._id} post={post} />)
             )}

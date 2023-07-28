@@ -10,29 +10,31 @@ const User = () => {
             <div className="">
               <div className="flex flex-wrap justify-center">
                 <div className="w-full px-4 flex justify-center">
-                  <div className="">
-                    <img alt="..." src="https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" className="shadow-xl rounded-full absolute h-auto align-middle border-none w-44 bg-base-100 justify-center -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                  <div className="flex justify-center">
+                    <img alt="..." src="https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb" className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24 -top-12 md:w-44 w-24 bg-base-100 justify-center " />
                   </div>
                 </div>
                 <div className="w-full px-4 text-center mt-20">
-                  <div className="flex justify-center py-4 lg:pt-4 pt-8">
-                    <div className="mr-4 p-3 text-center">
+                  <div className="flex justify-center py-4 lg:pt-4  pt-8">
+                    <div className="mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                         22
                       </span>
-                      <span className="text-sm text-blueGray-400">Friends</span>
+                      <span className="text-sm text-blueGray-400">Flowing</span>
                     </div>
-                    <div className="mr-4 p-3 text-center">
+                    <div className="mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                         10
                       </span>
-                      <span className="text-sm text-blueGray-400">Photos</span>
+                      <span className="text-sm text-blueGray-400">Flowers</span>
                     </div>
-                    <div className="lg:mr-4 p-3 text-center">
+                    <div className="lg:mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                         89
                       </span>
-                      <span className="text-sm text-blueGray-400">Comments</span>
+                      <span className="text-sm text-blueGray-400">
+                        Posts
+                      </span>
                     </div>
                   </div>
                 </div>
