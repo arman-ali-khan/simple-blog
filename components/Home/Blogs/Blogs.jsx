@@ -6,6 +6,7 @@ import Blog from "./Blog";
 const Blogs = () => {
   // posts get
   const [getPosts, setGetPosts] = useState({});
+  console.log(getPosts)
   // get post loading
   const [loading, setLoading] = useState(true);
 // pagination

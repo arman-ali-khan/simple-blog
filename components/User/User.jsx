@@ -1,6 +1,25 @@
-import Link from "next/link";
+import axios from "axios";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { BiCalendar } from "react-icons/bi";
+import { MdAlternateEmail } from "react-icons/md";
+import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
+import UserPostCard from "./UserPostCard";
 
-const User = () => {
+const User = ({user}) => {
+//  get user posts
+const [userPost,setUserPost] = useState({})
+// fetch user posts
+useEffect(()=>{
+  axios.get(`/api/user/getuserpost?email=${user?.email}`)
+  .then(res=>{
+    setUserPost(res.data)
+  })
+},[user?.username])
+
+// posts
+const posts = userPost?.posts 
+console.log(userPost,user)
     return (
         <div>
         
@@ -39,44 +58,50 @@ const User = () => {
                   </div>
                 </div>
               </div>
+             
               <div className="text-center mt-2">
                 <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 ">
-                  Jenna Stones
+                  {user.fullName}({user.username})
                 </h3>
+               <div className="flex justify-center">
+               <p className="flex items-center gap-2"><BiCalendar  size={30} /> {moment(user.date).fromNow()}</p>
+               </div>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                   <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                  Los Angeles, California
+                 {user.about}
                 </div>
                 <div className="mb-2 text-blueGray-600 mt-10">
                   <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                  Solution Manager - Creative Tim Officer
+                 {user?.job}
                 </div>
                 <div className="mb-2 text-blueGray-600">
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                  University of Computer Science
+                 {user?.education}
                 </div>
               </div>
-              <div className="mt-10 border-t border-blueGray-200 ">
-                <div className="flex flex-wrap w-full justify-center">
-                  <div className="w-full">
-                  <div className="flex flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24 border shadow-lg">
-            <img
-              className="block md:w-44 w-28  flex-none bg-cover md:h-auto h-24 object-cover"
-              src="https://images.pexels.com/photos/1302883/pexels-photo-1302883.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-            />
-            <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal">
-              <div className="font-bold md:text-xl sm:text-base text-sm mb-2 leading-tight">
-               <Link href={'/blog/1'}> Can coffee make you a bitter developer?</Link>
+               {/* Social */}
+               <div className="flex justify-center">
+                <ul className="flex items-center gap-4">
+                  {
+                    user.fbId ? <li className="border p-2 rounded-full"><a href="#"><RiFacebookFill size={20} /></a></li>:''
+                  }
+                  {
+                    user.phone ?  <li className="border p-2 rounded-full"><a href="#"><RiPhoneLine size={20} /></a></li>:''
+                  }
+                  {
+                    user.email ?  <li className="border p-2 rounded-full"><a href="#"><MdAlternateEmail size={20} /></a></li>:''
+                  }
+                 
+                 
+                </ul>
               </div>
-              <div className="flex gap-3">
-                <Link className="text-blue-400" href={'/edit/1'}>Edit</Link>
-                <Link className="text-error" href={'/edit/1'}>Delete</Link>
-              </div>
-            </div>
-          </div>
-                  </div>
-                </div>
-              </div>
+              {/* User posts */}
+             <div className="md:px-4 py-2">
+             { posts?.length &&
+                posts.map(post=><UserPostCard key={post._id} post={post} />)
+              }
+             </div>
+             
             </div>
           </div>
         </div>
