@@ -8,7 +8,7 @@ import Layout from '../layout/Layout';
 export default function Home() {
 
   return (
-    <Layout title={'Home'}>
+    <Layout title={'TrickLoad || Home'}>
       <Featured />
       <Blogs />
       <CreatePost />
