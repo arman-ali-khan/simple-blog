@@ -64,10 +64,11 @@ const UpdateProfile = ()=>{
     return (
         <div>
             <div>
-                <div>
-                    <h1>Update Profile</h1>
+                <div className="text-center">
+                  
                     <div className="flex justify-center">
                         <form onSubmit={handleSubmit(onSubmit)} className="w-96 text-white border p-6">
+                    <h1 className="text-xl py-2 bg-base-300">Update Profile</h1>
                          <div className="flex flex-col">
                          <label>Name <span>*</span></label>
                             <input defaultValue={dbUser?.fullName} {...register('fullName',{required:true})} className="px-4 py-2" placeholder="Name" type="text"/>

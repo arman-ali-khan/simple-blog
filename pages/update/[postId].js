@@ -23,10 +23,10 @@ const postId = () => {
         })
         }
       
-    },[!postId])
+    },[])
     return (
         <Layout title={`Update ${post.title?post.title:''}`}>
-            <Update post={post&&post} />
+            <Update post={post} />
         </Layout>
     );
 };

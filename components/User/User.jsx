@@ -1,21 +1,30 @@
 import axios from "axios";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
+import { UserContext } from "../../context/ContextProvider";
 import UserPostCard from "./UserPostCard";
 
 const User = ({user}) => {
+  const {user:fUser} = useContext(UserContext)
 //  get user posts
 const [userPost,setUserPost] = useState({})
+//  post loading
+const [loading,setLoading] = useState(true)
 // fetch user posts
 useEffect(()=>{
-  axios.get(`/api/user/getuserpost?email=${user?.email}`)
+  setLoading(true)
+  axios.get(`/api/user/getuserpost?email=${fUser?.email}`)
   .then(res=>{
-    setUserPost(res.data)
+    if(res.data.count){
+      setUserPost(res.data)
+    setLoading(false)
+    }
   })
-},[user?.username])
+},[user?.email])
 
 // posts
 const posts = userPost?.posts 
@@ -37,19 +46,19 @@ console.log(userPost,user)
                   <div className="flex justify-center py-4 lg:pt-4  pt-8">
                     <div className="mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        22
+                        0
                       </span>
                       <span className="text-sm text-blueGray-400">Flowing</span>
                     </div>
                     <div className="mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        10
+                        0
                       </span>
                       <span className="text-sm text-blueGray-400">Flowers</span>
                     </div>
                     <div className="lg:mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                        89
+                       {posts?.length || 0}
                       </span>
                       <span className="text-sm text-blueGray-400">
                         Posts
@@ -63,6 +72,9 @@ console.log(userPost,user)
                 <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 ">
                   {user.fullName}({user.username})
                 </h3>
+                <div>
+                  <Link className="px-4 py-1 rounded bg-base-200 border inline-block my-3" href={'/user/update/profile'}>Update</Link>
+                </div>
                <div className="flex justify-center">
                <p className="flex items-center gap-2"><BiCalendar  size={30} /> {moment(user.date).fromNow()}</p>
                </div>
@@ -83,13 +95,13 @@ console.log(userPost,user)
                <div className="flex justify-center">
                 <ul className="flex items-center gap-4">
                   {
-                    user.fbId ? <li className="border p-2 rounded-full"><a href="#"><RiFacebookFill size={20} /></a></li>:''
+                    user.fbId ? <li className="border p-2 rounded-full"><a href={user.fbId}><RiFacebookFill size={20} /></a></li>:''
                   }
                   {
-                    user.phone ?  <li className="border p-2 rounded-full"><a href="#"><RiPhoneLine size={20} /></a></li>:''
+                    user.phone ?  <li className="border p-2 rounded-full"><a href={`tel:${user.phone}`}><RiPhoneLine size={20} /></a></li>:''
                   }
                   {
-                    user.email ?  <li className="border p-2 rounded-full"><a href="#"><MdAlternateEmail size={20} /></a></li>:''
+                    user.email ?  <li className="border p-2 rounded-full"><a href={`mailto:${user.email}`}><MdAlternateEmail size={20} /></a></li>:''
                   }
                  
                  
@@ -97,8 +109,22 @@ console.log(userPost,user)
               </div>
               {/* User posts */}
              <div className="md:px-4 py-2">
-             { posts?.length &&
-                posts.map(post=><UserPostCard key={post._id} post={post} />)
+              <div>
+                <div className="w-full py-2 px-4 bg-base-300"><h2 className="text-xl font-bold">All Posts ({posts?.length || 0})</h2></div>
+              </div>
+             { loading ?  <>
+               {
+                [...Array(5).keys()].map((item,i)=>{
+                return(  <div
+                  className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32 sm:h-24 shadow-lg animate-pulse"
+                >
+                  <div className="block md:w-44 my-1 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
+                  <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
+                </div>)
+                })
+               }
+              </> : posts?.length ?
+                posts.map(post=><UserPostCard key={post._id} post={post} />):''
               }
              </div>
              

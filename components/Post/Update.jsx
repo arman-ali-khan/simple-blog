@@ -1,12 +1,10 @@
 import dynamic from "next/dynamic";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import Select from "react-select";
 import { v4 as uuidv4 } from 'uuid';
-import { UserContext } from "../../context/ContextProvider";
 
 import axios from "axios";
-import { useRouter } from "next/router";
 import makeAnimated from "react-select/animated";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
@@ -56,12 +54,8 @@ const formats = [
 ];
 
 const Update = ({post}) => {
-  // context
-  const {user} = useContext(UserContext)
-  
-  // router
-  const router = useRouter()
-  
+ 
+
   // React Select
 
   const animatedComponents = makeAnimated();
@@ -70,27 +64,26 @@ const Update = ({post}) => {
   const [updateCat,setUpdateCat] = useState(false)
   // Category
   const [categories, setCategories] = useState([]);
-  console.log(categories);
   // Category load from db
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState(post.categories || []);
   useEffect(() => {
     fetch("/api/category")
       .then((res) => res.json())
       .then((data) => {
         setCategory(data);
       });
-  }, [updateCat]);
+  }, [updateCat,post]);
 
   // categories end
 // post body
-  const [postBody, setPostBody] = useState(post.body);
+  const [postBody, setPostBody] = useState(post?.body||'');
   
 
 // handle featured image
 
 // Photo upload 
-const [featuredImage, setFeaturedImage] = useState(post?.featured_image);
-console.log(featuredImage);
+const [featuredImage, setFeaturedImage] = useState(post.featured_image || '');
+
 // Uploading...
 const [uploadLoad, setUploadPhoto] = useState(false);
 // photo upload error
@@ -132,7 +125,7 @@ const [publishBtn,setPublishBtn] = useState('Update')
 const postId = uuidv4().split('-')[0]
 
 // post title
-const [postTitle,setPostTitle] = useState(post?.title)
+const [postTitle,setPostTitle] = useState('')
 // posting
 const [postLoading,setPostLoading] = useState(false)
 
@@ -186,14 +179,19 @@ const handlePostUpdate = () =>{
   }, []);
   return (
     mounted && (
-      <div className="md:flex gap-6 container mx-auto">
+    <div className="flex justify-center items-center">
+      {
+        post.postId ?
+        'Loading...'
+        :
+         <div className="md:flex  container mx-auto">
         <div className="md:w-2/3 space-y-2">
           {/* Post title */}
           <div>
           <div className="bg-base-200 px-4 py-2">
            <p className="font-bold">Title</p>
            </div>
-          <input defaultValue={post?.title} onChange={(e)=>setPostTitle(e.target.value)} type="text" placeholder="Post Title" className="px-4 border py-2 w-full rounded" />
+          <input defaultValue={post.title} onChange={(e)=>setPostTitle(e.target.value)} type="text" placeholder="Post Title" className="px-4 border py-2 w-full rounded" />
             </div>
           <div>
             {/* Post body */}
@@ -202,9 +200,9 @@ const handlePostUpdate = () =>{
            </div>
           <QuillNoSSRWrapper
             modules={modules}
+            defaultValue={post.body}
             formats={formats}
             theme="snow"
-            defaultValue={post?.body}
             onChange={setPostBody}
             placeholder="Write content form here"
             ></QuillNoSSRWrapper>
@@ -218,11 +216,11 @@ const handlePostUpdate = () =>{
            </div>
            {
             category.length>0 ? <Select
-             defaultValue={post?.categories}
               className="p-3  bg-transparent text-black"
               closeMenuOnSelect={false}
               components={animatedComponents}
               isMulti
+              defaultValue={post.categories}
               onChange={(e) => setCategories(e)}
               options={category}
             />
@@ -242,7 +240,7 @@ const handlePostUpdate = () =>{
            }
             { featuredImage?.length === 0 ?  uploadLoad ? <span className="py-32 flex justify-center relative">Uploading... <button onClick={()=>setUploadPhoto(false)} className="absolute right-1 top-1 bg-error rounded-full px-4 py-2">X</button></span> : <span className="underline text-blue-500 flex items-center justify-center">
              <label htmlFor="image" className="py-32 px-[23%] relative">
-             <input hidden id="image" defaultValue={post?.featured_image} onChange={(e)=>handlePhotoUpload(e.target.files[0])} type="file" className=""  />
+             <input defaultValue={post?.featured_image} hidden id="image" onChange={(e)=>handlePhotoUpload(e.target.files[0])} type="file" className=""  />
              Click to upload
              
              </label>
@@ -271,13 +269,16 @@ const handlePostUpdate = () =>{
               <li className="list-decimal">Hello WOrld</li>
              </ul>
             </div>
-          <div className="flex justify-end px-4 py-2">
-            
-            <button onClick={()=>handlePostUpdate()} disabled={postTitle?.length<30 || categories?.length===0 || featuredImage?.length===0 || postBody?.length<300} className="px-4 hover:bg-opacity-80 py-2 bg-warning disabled:bg-indigo-100 text-black disabled:cursor-not-allowed">{publishBtn}</button>
+          <div className="flex justify-between px-4 py-2 ">
+            <button onClick={()=>setEditId('')} className="px-4 hover:bg-opacity-80 py-2 my-4 bg-error disabled:bg-indigo-100 text-black disabled:cursor-not-allowed">Close</button>
+            <button onClick={()=>handlePostUpdate()} disabled={postTitle?.length<30 || categories?.length===0 || featuredImage?.length===0 || postBody?.length<300} className="px-4 hover:bg-opacity-80 py-2 my-4 bg-warning disabled:bg-indigo-100 text-black disabled:cursor-not-allowed">{publishBtn}</button>
           </div>
           </div>
         </div>
       </div>
+      }
+       
+    </div>
     )
   );
 };
