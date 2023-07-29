@@ -1,36 +1,35 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Categories from "../Categories/Categories";
-import Blog from "./Blog";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import AdminPostCard from './AdminPostCard';
 
-const Blogs = () => {
-  // posts get
+const Posts = () => {
+      // posts get
   const [getPosts, setGetPosts] = useState({});
   console.log(getPosts);
+
+  // update post
+  const [postUpdate,setPostUpdate] = useState(false)
   // get post loading
   const [loading, setLoading] = useState(true);
   // pagination
   const [currentPage, setCurrentPage] = useState(0);
   useEffect(() => {
     setLoading(true);
-    axios.get(`/api/post?page=${currentPage}`).then((res) => {
+    axios.get(`/api/post/getallpost?page=${currentPage}`).then((res) => {
       setGetPosts(res.data);
       setLoading(false);
     });
-  }, [currentPage]);
+  }, [currentPage,postUpdate]);
   const posts = getPosts?.posts;
 
   // count
   const count = Math.ceil((getPosts?.count || 10) / 10);
-
-  return (
-    <div className="md:flex justify-between w-full">
-      <div className="flex md:w-2/3 w-full  flex-wrap flex-row justify-start">
-        <div className="md:p-3 p-1 w-full">
+    return (
+             <div className="md:p-3 p-1 w-full">
           <div className="bg-base-200 w-full px-4 py-2 ">
             <h2>Recent</h2>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 w-full">
             {loading ? (
               <>
                {
@@ -45,7 +44,7 @@ const Blogs = () => {
                }
               </>
             ) : (
-              posts?.map((post) => <Blog key={post._id} post={post} />)
+              posts?.map((post) => <AdminPostCard postUpdate={postUpdate} setPostUpdate={setPostUpdate} key={post._id} post={post} />)
             )}
           </div>
           <div className="flex justify-center my-3 space-x-1 ">
@@ -103,12 +102,7 @@ const Blogs = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div className="md:w-1/3 w-full md:p-3 p-1  h-full">
-        <Categories />
-      </div>
-    </div>
-  );
+    );
 };
 
-export default Blogs;
+export default Posts;

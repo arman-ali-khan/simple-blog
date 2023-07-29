@@ -14,6 +14,9 @@ const User = ({user}) => {
 const [userPost,setUserPost] = useState({})
 //  post loading
 const [loading,setLoading] = useState(true)
+
+// post update
+const [updatePost,setUpdatePost] = useState(false)
 // fetch user posts
 useEffect(()=>{
   setLoading(true)
@@ -24,7 +27,7 @@ useEffect(()=>{
     setLoading(false)
     }
   })
-},[user?.email])
+},[user?.email,updatePost])
 
 // posts
 const posts = userPost?.posts 
@@ -115,7 +118,7 @@ console.log(userPost,user)
              { loading ?  <>
                {
                 [...Array(5).keys()].map((item,i)=>{
-                return(  <div
+                return(  <div key={i}
                   className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32 sm:h-24 shadow-lg animate-pulse"
                 >
                   <div className="block md:w-44 my-1 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
@@ -124,7 +127,7 @@ console.log(userPost,user)
                 })
                }
               </> : posts?.length ?
-                posts.map(post=><UserPostCard key={post._id} post={post} />):''
+                posts.map(post=><UserPostCard updatePost={updatePost} setUpdatePost={setUpdatePost} key={post._id} post={post} />):''
               }
              </div>
              

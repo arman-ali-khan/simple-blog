@@ -8,7 +8,6 @@ import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { RiSearch2Line } from "react-icons/ri";
 import Categories from "../../../components/Home/Categories/Categories";
 import { UserContext } from "../../../context/ContextProvider";
-import PrivateRoute from "../../../hooks/PrivateRouters/PrivateRoute";
 import Loader from "../../Loader/Loader";
 
 const BottomBar = () => {
@@ -28,7 +27,6 @@ useEffect(()=>{
 },[user?.email,loading])
     const [showCategory,setShowCategory] = useState(false)
     return (
-      <PrivateRoute>
          <div className="w-full flex justify-center">
          {
             user?.email && <div className="fixed bottom-0 border border-black dark:border-white w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-60 backdrop-saturate-150 z-50 sm:rounded-full">
@@ -70,7 +68,6 @@ useEffect(()=>{
         </div>
          }
        </div>
-      </PrivateRoute>
     );
 };
 

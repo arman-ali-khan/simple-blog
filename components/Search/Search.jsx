@@ -78,7 +78,7 @@ const [inputData,setInputData] = useState('')
         </div>
         <div>
           {searchData?.length
-            ? searchData.map((post) => <Blog post={post} />)
+            ? searchData.map((post) => <Blog key={post.postId} post={post} />)
             : `No result for ${q}`}
         </div>
       </div>

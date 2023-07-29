@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const Blog = ({post}) => {
     return (
-        <div className="flex flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg">
+        <div className={`flex ${post.aproved && post.publish || 'hidden'} flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
         <img
           className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
           src={post.featured_image}
