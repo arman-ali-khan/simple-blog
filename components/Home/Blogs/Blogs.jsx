@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Popular from "../../Popular/Popular";
 import Categories from "../Categories/Categories";
 import Blog from "./Blog";
 
@@ -26,8 +27,13 @@ const Blogs = () => {
   return (
     <div className="md:flex justify-between w-full">
       <div className="flex md:w-2/3 w-full  flex-wrap flex-row justify-start">
+        
         <div className="md:p-3 p-1 w-full">
-          <div className="bg-base-200 w-full px-4 py-2 ">
+          {/* popular */}
+        <div className="w-full my-4">
+        <Popular />
+        </div>
+          <div className="bg-base-200 w-full border-b my-2 px-4 py-2 ">
             <h2>Recent</h2>
           </div>
           <div className="space-y-2">
@@ -48,7 +54,9 @@ const Blogs = () => {
               posts?.map((post) => <Blog key={post._id} post={post} />)
             )}
           </div>
-          <div className="flex justify-center my-3 space-x-1 ">
+          {/* pagination */}
+          {
+            posts?.length > 10 &&  <div className="flex justify-center my-3 space-x-1 ">
             {/* Decrease */}
             <button
               disabled={currentPage === 0}
@@ -102,6 +110,8 @@ const Blogs = () => {
               </svg>
             </button>
           </div>
+          }
+         
         </div>
       </div>
       <div className="md:w-1/3 w-full md:p-3 p-1  h-full">

@@ -4,19 +4,32 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Featured = () => {
+  // loading
+  const [loading,setLoading] = useState(true)
   // featured post
   const [featured,setFeatured] = useState([])
   useEffect(()=>{
     axios.get('/api/post/featured')
     .then(res=>{
       setFeatured(res.data)
+      setLoading(false)
     })
   },[])
     return (
        <section className="w-full md:flex justify-between">
         <div className="md:w-2/3  md:p-3 p-1">
-          {
-            featured.map(post=> <div key={post._id} className="flex flex-row-reverse overflow-hidden md:h-40 bg-base-100 sm:h-24  shadow-lg">
+        <div className="bg-base-200 w-full border-b my-2 px-4 py-2 ">
+            <h2>Featured</h2>
+          </div>
+          { loading ?
+          <div
+          className="bg-base-200 w-full flex flex-row-reverse overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse"
+        >
+          <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-44 h-24 object-cover animate-pulse"></div>
+          <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
+        </div>
+          :
+            featured.map(post=> <div key={post._id} className="flex flex-row-reverse overflow-hidden md:h-40 pb-2 bg-base-100 sm:h-24  shadow-lg">
             <img
               className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
               src={post.featured_image}

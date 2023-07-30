@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <Layout title={'TrickLoad || Home'}>
       <Featured />
+      
       <Blogs />
       <CreatePost />
     

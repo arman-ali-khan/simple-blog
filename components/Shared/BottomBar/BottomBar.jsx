@@ -29,7 +29,7 @@ useEffect(()=>{
     return (
          <div className="w-full flex justify-center">
          {
-            user?.email && <div className="fixed bottom-0 border border-black dark:border-white w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-60 backdrop-saturate-150 z-50 sm:rounded-full">
+            user?.email && <div className="fixed bottom-0 border border-black dark:border-white w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-60 backdrop-saturate-150 z-50 rounded-full">
             <div className="sm:rounded-full">
                 <ul className="flex w-full justify-between items-center">
                     <li className="w-full">
@@ -46,14 +46,17 @@ useEffect(()=>{
                     </li>
                     <li className="w-full">
                     {!dbUser.username? <div className='w-full inline py-3 flex justify-center'>
-                        <Loader w={8} h={8} />
+                        <Loader w={5} h={5} />
                     </div> :
                         <Link className="w-full py-3 flex justify-center" href={`/user/${dbUser?.username}`} ><BiUser size={24} /></Link>
          }
                     </li>
                 </ul>
             </div>
-            {
+            
+        </div>
+         }
+         {
                 showCategory && <div className={` duration-300  ${showCategory ? 'left-0 fixed top-0 duration-300 z-50':"-left-96 duration-300 fixed top-0"} w-full sm:w-96 bg-base-100`}>
                     <button className="w-screen fixed top-0 left-0 h-screen -z-50" onClick={()=>setShowCategory(false)}></button>
                     <div className="h-screen">
@@ -61,12 +64,10 @@ useEffect(()=>{
                     </div>
                 <div className="flex fixed bottom-0 w-full sm:w-96 justify-between">
                     <div className="bg-base-200 w-full flex justify-center py-2 px-4">Categories</div>
-                    <div onClick={()=>setShowCategory(!showCategory)} className="bg-error w-full flex justify-center py-2 px-4">Close</div>
+                    <div onClick={()=>setShowCategory(!showCategory)} className="bg-error font-black w-full flex justify-center py-2 px-4">Close</div>
                 </div>
                 </div>
             }
-        </div>
-         }
        </div>
     );
 };

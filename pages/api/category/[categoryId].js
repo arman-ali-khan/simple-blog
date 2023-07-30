@@ -3,7 +3,7 @@ import { connectToDatabase } from "../../../lib/db";
 export default async function handler(req, res) {
     const {categoryId}  = req.query;
   const { db } = await connectToDatabase();
-  const filter = { categories: { $elemMatch: { value: categoryId } } }
+  const filter = { categories: { $elemMatch: { value: categoryId } },aproved:true,publish:true}
   const posts = await db.collection("posts").find(filter).toArray();
   const count = await db.collection('posts').find(filter).count((err, count) => {
     if (err) {
