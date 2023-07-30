@@ -11,9 +11,9 @@ console.log(q)
       const title = new RegExp(`.*${q}.*`, 'gi');
   const body = new RegExp(`.*${q}.*`, 'gi');
 //   const posts = await db.collection("posts").find({}).skip(parseInt(page)*10).limit(10).toArray();
-  const posts = await db.collection("posts").find({title:title}).toArray();
+  const posts = await db.collection("posts").find({title:title,aproved:true,publish:true}).toArray();
   if(!posts.length){
-      const posts = await db.collection("posts").find({body:body}).toArray();
+      const posts = await db.collection("posts").find({body:body,aproved:true,publish:true}).toArray();
       const count = posts.length
       return res.json({count,posts});
   }

@@ -1,5 +1,6 @@
 import parse from 'html-react-parser';
 import Layout from '../../../layout/Layout';
+import Comments from '../../Comments/Comments';
 import Categories from "../Categories/Categories";
 
 const SingleBlog = ({blog}) => {
@@ -21,6 +22,10 @@ const SingleBlog = ({blog}) => {
 				 {parse(blog.body)}
 			</div>
 		</div>
+	</div>
+	{/* Comments */}
+	<div>
+		<Comments blog={blog} />
 	</div>
 </div>
 <div className='md:w-1/5'>

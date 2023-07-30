@@ -90,7 +90,7 @@ const Create = () => {
 
 // Photo upload 
 const [featuredImage, setFeaturedImage] = useState("");
-console.log(featuredImage);
+
 // Uploading...
 const [uploadLoad, setUploadPhoto] = useState(false);
 // photo upload error
