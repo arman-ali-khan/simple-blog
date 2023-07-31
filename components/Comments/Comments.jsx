@@ -24,6 +24,9 @@ const Comments = ({blog}) => {
 //   comment id
 const commentId = uuidv4().split('-')[0]
 
+//  update comment
+const [update,setUpdate] = useState(false)
+
   //  react hook form
   const {
     register,
@@ -48,6 +51,7 @@ const commentId = uuidv4().split('-')[0]
     console.log(res.data)
     toast.success('Commented')
     reset()
+    setUpdate(!update)
    })
   };
 
@@ -59,7 +63,7 @@ const commentId = uuidv4().split('-')[0]
     .then(res=>{
         setGetComments(res.data)
     })
-  },[])
+  },[update])
   /// comments
   const comments = getComments.posts
   return (

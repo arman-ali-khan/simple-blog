@@ -1,10 +1,10 @@
 import moment from 'moment';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Replay from './Replay';
+import Reply from './Reply';
 
 const Comment = ({comment}) => {
-    const [showReplayBox, setShowReplayBox] = useState(false);
+    const [showReplyBox, setShowReplyBox] = useState(false);
     return (
         <div>
             <div className="mb-1">
@@ -13,22 +13,22 @@ const Comment = ({comment}) => {
          <div className="flex items-center gap-2">
             {/* name */}
             <Link className="font-bold text-blue-500" href={`/user/${comment.username}`}>
-              {comment?.name}
+              {comment?.username}
             </Link>
-            (<span>{moment(comment?.data).fromNow()}</span>)
+            (<span>{moment(comment?.date).fromNow()}</span>)
           </div>
           <p className="py-1">
            {comment?.comment}
           </p>
           <button
-            onClick={() => setShowReplayBox(!showReplayBox)}
+            onClick={() => setShowReplyBox(!showReplyBox)}
             className="px-2 py-1 rounded-full border"
           >
-            Replay
+            Reply
           </button>
          </div>
           {/* Replies */}
-         <Replay comment={comment} showReplayBox={showReplayBox} setShowReplayBox={setShowReplayBox} />
+         <Reply comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
          
         </div>
       </div>
