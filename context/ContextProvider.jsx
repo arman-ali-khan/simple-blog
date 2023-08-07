@@ -40,11 +40,13 @@ useEffect(()=>{
 
 // get dbUser
 useEffect(()=>{
-    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
+    if(user?.email){
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
     .then(res=>{
         setDBUser(res.data)
     })
-},[user?.email])
+    }
+},[!user?.email])
     const value = {user,createUser,logOut,dBUser,loginUser,userLoading}
     return (
         <UserContext.Provider value={value}>

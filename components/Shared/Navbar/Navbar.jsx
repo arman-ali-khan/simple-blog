@@ -37,7 +37,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {user?.email ? <button onClick={()=>handleLogout()}>Logout</button>: <Link href={`${process.env.NEXT_PUBLIC_API_PRO}/start/login`}>Login</Link>}
+          {user?.email ? <button onClick={()=>handleLogout()}>Logout</button>: <Link href={`/start/login`}>Login</Link>}
         </div>
       </div>
     );
