@@ -18,7 +18,7 @@ const Comments = ({blog}) => {
     const [dbUser,setDbUser] = useState({})
     useEffect(()=>{
        if(user?.email){
-        axios.get(`https://myapi.arman.top/api/users?email=${user.email}`)
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
         .then(res=>{
             setDbUser(res.data)
         })
