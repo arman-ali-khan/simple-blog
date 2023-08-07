@@ -20,7 +20,7 @@ const create = () => {
 
       const onSubmit = (data) => {
         setBtnText('Creating...')
-        axios.post(`/api/category/create`,data)
+        axios.post(`http://localhost:5000/api/categories`,data)
         .then(res=>{
             setBtnText('Created successfully')
             reset()

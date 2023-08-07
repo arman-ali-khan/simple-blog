@@ -34,7 +34,7 @@ const CategoryPost = ({blog,loading}) => {
               
              </>
             ) :   
-              blog?.map(post => <Blog key={post._id} post={post} />)
+              blog?.map(post => <Blog key={post.id} post={post} />)
             }
           </div>
       

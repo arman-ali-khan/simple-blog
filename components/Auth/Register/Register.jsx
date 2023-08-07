@@ -1,3 +1,4 @@
+import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
@@ -5,14 +6,14 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { UserContext } from "../../../context/ContextProvider";
 
 const Register = () => {
-  const router = useRouter()
+  const router = useRouter();
   // context
-  const { createUser,user } = useContext(UserContext);
+  const { createUser, user } = useContext(UserContext);
   // error
   const [registerError, setRegisterError] = useState("");
   // redirect when register
-  if(user?.email){
-     router.push("/")
+  if (user?.email) {
+    router.push("/");
   }
   // loading
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,23 @@ const Register = () => {
         const user = res.user;
         setLoading(false);
         setRegisterError("");
+        const info = {
+          fullName: "",
+          email: email,
+          password: password,
+          gender: "",
+          about: "",
+          fbId: "",
+          phone: 0,
+          discord: "",
+          username: "",
+          date: Date(),
+        };
+        if (user.email) {
+          axios.post(`http://localhost:5000/api/users`, info).then((res) => {
+            console.log(res.data);
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -64,7 +82,7 @@ const Register = () => {
             </span>
           </div>
           <button
-          disabled={!email&&!password}
+            disabled={!email && !password}
             onClick={() => handleRegisterUser()}
             className="px-3 py-2 bg-primary disabled:bg-gray-600"
           >
@@ -88,7 +106,10 @@ const Register = () => {
                 : ""}
             </p>
             <p className="text-center text-sm">
-              Already have an account? <Link href={`${process.env.NEXT_PUBLIC_API_PRO}/start/login`}>Login</Link>
+              Already have an account?{" "}
+              <Link href={`${process.env.NEXT_PUBLIC_API_PRO}/start/login`}>
+                Login
+              </Link>
             </p>
           </div>
         </div>

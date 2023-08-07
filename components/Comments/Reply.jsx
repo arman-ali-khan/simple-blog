@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from '../../context/ContextProvider';
 import Loader from '../Loader/Loader';
 
-const Reply = ({showReplyBox, setShowReplyBox,comment}) => {
+const Reply = ({showReplyBox,blog, setShowReplyBox,comment:comments}) => {
   // reply btn
   const [replyBtn,setReplyBtn] = useState('Reply')
      // get user
@@ -37,18 +37,21 @@ const Reply = ({showReplyBox, setShowReplyBox,comment}) => {
 const replyId = uuidv4().split('-')[0]
      // handle reply
   const handleReply = (data) => {
-    setReplyBtn(<Loader className='py-4' w={4} h={4} />)
-    const reply = {
+    setReplyBtn(<Loader w={6} h={6} />)
+    const comment = {
         ...data,
         replyId,
-        commentId:comment.commentId,
+        postId:blog.postId,
+        commentId:comments.commentId,
+        type:'reply',
         name:dbUser.fullName,
         username:dbUser.username,
         date: Date(),
         email: user.email
     }
-    axios.post(`/api/comment/reply/create`,reply)
+    axios.post(`/api/comment/create`,comment)
     .then(res=>{
+      
       reset()
       setReplyBtn('Replied')
       setUpdate(!update)
@@ -58,43 +61,19 @@ const replyId = uuidv4().split('-')[0]
   // get all replies
   const [replies,setReplies]  = useState([])
   useEffect(()=>{
-    axios.get(`/api/comment/reply?id=${comment.commentId}`)
+    axios.get(`/api/comment/reply?id=${comments.commentId}`)
     .then(res=>{
       setReplies(res.data)
     })
-  },[comment.commentId,update])
+  },[comments.commentId,update])
 
     return (
         <div>
-          {
-            replies.map(reply=>{
-              return (
-                <div key={reply._id} className="pl-4 border my-2 py-2">
-                <div className="flex items-center gap-2">
-                  <Link className="font-bold text-blue-500" href={`#`}>
-                   {reply.username}
-                  </Link>
-                  (<span>{moment(reply?.date).fromNow()}</span>)
-                </div>
-                <p className="py-1">
-                 {reply.reply}
-                </p>
-                <button
-                  onClick={() => setShowReplyBox(!showReplyBox)}
-                  className="px-2 py-1 rounded-full border"
-                >
-                  Reply
-                </button>
-              </div>
-              )
-            })
-          }
-            
             {/* reply box */}
             {showReplyBox ? (
               <form
                 onSubmit={handleSubmit(handleReply)}
-                className="flex items-center "
+                className="flex items-center my-2"
               >
                 <input
                   {...register("reply", { required: true })}
@@ -108,6 +87,28 @@ const replyId = uuidv4().split('-')[0]
             ) : (
               ""
             )}
+          {
+            replies.map(reply=>{
+              return (
+                <div key={reply.id} className="pl-4 border-b rounded-full my-2 py-2">
+                <div className="flex items-center gap-2">
+                  <Link className="font-bold text-blue-500" href={`#`}>
+                   {reply.username}
+                  </Link>
+                  <p className=" relative pt-4 w-full">
+                 {reply.reply}
+                 <span className='absolute top-3 right-0 text-xs'>{moment(reply.date).fromNow()}</span>
+                </p>
+                 
+                </div>
+                
+                
+              </div>
+              )
+            })
+          }
+            
+          
         </div>
     );
 };

@@ -1,14 +1,19 @@
 import moment from 'moment';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../context/ContextProvider';
 import Reply from './Reply';
 
-const Comment = ({comment}) => {
+const Comment = ({comment,blog}) => {
+  
+    // context
+    const {user} = useContext(UserContext)
+  // 
     const [showReplyBox, setShowReplyBox] = useState(false);
     return (
         <div>
             <div className="mb-1">
-        <div className="p-2 border">
+        <div className="p-2 border-b">
          <div>
          <div className="flex items-center gap-2">
             {/* name */}
@@ -20,15 +25,11 @@ const Comment = ({comment}) => {
           <p className="py-1">
            {comment?.comment}
           </p>
-          <button
-            onClick={() => setShowReplyBox(!showReplyBox)}
-            className="px-2 py-1 rounded-full border"
-          >
-            Reply
-          </button>
+       
+         
          </div>
           {/* Replies */}
-         <Reply comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
+         <Reply blog={blog} comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
          
         </div>
       </div>

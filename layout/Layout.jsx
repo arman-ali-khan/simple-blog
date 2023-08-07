@@ -5,7 +5,7 @@ import Navbar from "../components/Shared/Navbar/Navbar";
 
 const Layout = ({ children, title, thumb, desc }) => {
   return (
-    <div>
+    <div className="container mx-auto">
       <Head>
         <title>{title}</title>
         <meta name="description" content={desc} key="desc" />

@@ -14,14 +14,14 @@ const ProfileRoute = ({children}) => {
     const [loading,setLoading] = useState(true)
 console.log(dbUser)
     useEffect(()=>{
-        axios.get(`/api/user?email=${user.email}`).then(res=>{
+        axios.get(`http://localhost:5000/api/users?email=${user.email}`).then(res=>{
             setDbUser(res.data)
             if(dbUser){
                return setLoading(false)
             }
             console.log(res.data);
         })
-    },[user.email])
+    },[user?.email])
 
 if(userLoading || loading){
     return <div className='flex h-screen items-center justify-center w-full'>

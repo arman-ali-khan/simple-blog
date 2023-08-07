@@ -13,7 +13,7 @@ const categoryId = () => {
     const [categoriesPost, setCategoriesPost] = useState([]);
     const blog = categoriesPost?.posts  
     useEffect(() => {
-        axios.get(`/api/category/${categoryId}`)
+        axios.get(`http://localhost:5000/api/catetgory/${categoryId}`)
         .then(res=>{
             setCategoriesPost(res.data)
             setLoading(false)

@@ -12,10 +12,10 @@ const UpdateProfile = ()=>{
     const [dbUser,setDbUser] = useState({})
 
     useEffect(()=>{
-        axios.get(`/api/user?email=${user.email}`).then(res=>{
+        axios.get(`http://localhost:5000/api/users?email=${user?.email}`).then(res=>{
             setDbUser(res.data)
         })
-    },[user.email])
+    },[user?.email])
 
     // hook form
     const {register,handleSubmit,watch,formState:{errors}} = useForm()
@@ -31,7 +31,7 @@ const UpdateProfile = ()=>{
     // check User name from mongodb
   useEffect(()=>{
     setLoading(true)
-    axios.get(`/api/username/check?username=${inputUserName}`)
+    axios.get(`http://localhost:5000/api/allusers?username=${inputUserName}`)
     .then(res=>{
         setUsernames(res.data);
         setLoading(false)
@@ -49,10 +49,11 @@ const UpdateProfile = ()=>{
           email:user.email,
           date: Date(),
        }
-       axios.put(`/api/user/update`, submitData)
+       console.log(submitData)
+       axios.put(`http://localhost:5000/api/users/${dbUser?.id}`, submitData)
        .then(res=>{
         const result = res.data
-        if(result.acknowledged){
+        if(result){
             setUpdateBTN('Update Successful')
         }
        })
@@ -71,12 +72,12 @@ const UpdateProfile = ()=>{
                     <h1 className="text-xl py-2 bg-base-300">Update Profile</h1>
                          <div className="flex flex-col">
                          <label>Name <span>*</span></label>
-                            <input defaultValue={dbUser?.fullName} {...register('fullName',{required:true})} className="px-4 py-2" placeholder="Name" type="text"/>
+                            <input defaultValue={dbUser?.fullName} {...register('fullName',{required:true})} className="px-4 py-2 border" placeholder="Name" type="text"/>
                          </div>
                             <div className="flex flex-col">
                             <label>Username <span>*</span></label>
                            <div className="relative w-full">
-                           <input defaultValue={dbUser?.username} onChangeCapture={e=>setInputUserName(e.target.value)} {...register('username',{required:true})} className="px-4 py-2 w-full"  placeholder="my_username" type="text" />
+                           <input defaultValue={dbUser?.username} onChangeCapture={e=>setInputUserName(e.target.value)} {...register('username',{required:true})} className="px-4 py-2 border w-full"  placeholder="my_username" type="text" />
                            { inputUserName.length ?
                            ( usernames.length ? <span className="absolute right-0 px-2 z-30 top-2 text-error">{loading ? 'Loading...':'Not OK'}</span>: <span className="absolute right-0 px-2 z-30 top-2 text-success">{loading ? 'Loading...':'OK'}</span> ) :''
                            }
@@ -86,15 +87,26 @@ const UpdateProfile = ()=>{
                             </div>
                           <div className="flex flex-col">
                           <label>About Yourself</label>
-                            <textarea defaultValue={dbUser?.about} {...register('about',{required:false})} className="px-4 py-2" placeholder="I am a programmer" />
+                            <textarea defaultValue={dbUser?.about} {...register('about',{required:false})} className="px-4 py-2 border" placeholder="I am a programmer" />
                           </div>
                             <div className="flex flex-col">
                             <label>Your FB Profile</label>
-                            <input defaultValue={dbUser?.fbId} {...register('fbId',{required:false})} className="px-4 py-2" placeholder="https://fb.com/id" type="url" />
+                            <input defaultValue={dbUser?.fbId} {...register('fbId',{required:false})} className="px-4 py-2 border" placeholder="https://fb.com/id" type="url" />
+                            </div>
+                            <div className="flex flex-col">
+                            <label>Your Discord ID</label>
+                            <input defaultValue={dbUser?.discord}  {...register('discord',{required:false})} className="px-4 py-2 border" placeholder="@armankhan" type="url" />
+                            </div>
+                            <div className="flex flex-col">
+                                <label>Gender</label>
+                                <select defaultValue={dbUser?.gender} className="px-4 py-2 border" {...register('gender',{required:true})} id="gender">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
                             </div>
                             <div className="flex flex-col">
                             <label>Phone</label>
-                            <input defaultValue={dbUser?.phone} {...register('phone',{required:false})} className="px-4 py-2" placeholder="+8801xxxx"  type="text" />
+                            <input defaultValue={dbUser?.phone} {...register('phone',{required:false})} className="px-4 py-2 border" placeholder="+8801xxxx"  type="text" />
                             </div>
                             <button disabled={usernames.length || loading} className="w-full disabled:bg-gray-400 my-2 border px-4 py-2 bg-base-300 hover:bg-base-100">{updateBTN}</button>
                         </form>

@@ -40,7 +40,7 @@ useEffect(()=>{
 
 // get dbUser
 useEffect(()=>{
-    axios.get(`/api/user?email=${user?.email}`)
+    axios.get(`http://localhost:5000/api/users?email=${user?.email}`)
     .then(res=>{
         setDBUser(res.data)
     })

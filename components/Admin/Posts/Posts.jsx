@@ -44,7 +44,7 @@ const Posts = () => {
                }
               </>
             ) : (
-              posts?.map((post) => <AdminPostCard postUpdate={postUpdate} setPostUpdate={setPostUpdate} key={post._id} post={post} />)
+              posts?.map((post) => <AdminPostCard postUpdate={postUpdate} setPostUpdate={setPostUpdate} key={post.id} post={post} />)
             )}
           </div>
           <div className="flex justify-center my-3 space-x-1 ">

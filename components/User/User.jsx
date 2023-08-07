@@ -8,7 +8,9 @@ import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
 import { UserContext } from "../../context/ContextProvider";
 import UserPostCard from "./UserPostCard";
 
-const User = ({user}) => {
+const User = ({dbUser}) => {
+  const user = dbUser[0]
+  console.log(user)
   const {user:fUser} = useContext(UserContext)
 //  get user posts
 const [userPost,setUserPost] = useState({})
@@ -20,18 +22,21 @@ const [updatePost,setUpdatePost] = useState(false)
 // fetch user posts
 useEffect(()=>{
   setLoading(true)
-  axios.get(`/api/user/getuserpost?email=${fUser?.email}`)
+ if(user?.email){
+  axios.get(`http://localhost:5000/api/alluserpost?username=${user?.username}&limit=10&page=1`)
   .then(res=>{
-    if(res.data.count){
+    console.log(res.data)
+    if(res.data){
       setUserPost(res.data)
     setLoading(false)
-    }
+  }
   })
-},[user?.email,updatePost])
+ }
+ 
+},[user?.username,updatePost])
 
 // posts
 const posts = userPost?.posts 
-console.log(userPost,user)
     return (
         <div>
         
@@ -73,21 +78,20 @@ console.log(userPost,user)
              
               <div className="text-center mt-2">
                 <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 ">
-                  {user.fullName}({user.username})
+                  {user?.fullName}({user?.username})
                 </h3>
                 <div>
-                  <Link className="px-4 py-1 rounded bg-base-200 border inline-block my-3" href={'/user/update/profile'}>Update</Link>
+                  {
+                    fUser?.email === user?.email &&   <Link className="px-4 py-1 rounded bg-base-200 border inline-block my-3" href={'/user/update/profile'}>Update</Link>
+                  }
+                
                 </div>
                <div className="flex justify-center">
-               <p className="flex items-center gap-2"><BiCalendar  size={30} /> {moment(user.date).fromNow()}</p>
+               <p className="flex items-center gap-2"><BiCalendar  size={30} /> {moment(user?.date).fromNow()}</p>
                </div>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                   <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                 {user.about}
-                </div>
-                <div className="mb-2 text-blueGray-600 mt-10">
-                  <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                 {user?.job}
+                 {user?.about}
                 </div>
                 <div className="mb-2 text-blueGray-600">
                   <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
@@ -98,13 +102,13 @@ console.log(userPost,user)
                <div className="flex justify-center">
                 <ul className="flex items-center gap-4">
                   {
-                    user.fbId ? <li className="border p-2 rounded-full"><a href={user.fbId}><RiFacebookFill size={20} /></a></li>:''
+                    user?.fbId ? <li className="border p-2 rounded-full"><a href={user?.fbId}><RiFacebookFill size={20} /></a></li>:''
                   }
                   {
-                    user.phone ?  <li className="border p-2 rounded-full"><a href={`tel:${user.phone}`}><RiPhoneLine size={20} /></a></li>:''
+                    user?.phone ?  <li className="border p-2 rounded-full"><a href={`tel:${user?.phone}`}><RiPhoneLine size={20} /></a></li>:''
                   }
                   {
-                    user.email ?  <li className="border p-2 rounded-full"><a href={`mailto:${user.email}`}><MdAlternateEmail size={20} /></a></li>:''
+                    user?.email ?  <li className="border p-2 rounded-full"><a href={`mailto:${user?.email}`}><MdAlternateEmail size={20} /></a></li>:''
                   }
                  
                  
@@ -113,7 +117,7 @@ console.log(userPost,user)
               {/* User posts */}
              <div className="md:px-4 py-2">
               <div>
-                <div className="w-full py-2 px-4 bg-base-300"><h2 className="text-xl font-bold">All Posts ({posts?.length || 0})</h2></div>
+                <div className="w-full py-2 px-4 bg-base-300"><h2 className="text-xl font-bold">Articles posted by {user?.username} ({posts?.length || 0})</h2></div>
               </div>
              { loading ?  <>
                {
@@ -127,7 +131,7 @@ console.log(userPost,user)
                 })
                }
               </> : posts?.length ?
-                posts.map(post=><UserPostCard updatePost={updatePost} setUpdatePost={setUpdatePost} key={post._id} post={post} />):''
+                posts.map(post=><UserPostCard updatePost={updatePost} setUpdatePost={setUpdatePost} key={post.id} post={post} />):''
               }
              </div>
              

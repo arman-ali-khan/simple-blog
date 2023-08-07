@@ -10,7 +10,7 @@ const Popular = () => {
     const [popular,setPopular] = useState([])
     // fetch data
     useEffect(()=>{
-        axios.get(`/api/post/popular`)
+        axios.get(`http://localhost:5000/api/popular`)
         .then(res=>{
             setPopular(res.data)
             setLoading(false)
@@ -38,7 +38,7 @@ const Popular = () => {
                }
               </>
             ) : (
-                popular?.map((post) => <PopularCard key={post._id} post={post} />)
+                popular?.map((post) => <PopularCard key={post.id} post={post} />)
             )}
           </div>
           

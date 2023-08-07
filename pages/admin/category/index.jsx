@@ -1,10 +1,21 @@
+import axios from 'axios';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import PrivateRoute from '../../../hooks/PrivateRouters/PrivateRoute';
 import Layout from '../../../layout/Layout';
 
 const index = () => {
+    // get all categories
+    const [categories,setCategories] = useState([])
+    // fetch
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/api/categories`)
+        .then(res=>{
+            setCategories(res.data)
+        })
+    },[])
     return (
         <PrivateRoute>
             <Layout title={'Categories'}>
@@ -16,34 +27,18 @@ const index = () => {
                 </div>
                 <div>
                     <ul>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
+                        {
+                            categories.map(category=>{
+                                return(
+                                      <li key={category.id} className='py-2 px-4 flex justify-between'>
+                            <Link className='w-full relative inline-block' href={`/admin/category/edit/${category.id}`}>{category.label} <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
                             <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
                         </li>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
-                            <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
-                        </li>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
-                            <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
-                        </li>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
-                            <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
-                        </li>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
-                            <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
-                        </li>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
-                            <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
-                        </li>
-                        <li className='py-2 px-4 flex justify-between'>
-                            <Link className='w-full relative inline-block' href={'/admin/category/edit/3'}>Category <span className='bg-blue-300 rounded-full absolute px-2 bg-opacity-20 text-black text-xs'>eidt</span></Link>
-                            <button className='px-4 py-2 bg-error text-black'><HiOutlineTrash size={20} /></button>
-                        </li>
+                                )
+                            })
+                        }
+                      
+                       
                     </ul>
                 </div>
             </div>

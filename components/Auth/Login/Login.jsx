@@ -18,6 +18,7 @@ const router = useRouter()
     router.push("/")
  }
 
+
   // btn text
   const [btnText, setBtnText] = useState("Login");
   // login error
@@ -36,6 +37,9 @@ const router = useRouter()
         setLoading(false);
         setLoginError("");
         setBtnText("Successfully logged in");
+        if(!router.query===''){
+          router.push(`/blog/${router.query}`)
+        }
       })
       .catch((err) => {
         console.log(err);

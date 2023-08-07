@@ -1,4 +1,4 @@
-import { connectToDatabase } from "../../../lib/db";
+import { connectToDatabase } from "../../../../lib/db";
 
 
 
@@ -7,8 +7,9 @@ export default async function handler(req, res) {
   
   if (req.method === "POST") {
     const data = req.body;
-    const result = await db.collection("comments").insertOne(data);
-   
+    const type = data.type
+    console.log(data)
+    const result = await db.collection("commentNotifications").insertOne(data);
     res.status(200).json(result);
   } else {
     res.setHeader("Allow", ["POST"]);
