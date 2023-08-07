@@ -8,7 +8,7 @@ const SingleCategory = ({category}) => {
       const [categoriesPost, setCategoriesPost] = useState({});
       const posts = categoriesPost.posts
       useEffect(() => {
-          axios.get(`http://localhost:5000/api/catetgory/${category.value}`)
+          axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/catetgory/${category.value}`)
           .then(res=>{
               setCategoriesPost(res.data)
               setLoading(false)

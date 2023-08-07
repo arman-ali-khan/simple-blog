@@ -19,7 +19,7 @@ const index = ({data}) => {
 
 export async function getServerSideProps({ params }) {
   const { blogId } = params;
-  const response = await fetch(`http://localhost:5000/api/posts/${blogId}`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${blogId}`);
   const data = await response.json();
 
   return {

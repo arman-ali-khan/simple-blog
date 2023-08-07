@@ -11,7 +11,7 @@ const index = () => {
     const [categories,setCategories] = useState([])
     // fetch
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/categories`)
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/categories`)
         .then(res=>{
             setCategories(res.data)
         })

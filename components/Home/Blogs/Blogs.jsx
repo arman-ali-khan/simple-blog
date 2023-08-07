@@ -1,11 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsViewList } from 'react-icons/bs';
+import { UserContext } from "../../../context/ContextProvider";
 import Popular from "../../Popular/Popular";
+import Notifications from "../../User/Sidebar/Notifications";
+import UserAnalytics from "../../User/Sidebar/UserAnalytics";
 import Categories from "../Categories/Categories";
 import Blog from "./Blog";
 
 const Blogs = () => {
+  // get user
+  const {user} = useContext(UserContext)
   // posts get
   const [getPosts, setGetPosts] = useState({});
   console.log(getPosts);
@@ -15,7 +20,7 @@ const Blogs = () => {
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5000/api/posts?limit=10&page=${currentPage}`).then((res) => {
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts?limit=10&page=${currentPage}`).then((res) => {
       setGetPosts(res.data);
       setLoading(false);
     });
@@ -81,6 +86,15 @@ console.log(count)
       </div>
       <div className="md:w-1/3 w-full md:p-3 p-1  h-full">
         <Categories />
+        {
+          user?.email ? 
+          <div>
+            <UserAnalytics />
+            <Notifications />
+          </div>
+          :
+          ''
+        }
       </div>
     </div>
   );

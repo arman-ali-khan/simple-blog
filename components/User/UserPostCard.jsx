@@ -11,7 +11,7 @@ const UserPostCard = ({post,updatePost,setUpdatePost}) => {
 const {user} = useContext(UserContext)
   // aprove handle
   const handlePublish = (e) =>{
-    axios.put(`http://localhost:5000/api/posts/update/${post.id}`,e)
+    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,e)
     .then(res=>{
         setUpdatePost(!updatePost)
         toast.success('Updated')
@@ -19,7 +19,7 @@ const {user} = useContext(UserContext)
 }
 // aprove handle
 const handleDraft = (e) =>{
-    axios.put(`http://localhost:5000/api/posts/update/${post.id}`,e)
+    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,e)
     .then(res=>{
         setUpdatePost(!updatePost)
         toast.success('Updated')
@@ -30,7 +30,7 @@ const handleDraft = (e) =>{
 // get comment count 
 const [count,setCount] = useState('')
 useEffect(()=>{
-  axios.get(`http://localhost:5000/api/comments?id=${post.id}`)
+  axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments?id=${post.id}`)
   .then(res=>{
     setCount(res.data)
   })

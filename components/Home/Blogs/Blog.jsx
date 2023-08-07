@@ -11,7 +11,7 @@ const Blog = ({ post }) => {
   // get comment count 
 const [count,setCount] = useState('')
 useEffect(()=>{
-  axios.get(`http://localhost:5000/api/comments?id=${post.id}`)
+  axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments?id=${post.id}`)
   .then(res=>{
     setCount(res.data)
   })

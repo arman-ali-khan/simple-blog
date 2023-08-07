@@ -10,7 +10,7 @@ const Popular = () => {
     const [popular,setPopular] = useState([])
     // fetch data
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/popular`)
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/popular`)
         .then(res=>{
             setPopular(res.data)
             setLoading(false)

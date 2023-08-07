@@ -23,7 +23,7 @@ const [updatePost,setUpdatePost] = useState(false)
 useEffect(()=>{
   setLoading(true)
  if(user?.email){
-  axios.get(`http://localhost:5000/api/alluserpost?username=${user?.username}&limit=10&page=1`)
+  axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${user?.username}&limit=10&page=1`)
   .then(res=>{
     console.log(res.data)
     if(res.data){

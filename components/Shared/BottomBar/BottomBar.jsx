@@ -21,7 +21,7 @@ const BottomBar = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/api/users?email=${user?.email}`)
+        .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
         .then((res) => {
           setDbUser(res.data);
           setLoading(false);

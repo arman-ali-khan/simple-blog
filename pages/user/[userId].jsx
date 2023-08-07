@@ -13,7 +13,7 @@ const userId = () => {
   // fetch data
   useEffect(()=>{
    if(userId){
-    axios.get(`http://localhost:5000/api/allusers?username=${userId}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/allusers?username=${userId}`)
     .then(res=>{
         setDbUser(res.data)
     })

@@ -13,7 +13,7 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   //
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/categories`).then((res) => {
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/categories`).then((res) => {
       setCategories(res.data);
       setLoading(false);
     });

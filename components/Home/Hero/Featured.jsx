@@ -10,7 +10,7 @@ const Featured = () => {
   // featured post
   const [featured,setFeatured] = useState([])
   useEffect(()=>{
-    axios.get('http://localhost:5000/api/featured')
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/featured`)
     .then(res=>{
       setFeatured(res.data)
       setLoading(false)

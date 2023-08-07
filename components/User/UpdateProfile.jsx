@@ -12,7 +12,7 @@ const UpdateProfile = ()=>{
     const [dbUser,setDbUser] = useState({})
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/users?email=${user?.email}`).then(res=>{
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`).then(res=>{
             setDbUser(res.data)
         })
     },[user?.email])
@@ -31,7 +31,7 @@ const UpdateProfile = ()=>{
     // check User name from mongodb
   useEffect(()=>{
     setLoading(true)
-    axios.get(`http://localhost:5000/api/allusers?username=${inputUserName}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/allusers?username=${inputUserName}`)
     .then(res=>{
         setUsernames(res.data);
         setLoading(false)
@@ -50,7 +50,7 @@ const UpdateProfile = ()=>{
           date: Date(),
        }
        console.log(submitData)
-       axios.put(`http://localhost:5000/api/users/${dbUser?.id}`, submitData)
+       axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/users/${dbUser?.id}`, submitData)
        .then(res=>{
         const result = res.data
         if(result){

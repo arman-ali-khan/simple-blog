@@ -54,7 +54,7 @@ const [update,setUpdate] = useState(false)
     type:'comment',
     date: Date()
    }
-   axios.post(`http://localhost:5000/api/comments`,comment)
+   axios.post(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments`,comment)
    .then(res=>{
     console.log(res.data)
     toast.success('Commented')
@@ -69,7 +69,7 @@ const [update,setUpdate] = useState(false)
   const [getComments,setGetComments] = useState({})
 
   useEffect(()=>{
-    axios.get(`http://localhost:5000/api/comments?id=${blog.id}&limit=10&page=${currentPage}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments?id=${blog.id}&limit=10&page=${currentPage}`)
     .then(res=>{
         setGetComments(res.data)
     })

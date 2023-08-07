@@ -14,7 +14,7 @@ const SingleBlog = ({blog}) => {
 	const [dbUser,setDbUSer] = useState({})
 
 	useEffect(()=>{
-		axios.get(`http://localhost:5000/api/users?email=${blog?.email}`)
+		axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${blog?.email}`)
 		.then(res=>{
 			setDbUSer(res.data)
 		})

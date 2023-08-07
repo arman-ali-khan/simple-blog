@@ -45,7 +45,7 @@ const Register = () => {
           date: Date(),
         };
         if (user.email) {
-          axios.post(`http://localhost:5000/api/users`, info).then((res) => {
+          axios.post(`${process.env.NEXT_PUBLIC_API_PRO}/api/users`, info).then((res) => {
             console.log(res.data);
           });
         }

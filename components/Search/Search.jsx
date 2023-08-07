@@ -29,7 +29,7 @@ const [inputData,setInputData] = useState('')
     
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/search?q=${q}&limit=10&page=1`)
+      .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/search?q=${q}&limit=10&page=1`)
       .then((res) => {
         setSearches(res.data);
         setLoading(false);

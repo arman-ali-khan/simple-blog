@@ -65,7 +65,7 @@ const Create = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/api/users?email=${user?.email}`)
+        .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
         .then((res) => {
           setDbUser(res.data);
         });
@@ -87,7 +87,7 @@ const Create = () => {
   // Category load from db
   const [category, setCategory] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/categories")
+    fetch(`${process.env.NEXT_PUBLIC_API_PRO}/api/categories`)
       .then((res) => res.json())
       .then((data) => {
         setCategory(data);
@@ -172,7 +172,7 @@ const Create = () => {
     };
 
     axios
-      .post("http://localhost:5000/api/posts", postData)
+      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts`, postData)
       .then((res) => {
         setPostLoading(false);
         setPublishBtn("Published");
