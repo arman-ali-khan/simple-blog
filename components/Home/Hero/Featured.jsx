@@ -39,7 +39,7 @@ console.log(featured)
             />
             <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
               <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
-               <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.postId}}`}>{post.title}</Link>
+               <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}>{post.title}</Link>
               </div>
               <div className="text-sm md:hidden">{post.description.split(' ').slice(0,20).join(' ')}</div>
               <div className="hidden text-sm md:block">{post.description.split(' ').slice(0,40).join(' ')}</div>

@@ -20,7 +20,7 @@ const Categories = () => {
   }, []);
   return (
     <>
-      {!user?.email ? (
+      { (
         <div className="bg-base-100 overflow-y-auto h-full ">
           <h2 className="bg-base-200 px-4 py-2 border-b my-2 flex items-center gap-2">
             <span>
@@ -42,9 +42,7 @@ const Categories = () => {
             </ul>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+      ) }
     </>
   );
 };

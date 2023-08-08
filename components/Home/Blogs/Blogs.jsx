@@ -85,7 +85,7 @@ console.log(count)
         </div>
       </div>
       <div className="md:w-1/3 w-full md:p-3 p-1  h-full">
-        <Categories />
+       
         {
           user?.email ? 
           <div>
@@ -93,7 +93,7 @@ console.log(count)
             <Notifications />
           </div>
           :
-          ''
+          <Categories />
         }
       </div>
     </div>
