@@ -16,6 +16,8 @@ const Featured = () => {
       setLoading(false)
     })
   },[])
+
+console.log(featured)
     return (
        <section className="w-full md:flex justify-between">
         <div className="md:w-2/3  md:p-3 p-1">
@@ -43,7 +45,7 @@ const Featured = () => {
               <div className="hidden text-sm md:block">{post.description.split(' ').slice(0,40).join(' ')}</div>
              <div>
              <div className='flex justify-between items-center w-full'>
-             <p className='hidden sm:block md:hidden lg:block w-full text-xs sm:text-sm md:text-base'>{post.categories && post.categories[0].label}</p>
+             <Link href={`/category/${JSON.parse(post?.categories)[0].value}`} className='hidden text-blue-400 sm:block md:hidden lg:block w-full text-xs sm:text-sm md:text-base truncate'>{JSON.parse(post?.categories) && JSON.parse(post.categories)[0].label}</Link>
              <p className='w-full text-xs sm:text-sm md:text-base'>{moment(post.date).fromNow()}</p>
             <span className='w-full text-xs sm:text-sm md:text-base'>View: {post.view}</span>
               </div>

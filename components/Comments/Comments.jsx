@@ -80,7 +80,7 @@ const [update,setUpdate] = useState(false)
 
   const count = Math.ceil((getComments?.count || 10 )/ 10)
   return (
-    <div className="">
+    <div id="comments">
       <div className="flex justify-center w-full">
        {
         user?.email ?  <form
@@ -109,7 +109,7 @@ const [update,setUpdate] = useState(false)
           <h2>Comments({getComments?.count || 0})</h2>
         </div>
        {
-        comments?.map((comment,i)=><Comment blog={blog} comment={comment} key={i} />        )
+        comments?.map((comment,i)=><Comment update={update} setUpdate={setUpdate} blog={blog} comment={comment} key={i} />)
        }
       </div>
        {/* pagination */}

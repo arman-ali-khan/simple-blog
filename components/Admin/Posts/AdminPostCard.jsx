@@ -8,7 +8,7 @@ import { BiSolidCheckCircle } from 'react-icons/bi';
 const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
     // aprove handle
     const handleAprove = (e) =>{
-        axios.put(`/api/post/updatepost`,e)
+        axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/admin/posts/${post.id}`,e)
         .then(res=>{
             setPostUpdate(!postUpdate)
             toast.success('Updated')
@@ -16,7 +16,7 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
     }
     // aprove handle
     const handlePending = (e) =>{
-        axios.put(`/api/post/updatepost`,e)
+        axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/admin/posts/${post.id}`,e)
         .then(res=>{
             setPostUpdate(!postUpdate)
             toast.success('Updated')
@@ -24,7 +24,7 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
     }
     // delete handle
     const handleDelete = (e) =>{
-        axios.delete(`/api/post/delete?id=${post.postId}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${post.id}`)
         .then(res=>{
             setPostUpdate(!postUpdate)
             toast.success('Deleted')
@@ -38,6 +38,8 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
             setPostUpdate(!postUpdate)
         })
     }
+
+    
     return (
         <div className={`flex flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
         <img
@@ -58,9 +60,9 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
             <ul className='flex justify-between  items-center'>
                 <li>
                    {
-                   !post.aproved? <button onClick={()=>handleAprove({postId:post.postId,aproved:true})} className='px-3 py-1 border rounded-full flex text-blue-400 items-center gap-2'>Aprove This <BiSolidCheckCircle /></button> 
+                   post.aproved===0? <button onClick={()=>handleAprove({aproved:1})} className='px-3 py-1 border rounded-full flex text-blue-400 items-center gap-2'>Aprove This <BiSolidCheckCircle /></button> 
                    :
-                   <button onClick={()=>handlePending({postId:post.postId,aproved:false})} className='px-3 py-1 border rounded-full text-purple-400'>Make Pending</button>
+                   <button onClick={()=>handlePending({aproved:0})} className='px-3 py-1 border rounded-full text-purple-400'>Make Pending</button>
                    }
                 </li>
                 <li>

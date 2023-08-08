@@ -12,7 +12,7 @@ const Navbar = () => {
   const handleLogout = () => {
     logOut()
     .then(() => {
-      router.push(`${process.env.NEXT_PUBLIC_API_PRO}/start/login`)
+      router.push(`/start/login`)
     })
     
   }

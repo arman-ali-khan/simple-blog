@@ -76,12 +76,12 @@ const router = useRouter()
           <button
           disabled={!email && !password}
             onClick={() => handleLoginUser()}
-            className="px-3 py-2 bg-primary disabled:bg-gray-600"
+            className="px-3 py-2 bg-blue-500 text-white hover:bg-blue-600 duration-300 font-bold disabled:bg-gray-600"
           >
             {loading ? "Logging in..." : btnText}
           </button>
         </div>
-        <div>
+        <div className="py-2">
           <p className="text-error">
             {loginError === "Firebase: Error (auth/wrong-password)." &&
               "Wrong Password"}
@@ -94,7 +94,7 @@ const router = useRouter()
           </p>
 
           <p className="text-center text-sm">
-            Don't have an account? <Link href={`${process.env.NEXT_PUBLIC_API_PRO}/start/register`}>Register</Link>
+            Don't have an account? <Link className="text-blue-500" href={`/start/register`}>Register</Link>
           </p>
         </div>
       </div>

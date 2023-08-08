@@ -176,7 +176,7 @@ const Create = () => {
       .then((res) => {
         setPostLoading(false);
         setPublishBtn("Published");
-        // router.push(`/blog/${postId}`)
+        router.push(`/user/${dbUser.username}`)
       })
       .catch((err) => {
         setPublishBtn("Try Again");
@@ -213,10 +213,11 @@ const Create = () => {
             <QuillNoSSRWrapper
               modules={modules}
               formats={formats}
+              className="dark:text-teal-500 "
               theme="snow"
               value={postBody}
               onChange={setPostBody}
-              placeholder="Write content form here"
+              placeholder="Start from here..."
             ></QuillNoSSRWrapper>
           </div>
         </div>

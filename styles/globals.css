@@ -23,3 +23,11 @@
     background: #98c8ff;
   }
 }
+
+.ql-editor.ql-blank::before {
+  color: #5a65fc !important;
+}
+
+.ql-editor {
+  font-size: 16px;
+}

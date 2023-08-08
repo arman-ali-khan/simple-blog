@@ -1,7 +1,5 @@
 import axios from 'axios';
-import moment from 'moment';
-import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { UserContext } from '../../context/ContextProvider';
@@ -13,15 +11,15 @@ const Reply = ({showReplyBox,blog, setShowReplyBox,comment:comments}) => {
      // get user
      const {user} = useContext(UserContext)
      //  get db user
-     const [dbUser,setDbUser] = useState({})
-     useEffect(()=>{
-        if(user?.email){
-         axios.get(`/api/user?email=${user.email}`)
-         .then(res=>{
-             setDbUser(res.data)
-         })
-        }
-     },[user?.email])
+    //  const [dbUser,setDbUser] = useState({})
+    //  useEffect(()=>{
+    //     if(user?.email){
+    //      axios.get(`/api/user?email=${user.email}`)
+    //      .then(res=>{
+    //          setDbUser(res.data)
+    //      })
+    //     }
+    //  },[user?.email])
      //  react hook form
   const {
     register,
@@ -59,18 +57,18 @@ const replyId = uuidv4().split('-')[0]
   };
 
   // get all replies
-  const [replies,setReplies]  = useState([])
-  useEffect(()=>{
-    axios.get(`/api/comment/reply?id=${comments.commentId}`)
-    .then(res=>{
-      setReplies(res.data)
-    })
-  },[comments.commentId,update])
+  // const [replies,setReplies]  = useState([])
+  // useEffect(()=>{
+  //   axios.get(`/api/comment/reply?id=${comments.commentId}`)
+  //   .then(res=>{
+  //     setReplies(res.data)
+  //   })
+  // },[comments.commentId,update])
 
     return (
         <div>
             {/* reply box */}
-            {showReplyBox ? (
+            {/* {showReplyBox ? (
               <form
                 onSubmit={handleSubmit(handleReply)}
                 className="flex items-center my-2"
@@ -103,10 +101,10 @@ const replyId = uuidv4().split('-')[0]
                 </div>
                 
                 
-              </div>
-              )
+              </div> */}
+              {/* )
             })
-          }
+          } */}
             
           
         </div>

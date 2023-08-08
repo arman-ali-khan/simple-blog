@@ -18,8 +18,8 @@ const userId = () => {
         setDbUser(res.data)
     })
    }
-  },[userId,!userId])
-  
+  },[userId])
+  console.log(dbUser)
     return (
         <Layout title={'Private route'}>
         

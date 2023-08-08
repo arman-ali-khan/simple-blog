@@ -3,6 +3,7 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AiOutlineFieldTime } from "react-icons/ai";
 import { BiCommentDots } from "react-icons/bi";
 import { VscEye } from 'react-icons/vsc';
 
@@ -40,18 +41,16 @@ useEffect(()=>{
           </Link>
         </div>
         <div>
-          <div className="flex justify-between items-center w-full">
-            <p className="hidden md:hidden lg:block w-full text-xs sm:text-sm md:text-base truncate sm:flex items-center">
-           {categories && categories[0].label}
-            </p>
+          <div className="flex justify-between gap-2 items-center w-full">
+          <Link href={`/category/${categories[0].value}`} className='hidden sm:block md:hidden text-blue-400 lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>
             <p className="w-full flex items-center gap-2 text-xs sm:text-sm md:text-base">
-             <BiCommentDots size={20} /> {count.count}
+             <BiCommentDots size={20} /> {count.count > 1000 ?1 +'k+':count.count}
             </p>
-            <p className="w-full text-xs sm:text-sm md:text-base flex items-center gap-2">
-             {moment(post?.date).fromNow()}
+            <p className="w-full text-xs sm:text-sm md:text-base flex items-center gap-1 ">
+            <AiOutlineFieldTime size={20} /> <span className="truncate">{moment(post?.date).fromNow()}</span>
             </p>
             <span className="w-full text-xs sm:text-sm md:text-base flex items-center gap-2">
-              <VscEye size={24} />{post?.view}
+              <VscEye size={24} />{post.view > 1000 ?1 +'k+':post.view}
             </span>
           </div>
         </div>

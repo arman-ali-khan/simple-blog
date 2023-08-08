@@ -39,6 +39,7 @@ const Register = () => {
           gender: "",
           about: "",
           fbId: "",
+          photo:"",
           phone: 0,
           discord: "",
           username: "",
@@ -84,13 +85,13 @@ const Register = () => {
           <button
             disabled={!email && !password}
             onClick={() => handleRegisterUser()}
-            className="px-3 py-2 bg-primary disabled:bg-gray-600"
+            className="px-3 py-2  bg-teal-500 text-white hover:bg-teal-600 duration-300 font-bold disabled:bg-gray-600"
           >
             {registerBtn}
           </button>
         </div>
         <div>
-          <div>
+          <div className="py-3">
             <p className="text-error">
               {registerError ===
                 "Firebase: Error (auth/email-already-in-use)." &&
@@ -107,7 +108,7 @@ const Register = () => {
             </p>
             <p className="text-center text-sm">
               Already have an account?{" "}
-              <Link href={`${process.env.NEXT_PUBLIC_API_PRO}/start/login`}>
+              <Link className="text-teal-500" href={`/start/login`}>
                 Login
               </Link>
             </p>
