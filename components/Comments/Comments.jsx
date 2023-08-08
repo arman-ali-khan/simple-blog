@@ -135,8 +135,8 @@ const Comments = ({ blog }) => {
           ? [...Array(getComments?.count).keys()].map((item, i) => {
               return (
                 <div key={i} className="w-full flex items-center  border py-4">
-                  <div className="w-32 mx-4 bg-base-300 h-6"></div>
-                  <div className="w-full mx-4 bg-base-300 h-6"></div>
+                  <div className="w-32 mx-4 animate-pulse bg-base-300 h-6"></div>
+                  <div className="w-full mx-4 animate-pulse bg-base-300 h-6"></div>
                 </div>
               );
             })
