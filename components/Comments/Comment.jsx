@@ -3,7 +3,6 @@ import moment from 'moment';
 import Link from 'next/link';
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/ContextProvider';
-import Reply from './Reply';
 
 const Comment = ({comment,blog,update,setUpdate}) => {
   
@@ -35,11 +34,11 @@ const Comment = ({comment,blog,update,setUpdate}) => {
           <p className="py-1">
            {comment?.comment}
           </p>
-       <button onClick={()=>handleDeleteComment(comment.id)} className='text-error px-2 py-1 border border-error rounded-full'>Delete</button>
+    {
+      user.email === comment.email &&    <button onClick={()=>handleDeleteComment(comment.id)} className='text-error px-2 py-1 border border-error rounded-full'>Delete</button>
+    }
          
          </div>
-          {/* Replies */}
-         <Reply blog={blog} comment={comment} showReplyBox={showReplyBox} setShowReplyBox={setShowReplyBox} />
          
         </div>
       </div>
