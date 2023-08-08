@@ -1,14 +1,15 @@
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 
-import axios from 'axios';
 import { createContext, useEffect, useState } from "react";
+import useDbUser from '../hooks/useDbUser/useDbUser';
 
 export const auth = getAuth(app)
 export const UserContext = createContext()
 const ContextProvider = ({children}) => {
 const [user,setUser] = useState({})
 const [dBUser,setDBUser] = useState({})
+
 
 // userLoading
 const [userLoading,setUserLoading] = useState(true)
@@ -37,17 +38,11 @@ useEffect(()=>{
         setUserLoading(false)
     };
 },[])
-
+// email
+const email = user?.email
 // get dbUser
-useEffect(()=>{
-    if(user?.email){
-        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
-    .then(res=>{
-        setDBUser(res.data)
-    })
-    }
-},[!user?.email])
-    const value = {user,createUser,logOut,dBUser,loginUser,userLoading}
+const [dbUser] = useDbUser({email})
+    const value = {user,createUser,logOut,dbUser,loginUser,userLoading}
     return (
         <UserContext.Provider value={value}>
             {children}

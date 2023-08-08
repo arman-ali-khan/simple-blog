@@ -5,19 +5,9 @@ import { UserContext } from "../../context/ContextProvider";
 
 const UpdateProfile = () => {
   // constext
-  const { user } = useContext(UserContext);
+  const { user,dbUser } = useContext(UserContext);
 
-  // get user
-  const [dbUser, setDbUser] = useState({});
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
-      .then((res) => {
-        setDbUser(res.data);
-      });
-  }, [user?.email]);
-console.log(dbUser)
+ 
   // hook form
   const {
     register,

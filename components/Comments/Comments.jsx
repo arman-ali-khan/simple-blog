@@ -11,20 +11,8 @@ const Comments = ({ blog }) => {
   // comment btn
   const [commentBtn, setCommentBtn] = useState("Comment");
   // get user
-  const { user } = useContext(UserContext);
-  //  get db user
-  const [dbUser, setDbUser] = useState({});
-  useEffect(() => {
-    if (user?.email) {
-      axios
-        .get(
-          `${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`
-        )
-        .then((res) => {
-          setDbUser(res.data);
-        });
-    }
-  }, [user?.email]);
+  const { user,dbUser } = useContext(UserContext);
+ 
 
 
   //  update comment

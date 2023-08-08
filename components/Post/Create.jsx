@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import { useContext, useEffect, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import Select from "react-select";
-import { v4 as uuidv4 } from "uuid";
 import { UserContext } from "../../context/ContextProvider";
 
 import axios from "axios";
@@ -57,20 +56,9 @@ const formats = [
 
 const Create = () => {
   // context
-  const { user } = useContext(UserContext);
+  const { user,dbUser } = useContext(UserContext);
 
-  // dbUser
-  const [dbUser, setDbUser] = useState({});
-  console.log(dbUser);
-  useEffect(() => {
-    if (user?.email) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
-        .then((res) => {
-          setDbUser(res.data);
-        });
-    }
-  }, [user?.email]);
+
 
   // router
   const router = useRouter();
@@ -136,8 +124,6 @@ const Create = () => {
   // publish btn
   const [publishBtn, setPublishBtn] = useState("Publish");
 
-  // post id
-  const postId = uuidv4().split("-")[0];
 
   // post title
   const [postTitle, setPostTitle] = useState("");

@@ -3,7 +3,8 @@ import parse from 'html-react-parser';
 import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../../context/ContextProvider';
 import Layout from '../../../layout/Layout';
 import Comments from '../../Comments/Comments';
 import Categories from "../Categories/Categories";
@@ -11,14 +12,8 @@ import Categories from "../Categories/Categories";
 const SingleBlog = ({blog}) => {
 
 	// get context user
-	const [dbUser,setDbUSer] = useState({})
-
-	useEffect(()=>{
-		axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${blog?.email}`)
-		.then(res=>{
-			setDbUSer(res.data)
-		})
-	},[blog.email])
+	const {dbUser} = useContext(UserContext)
+	
 
 	  // get comments
 	  const [getComments,setGetComments] = useState({})

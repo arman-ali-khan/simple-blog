@@ -9,17 +9,8 @@ const Reply = ({showReplyBox,blog, setShowReplyBox,comment:comments}) => {
   // reply btn
   const [replyBtn,setReplyBtn] = useState('Reply')
      // get user
-     const {user} = useContext(UserContext)
-     //  get db user
-    //  const [dbUser,setDbUser] = useState({})
-    //  useEffect(()=>{
-    //     if(user?.email){
-    //      axios.get(`/api/user?email=${user.email}`)
-    //      .then(res=>{
-    //          setDbUser(res.data)
-    //      })
-    //     }
-    //  },[user?.email])
+     const {user,dbUser} = useContext(UserContext)
+     
      //  react hook form
   const {
     register,

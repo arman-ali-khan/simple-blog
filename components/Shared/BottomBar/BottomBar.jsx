@@ -1,6 +1,5 @@
-import axios from "axios";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiComment, BiUser } from "react-icons/bi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
@@ -12,22 +11,10 @@ import CreatePost from "../CreatePost/CreatePost";
 
 const BottomBar = () => {
   // context
-  const { user } = useContext(UserContext);
+  const { user,dbUser } = useContext(UserContext);
   // loading
   const [loading, setLoading] = useState(true);
-  // dbUser
-  const [dbUser, setDbUser] = useState({});
-  // get dbUser
-  useEffect(() => {
-    if (user?.email) {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user?.email}`)
-        .then((res) => {
-          setDbUser(res.data);
-          setLoading(false);
-        });
-    }
-  }, [user?.email]);
+ 
   const [showCategory, setShowCategory] = useState(false);
 
   // get total unseen notifications
