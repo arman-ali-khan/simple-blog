@@ -12,7 +12,6 @@ const ProfileRoute = ({children}) => {
 
     // loading
     const [loading,setLoading] = useState(true)
-console.log(dbUser)
     useEffect(()=>{
         axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user.email}`).then(res=>{
             setDbUser(res.data)

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
@@ -47,7 +48,15 @@ const Register = () => {
         };
         if (user.email) {
           axios.post(`${process.env.NEXT_PUBLIC_API_PRO}/api/users`, info).then((res) => {
-            console.log(res.data);
+            
+            if(user){
+              axios.post(`${process.env.NEXT_PUBLIC_API_PRO}/jwt`,{email:user.email})
+              .then(res=>{
+                if(res.data){
+                  Cookies.set('token', res.data.token, { expires: 7 }); 
+                }
+              })
+              }
           });
         }
       })

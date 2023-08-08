@@ -1,6 +1,8 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { MdAlternateEmail } from "react-icons/md";
@@ -11,21 +13,30 @@ import UserPostCard from "./UserPostCard";
 const User = ({ dbUser }) => {
   const user = dbUser[0];
   console.log(user);
-  const { user: fUser } = useContext(UserContext);
+  const { user: fUser, logOut } = useContext(UserContext);
   //  get user posts
   const [userPost, setUserPost] = useState({});
+  // router
+  const router = useRouter()
   //  post loading
   const [loading, setLoading] = useState(true);
 
   // post update
   const [updatePost, setUpdatePost] = useState(false);
+  // expire token 
+  const [expire,setExpire] = useState(false)
   // fetch user posts
   useEffect(() => {
     setLoading(true);
     if (user?.email) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${user?.username}&limit=10&page=1`
+          `${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${user?.username}&limit=10&page=1`,{
+            headers: {
+              'Authorization': `Basic ${Cookies.get('token')}` ,
+              email:user?.email
+            }
+          }
         )
         .then((res) => {
           console.log(res.data);
@@ -33,7 +44,15 @@ const User = ({ dbUser }) => {
             setUserPost(res.data);
             setLoading(false);
           }
-        });
+        })
+        .catch(err=>{
+          console.error(err)
+          if(err.response.status===401){
+            logOut().then(() => {
+              router.push(`/start/login`)
+            })
+          }
+        })
     }
   }, [user?.username, updatePost]);
 
@@ -148,7 +167,8 @@ const User = ({ dbUser }) => {
                     </h2>
                   </div>
                 </div>
-                {loading ? (
+                {
+                loading ? (
                   <>
                     {[...Array(5).keys()].map((item, i) => {
                       return (

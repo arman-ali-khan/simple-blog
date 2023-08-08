@@ -17,7 +17,6 @@ const Featured = () => {
     })
   },[])
 
-console.log(featured)
     return (
        <section className="w-full md:flex justify-between">
         <div className="md:w-2/3  md:p-3 p-1">

@@ -5,6 +5,7 @@ import Select from "react-select";
 import { UserContext } from "../../context/ContextProvider";
 
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import makeAnimated from "react-select/animated";
 const ReactQuill =
@@ -56,7 +57,7 @@ const formats = [
 
 const Create = () => {
   // context
-  const { user,dbUser } = useContext(UserContext);
+  const { user,dbUser,logOut } = useContext(UserContext);
 
 
 
@@ -151,14 +152,19 @@ const Create = () => {
       categories: JSON.stringify(categories),
       description: removeTags(postBody),
       featured_image: featuredImage,
-      date: new Date(),
+      date: Date(),
       email: user.email,
       username: dbUser.username,
       view: 0,
     };
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts`, postData)
+      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts`, postData,{
+        headers:{
+          authorization:`Basic ${Cookies.get('token')}`,
+          email: user.email
+        }
+      })
       .then((res) => {
         setPostLoading(false);
         setPublishBtn("Published");
@@ -167,6 +173,11 @@ const Create = () => {
       .catch((err) => {
         setPublishBtn("Try Again");
         setPostLoading(false);
+        if(err.response.status===401){
+          logOut().then(() => {
+            router.push(`/start/login`)
+          })
+        }
       });
   };
 

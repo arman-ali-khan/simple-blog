@@ -13,7 +13,6 @@ const Blogs = () => {
   const {user} = useContext(UserContext)
   // posts get
   const [getPosts, setGetPosts] = useState({});
-  console.log(getPosts);
   // get post loading
   const [loading, setLoading] = useState(true);
   // pagination
@@ -29,7 +28,7 @@ const Blogs = () => {
 
   // count
   const count = Math.ceil((getPosts?.count || 10 )/ 10)
-console.log(count)
+
   return (
     <div className="md:flex justify-between w-full">
       <div className="flex md:w-2/3 w-full  flex-wrap flex-row justify-start">

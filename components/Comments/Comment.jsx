@@ -1,22 +1,42 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../context/ContextProvider';
 
 const Comment = ({comment,blog,update,setUpdate}) => {
   
     // context
-    const {user} = useContext(UserContext)
-  // 
-    const [showReplyBox, setShowReplyBox] = useState(false);
+    const {user,logOut} = useContext(UserContext)
+  // router
+  const router = useRouter()
+
+    // const loading delete
+    const [deleteBtn,setdeleteBtn] = useState('Delete')
 
     // delete comment
     const handleDeleteComment = id =>{
-      axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments/${id}`)
+      setdeleteBtn('Deleting...')
+      axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments/${id}`,{
+        headers:{
+          authorization: `Basic ${Cookies.get('token')}`,
+          email: user.email
+        }
+      })
       .then(res=>{
-        console.log(res.data)
         setUpdate(!update)
+        setdeleteBtn('Deleted')
+      })
+      .catch(err=>{
+        console.error(err);
+        setdeleteBtn('Try again')
+        if(err.response.status===401){
+          logOut().then(() => {
+            router.push(`/start/login`)
+          })
+        }
       })
     }
     return (
@@ -35,7 +55,8 @@ const Comment = ({comment,blog,update,setUpdate}) => {
            {comment?.comment}
           </p>
     {
-      user.email === comment.email &&    <button onClick={()=>handleDeleteComment(comment.id)} className='text-error px-2 py-1 border border-error rounded-full'>Delete</button>
+      user?.email === comment.email &&    <button onClick={()=>handleDeleteComment(comment.id)} className='text-error px-2 py-1 border border-error rounded-full'>{deleteBtn}</button>
+      
     }
          
          </div>

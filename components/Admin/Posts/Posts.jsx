@@ -5,7 +5,7 @@ import AdminPostCard from './AdminPostCard';
 const Posts = () => {
       // posts get
   const [getPosts, setGetPosts] = useState({});
-  console.log(getPosts);
+
 
   // update post
   const [postUpdate,setPostUpdate] = useState(false)

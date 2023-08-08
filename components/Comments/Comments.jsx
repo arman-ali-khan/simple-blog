@@ -1,5 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -11,9 +13,10 @@ const Comments = ({ blog }) => {
   // comment btn
   const [commentBtn, setCommentBtn] = useState("Comment");
   // get user
-  const { user,dbUser } = useContext(UserContext);
+  const { user,dbUser,logOut } = useContext(UserContext);
  
-
+// router
+const router = useRouter()
 
   //  update comment
   const [update, setUpdate] = useState(false);
@@ -40,14 +43,27 @@ const Comments = ({ blog }) => {
       date: Date(),
     };
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments`, comment)
+      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments`, comment,{
+        headers:{
+          authorization: `Basic ${Cookies.get('token')}`,
+          email: user.email
+        }
+      })
       .then((res) => {
-        console.log(res.data);
         toast.success("Commented");
         reset();
         setUpdate(!update);
         setCommentBtn("Commented");
-      });
+      })
+      .catch(err=>{
+        setCommentBtn("Try again");
+        console.log(err)
+        if(err.response.status===401){
+          logOut().then(() => {
+            router.push(`/start/login`)
+          })
+        }
+      })
   };
   // current page
   const [currentPage, setCurrentPage] = useState(1);

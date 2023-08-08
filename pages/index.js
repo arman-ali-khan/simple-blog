@@ -7,7 +7,7 @@ import Layout from '../layout/Layout';
 export default function Home() {
 
   return (
-    <Layout title={'BlogArman || Home'}>
+    <Layout title={`Arman's Blog || Home`}>
       <Featured />
       <Blogs />
     

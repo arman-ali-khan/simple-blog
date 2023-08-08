@@ -1,4 +1,5 @@
-
+import axios from "axios";
+import { default as Cookie } from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
@@ -6,18 +7,12 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { UserContext } from "../../../context/ContextProvider";
 
 const Login = () => {
-// router
-const router = useRouter()
+  // router
+  const router = useRouter();
   // context
   const { user, loginUser } = useContext(UserContext);
   // loading
   const [loading, setLoading] = useState(false);
-
-  // redirect when login
-  if(user?.email){
-    router.push("/")
- }
-
 
   // btn text
   const [btnText, setBtnText] = useState("Login");
@@ -34,11 +29,23 @@ const router = useRouter()
     return loginUser(email, password)
       .then((res) => {
         const user = res.user;
-        setLoading(false);
         setLoginError("");
-        setBtnText("Successfully logged in");
-        if(!router.query===''){
-          router.push(`/blog/${router.query}`)
+        setLoading(false);
+        if (user) {
+          axios
+            .post(`${process.env.NEXT_PUBLIC_API_PRO}/jwt`, {
+              email: user.email,
+            })
+            .then((res) => {
+              if (res.data) {
+                Cookie.set("token", res.data.token, { expires: 7 });
+                setBtnText("Successfully logged in");
+              }
+              // redirect when login
+              if ((user?.email && Cookie.get("token")) || loading) {
+                router.push("/");
+              }
+            });
         }
       })
       .catch((err) => {
@@ -48,6 +55,7 @@ const router = useRouter()
         setBtnText("Try Again");
       });
   };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-64">
@@ -74,7 +82,7 @@ const router = useRouter()
             </span>
           </div>
           <button
-          disabled={!email && !password}
+            disabled={!email && !password}
             onClick={() => handleLoginUser()}
             className="px-3 py-2 bg-blue-500 text-white hover:bg-blue-600 duration-300 font-bold disabled:bg-gray-600"
           >
@@ -94,7 +102,10 @@ const router = useRouter()
           </p>
 
           <p className="text-center text-sm">
-            Don't have an account? <Link className="text-blue-500" href={`/start/register`}>Register</Link>
+            Don't have an account?{" "}
+            <Link className="text-blue-500" href={`/start/register`}>
+              Register
+            </Link>
           </p>
         </div>
       </div>
