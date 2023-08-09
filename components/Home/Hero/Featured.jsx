@@ -1,5 +1,6 @@
 import axios from "axios";
 import moment from "moment";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BsBookmarks } from "react-icons/bs";
@@ -32,9 +33,12 @@ const Featured = () => {
         </div>
           :
             featured.map(post=> <div key={post.id} className={`flex flex-row-reverse overflow-hidden md:h-40 pb-2 bg-base-100 sm:h-24  shadow-lg ${post.featured===0 && 'hidden'}`}>
-            <img
+            <Image
               className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
               src={post.featured_image}
+              width={176}
+              height={96}
+              alt={post.email}
             />
             <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
               <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">

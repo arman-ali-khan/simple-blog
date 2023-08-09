@@ -1,18 +1,16 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import moment from "moment";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
+import UserPostCard from "../../components/User/UserPostCard";
 import { UserContext } from "../../context/ContextProvider";
-import UserPostCard from "./UserPostCard";
 
-const User = ({ dbUser }) => {
+const Posts = ({ dbUser }) => {
   const user = dbUser[0];
-  console.log(user);
+
   const { user: fUser, logOut } = useContext(UserContext);
   //  get user posts
   const [userPost, setUserPost] = useState({});
@@ -31,12 +29,7 @@ const User = ({ dbUser }) => {
     if (user?.email) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${user?.username}&limit=10&page=1`,{
-            headers: {
-              'Authorization': `Basic ${Cookies.get('token')}` ,
-              email:user?.email
-            }
-          }
+          `${process.env.NEXT_PUBLIC_API_PRO}/api/userpost?username=${user?.username}&limit=10&page=1`,
         )
         .then((res) => {
           console.log(res.data);
@@ -47,11 +40,6 @@ const User = ({ dbUser }) => {
         })
         .catch(err=>{
           console.error(err)
-          if(err.response.status===401){
-            logOut().then(() => {
-              router.push(`/start/login`)
-            })
-          }
         })
     }
   }, [user?.username, updatePost]);
@@ -61,7 +49,7 @@ const User = ({ dbUser }) => {
   return (
     <div>
       <section className="pt-16 bg-blueGray-50">
-        <div className="w-full md:w-2/3 sm:px-4 mx-auto">
+        <div className="w-full md:w-2/3 px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words border w-full mb-6 shadow-xl rounded-lg mt-16">
             <div className="">
               <div className="flex flex-wrap justify-center">
@@ -75,7 +63,7 @@ const User = ({ dbUser }) => {
                   </div>
                 </div>
                 <div className="w-full px-4 text-center mt-20">
-                  <div className="flex justify-center py-2 ">
+                  <div className="flex justify-center py-4 lg:pt-4  pt-8">
                     <div className="mr-4 p-3 md:py-6 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
                         0
@@ -95,9 +83,6 @@ const User = ({ dbUser }) => {
                       <span className="text-sm text-blueGray-400">Posts</span>
                     </div>
                   </div>
-                  <div>
-                    Flow
-                  </div>
                 </div>
               </div>
 
@@ -106,14 +91,7 @@ const User = ({ dbUser }) => {
                   {user?.fullName}({user?.username})
                 </h3>
                 <div>
-                  {fUser?.email === user?.email && (
-                    <Link
-                      className="px-4 py-1 rounded bg-base-200 border inline-block my-3"
-                      href={"/user/update/profile"}
-                    >
-                      Update
-                    </Link>
-                  )}
+                 
                 </div>
                 <div className="flex justify-center">
                   <p className="flex items-center gap-2">
@@ -206,4 +184,4 @@ const User = ({ dbUser }) => {
   );
 };
 
-export default User;
+export default Posts;

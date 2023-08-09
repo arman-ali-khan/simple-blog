@@ -7,6 +7,7 @@ import { UserContext } from "../../context/ContextProvider";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 import makeAnimated from "react-select/animated";
 const ReactQuill =
   typeof window === "object" ? require("react-quill") : () => false;
@@ -96,28 +97,34 @@ const Create = () => {
   const [uploadLoad, setUploadPhoto] = useState(false);
   // photo upload error
   const [error, setError] = useState("");
+
   // handle upload
   const handlePhotoUpload = (data) => {
-    setUploadPhoto(true);
+
     const photo = data;
-    const photoData = new FormData();
-    photoData.append("file", photo);
-    photoData.append("upload_preset", "simpleblog");
-    photoData.append("cloud_name", "dl1cxduy0");
-    fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
-      method: "POST",
-      body: photoData,
-    })
-      .then((resp) => resp.json())
-      .then((photoData) => {
-        const photoUrl = photoData.secure_url;
-        setFeaturedImage(photoUrl);
-        setUploadPhoto(false);
-        setError("");
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
+    
+      if(photo.size > 2097152){
+      return  toast.error('Too Large File, Max Upload Limit 2 MB')
+      }
+      setUploadPhoto(true); 
+    // const photoData = new FormData();
+    // photoData.append("file", photo);
+    // photoData.append("upload_preset", "simpleblog");
+    // photoData.append("cloud_name", "dl1cxduy0");
+    // fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
+    //   method: "POST",
+    //   body: photoData,
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((photoData) => {
+    //     const photoUrl = photoData.secure_url;
+    //     setFeaturedImage(photoUrl);
+    //     setUploadPhoto(false);
+    //     setError("");
+    //   })
+    //   .catch((err) => {
+    //     setError(err.message);
+    //   });
   };
 
   // handle featured image end
@@ -210,11 +217,10 @@ const Create = () => {
             <QuillNoSSRWrapper
               modules={modules}
               formats={formats}
-              className="dark:text-teal-500 "
               theme="snow"
               value={postBody}
               onChange={setPostBody}
-              placeholder="Start from here..."
+              placeholder="Write..."
             ></QuillNoSSRWrapper>
           </div>
         </div>
@@ -302,10 +308,11 @@ const Create = () => {
             <div className="px-2 py-1">
               <h3 className="font-bold">Post Publish Policy</h3>
               <ul className="mx-6">
-                <li className="list-decimal">Hello WOrld</li>
-                <li className="list-decimal">Hello WOrld</li>
-                <li className="list-decimal">Hello WOrld</li>
-                <li className="list-decimal">Hello WOrld</li>
+                <li className="list-decimal">পোষ্ট এর সাথে সম্পুর্কযুক্ত ক্যাটাগরী/ফিচারড ইমেজ/ট্যাগ ব্যবহার করুন</li>
+                <li className="list-decimal">কপিপেষ্ট পরিহার করুন।</li>
+                <li className="list-decimal">কেউ কপিপেষ্ট করেছে এমন প্রমান পেলে সাথে সাথে ট্রেইনার থেকে তাকে বাতিল করা হবে</li>
+                <li className="list-decimal">পোষ্ট এর একেবারে শেষ ছাড়া কোথাও পোষ্ট দাতার সাইট লিংক থাকতে পারবে না</li>
+                <li className="list-decimal">এপ/গেম এর রিভিও দিলে এপ/গেম ডাওনলোড এর ডাইরেক্ট লিংক দিতে হবে এবং বিস্তারিত পোষ্ট+স্ক্রিনশুট দিতে হবে</li>
               </ul>
             </div>
             <div className="flex justify-end px-4 py-2">

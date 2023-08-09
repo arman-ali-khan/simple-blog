@@ -36,7 +36,6 @@ const Register = () => {
         const info = {
           fullName: "",
           email: email,
-          password: password,
           gender: "",
           about: "",
           fbId: "",
@@ -45,6 +44,7 @@ const Register = () => {
           discord: "",
           username: "",
           date: Date(),
+          type:'contributor'
         };
         if (user.email) {
           axios.post(`${process.env.NEXT_PUBLIC_API_PRO}/api/users`, info).then((res) => {

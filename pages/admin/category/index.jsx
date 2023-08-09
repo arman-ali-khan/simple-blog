@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import PrivateRoute from '../../../hooks/PrivateRouters/PrivateRoute';
-import Layout from '../../../layout/Layout';
+import AdminLayout from '../../../layout/AdminLayout';
 
 const index = () => {
     // get all categories
@@ -18,7 +18,7 @@ const index = () => {
     },[])
     return (
         <PrivateRoute>
-            <Layout title={'Categories'}>
+            <AdminLayout title={'Categories'}>
           <div className='flex justify-center w-full'>
           <div className='w-96'>
                 <div className='w-full bg-base-300 flex justify-between'>
@@ -43,7 +43,7 @@ const index = () => {
                 </div>
             </div>
           </div>
-        </Layout>
+        </AdminLayout>
         </PrivateRoute>
     );
 };

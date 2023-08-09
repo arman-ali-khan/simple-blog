@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const PopularCard = ({post}) => {
@@ -8,9 +9,12 @@ const PopularCard = ({post}) => {
      const categories = JSON.parse(post.categories)
     return (
         <div className={`flex w-full flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
-        <img
+        <Image
           className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
           src={post.featured_image}
+          width={176}
+          height={96}
+          alt={post.email}
         />
         <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
           <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">

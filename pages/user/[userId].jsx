@@ -1,11 +1,21 @@
+import { useContext } from 'react';
 import User from '../../components/User/User';
+import { UserContext } from '../../context/ContextProvider';
 import Layout from '../../layout/Layout';
+import Posts from './posts';
 
 const userId = ({data}) => {
+  const {user} = useContext(UserContext)
     return (
         <Layout title={`${data[0].fullName}, User at Arman's Blog`} thumb={data[0].photo || 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'} desc={data[0].about}>
+        {
+          user?.email === data[0].email?
+            <User dbUser={data} />
+            :
+            <Posts dbUser={data} />
+          
+        }
         
-          <User dbUser={data} />
         </Layout>
     );
 };

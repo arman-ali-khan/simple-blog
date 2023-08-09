@@ -4,6 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { AiOutlineComment } from 'react-icons/ai';
+import { GrLineChart } from 'react-icons/gr';
+import { IoCalendarClearOutline } from 'react-icons/io5';
 import { UserContext } from '../../context/ContextProvider';
 
 const UserPostCard = ({post,updatePost,setUpdatePost}) => {
@@ -46,7 +49,7 @@ const [deleteBtn,setDeleteBtn] = useState('Delete')
 // confirm delete 
 const handleDelete = (id) =>{
   setDeleteBtn('Deleting...')
-  axios.delete(`http://localhost:5000/api/posts/${id}`)
+  axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${id}`)
   .then(res=>{
     console.log(res.data)
     setDeleteBtn('Deleted')
@@ -59,7 +62,7 @@ const handleDelete = (id) =>{
           <div className="w-full">
           <div className="flex flex-row overflow-hidden bg-base-100 border shadow-lg">
     <Image
-      className="block md:w-32 w-28  flex-none bg-cover md:h-auto h-24 object-cover"
+      className="block md:w-32 w-24  flex-none bg-cover md:h-auto h-24 object-cover"
       src={post.featured_image}
       width={128}
       alt={post.email}
@@ -71,9 +74,9 @@ const handleDelete = (id) =>{
        <Link className='text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
      <div className='flex items-center flex-wrap'>
      <div className='text-sm flex gap-7'>
-        <p>View: {post.view}</p>
-        <p>Comments: {count.count}</p>
-        <p>{moment(post.data).calendar()}</p>
+        <p className='flex items-center gap-2'><GrLineChart /> {post.view}</p>
+        <p className='flex items-center gap-2'><AiOutlineComment size={20} /> {count.count}</p>
+        <p className='flex items-center gap-2'><IoCalendarClearOutline />{moment(post.date).fromNow()}</p>
        </div>
        {
         post.email === user?.email ?  <span className='border text-sm px-2 ml-2 text-info rounded-full py-0 inline-block'>{post?.publish?'':'Darft'} { post?.publish ?  (post?.aproved ? 'Aproved':'Pending') :''}</span>:''
@@ -101,6 +104,7 @@ const handleDelete = (id) =>{
   </div>
           </div>
         </div>
+        {/* Delete modal */}
        {
         deleteId ? <div  className='fixed z-40 flex items-center justify-center top-0 left-0 h-screen w-full'>
           <button onClick={()=>setDeleteId()} className='fixed top-0 left-0 w-full h-screen'></button>
@@ -118,9 +122,9 @@ const handleDelete = (id) =>{
             <div className='flex justify-center w-full'>
              
             <div className='w-full'>
-            <p className='flex items-center gap-2 pb-2 w-full px-2  text-xs sm:text-base'>Enter your username <span className='bg-blue-400 flex items-center px-2 text-black'>{user?.email}</span></p>
+            <p className='flex items-center gap-2 pb-2 w-full px-2  text-xs sm:text-base'>Enter your email <span className='bg-blue-400 flex items-center px-2 text-black'>{user?.email}</span></p>
            <div className='flex items-center w-full'>
-           <input onChange={(e)=>setInputEmail(e.target.value)} placeholder={user?.email} className={`px-3 w-full text-error border py-2 ${inputEmail===user?.email ? 'border-success focus-visible:outline-success focus-visible:outline text-success':'border-error focus-visible:outline-error focus-visible:outline text-error'}`} type="text" id="username" />
+           <input onChange={(e)=>setInputEmail(e.target.value)} placeholder={'email'} className={`px-3 w-full text-error border py-2 ${inputEmail===user?.email ? 'border-success focus-visible:outline-success focus-visible:outline text-success':'border-error focus-visible:outline-error focus-visible:outline text-error'}`} type="text" id="username" />
               <button disabled={inputEmail!==user?.email} onClick={()=>handleDelete(deleteId)} className='px-4 py-2 disabled:bg-neutral disabled:text-white disabled:cursor-not-allowed border border-error bg-error hover:bg-opacity-80 duration-300 text-black'>{deleteBtn}</button>
            </div>
               <div onClick={()=>setDeleteId()} className='flex justify-center my-2'>

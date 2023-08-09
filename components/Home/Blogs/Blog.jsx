@@ -26,9 +26,9 @@ useEffect(()=>{
       <Image
         className="block md:w-44 w-28 border-4 border-gray-500 flex-none bg-cover md:h-auto h-24 object-cover"
         src={post?.featured_image}
-        width={112}
+        width={176}
         height={96}
-        alt={post.username}
+        alt={post.email}
       />
       <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
         <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">

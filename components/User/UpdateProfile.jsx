@@ -45,8 +45,7 @@ const UpdateProfile = () => {
     setUpdateBTN("Updating...");
     const submitData = {
       ...data,
-      email: user.email,
-      date: Date(),
+      email: user.email
     };
     console.log(submitData);
     axios

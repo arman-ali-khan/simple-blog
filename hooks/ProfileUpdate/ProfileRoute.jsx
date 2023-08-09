@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../context/ContextProvider';
 import Redirect from '../../utl/Redirect/Redirect';
@@ -13,7 +14,12 @@ const ProfileRoute = ({children}) => {
     // loading
     const [loading,setLoading] = useState(true)
     useEffect(()=>{
-        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user.email}`).then(res=>{
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/users?email=${user.email}`,{
+            headers:{
+              authorization: `Basic ${Cookies.get('token')}`,
+              email : user?.email
+            }
+          }).then(res=>{
             setDbUser(res.data)
             if(dbUser){
                return setLoading(false)

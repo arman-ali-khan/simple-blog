@@ -12,7 +12,7 @@ const AdminLayout = ({children,title}) => {
             <AdminNavbar />
             <div className="drawer lg:drawer-open">
   <input id="admin-dash" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content flex flex-col items-center justify-center">
+  <div className="drawer-content flex  justify-center">
     {/* Page content here */}
     {children}
     
@@ -24,6 +24,8 @@ const AdminLayout = ({children,title}) => {
       {/* Sidebar content here */}
       <li><Link href={'/admin'}>Dashboard</Link></li>
       <li><Link href={'/admin/posts'}>Posts</Link></li>
+      <li><Link href={'/admin/category'}>Catetgory</Link></li>
+      <li><Link href={'/admin/users'}>Users</Link></li>
     </ul>
  
   </div>

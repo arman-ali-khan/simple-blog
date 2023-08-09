@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiArrowBack } from "react-icons/bi";
 import PrivateRoute from "../../../hooks/PrivateRouters/PrivateRoute";
-import Layout from "../../../layout/Layout";
+import AdminLayout from "../../../layout/AdminLayout";
 
 const create = () => {
     const {
@@ -35,7 +35,7 @@ const create = () => {
 
   return (
     <PrivateRoute>
-        <Layout title={"Create Category"}>
+        <AdminLayout title={"Create Category"}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center w-full">
         <div className="w-96 px-3 py-2">
           <div className="bg-base-300 flex  px-4 ">
@@ -57,7 +57,7 @@ const create = () => {
           </div>
         </div>
       </form>
-    </Layout>
+    </AdminLayout>
     </PrivateRoute>
   );
 };
