@@ -4,6 +4,9 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import { BiCommentDots } from "react-icons/bi";
+import { HiOutlineEye } from "react-icons/hi";
+import { RiTimer2Line } from "react-icons/ri";
 import { UserContext } from "../../../context/ContextProvider";
 import Layout from "../../../layout/Layout";
 import Comments from "../../Comments/Comments";
@@ -49,12 +52,12 @@ const SingleBlog = ({ blog }) => {
                 className="w-full h-60 object-cover sm:h-96 bg-gray-500"
               />
             )}
-            <div className="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10 sm:mx-12 lg:rounded-md bg-base-200">
+            <div className="sm:p-6 px-2 pb-12 sm:mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10  lg:rounded-md bg-base-200">
               <div className="space-y-2">
                 <p className="inline-block text-lg leading-5 font-bold sm:text-2xl md:text-3xl">
                   {blog.title}
                 </p>
-                <div className="flex flex-col sm:flex-row items-center gap-3">
+                <div className="flex  sm:flex-row items-center gap-3">
                   <p className="text-sm flex items-center gap-3">
                     By{" "}
                     <Link
@@ -63,17 +66,17 @@ const SingleBlog = ({ blog }) => {
                     >
                       {dbUser.fullName}
                     </Link>
-                    <Link href={"#comments"}>Comment {getComments.count}</Link>
+                    <Link className="flex items-center gap-1" href={"#comments"}>{getComments.count}<BiCommentDots size={20} /> </Link>
                   </p>
 
                   <div className="flex items-center text-sm gap-3">
-                    <p>{moment(blog.date).fromNow()}</p>
-                    View:{" "}
+                    <p className="flex items-center gap-1"><RiTimer2Line size={20} />{moment(blog.date).fromNow()}</p>
+                    <HiOutlineEye size={20} />
                     <span className="text-teal-500 font-bold">{blog.view}</span>
                   </div>
                 </div>
               </div>
-              <div className="leading-5">{parse(JSON.parse(blog.body))}</div>
+              <div className="leading-5  ">{parse(JSON.parse(blog.body))}</div>
             </div>
           </div>
           {/* Comments */}

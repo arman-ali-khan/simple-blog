@@ -48,7 +48,7 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
 
     // handle featured 
     const handleFeatured = (e) =>{
-        axios.put(`/api/post/updatepost`,e)
+        axios.put(`http://localhost:5000/api/post/updatepost/${post.id}`,e)
         .then(res=>{
             setPostUpdate(!postUpdate)
         })
@@ -87,9 +87,9 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
                     <button className='px-3 py-1 border rounded-full text-warning'>Warning({post?.warn || 0})</button>
                 </li> */}
                 <li>
-                  {post?.featured ?  <button onClick={()=>handleFeatured({postId:post.postId,featured:false})} className='px-3 py-1 border rounded-full text-info'>UnFeature</button>
+                  {post?.featured!==0 ?  <button onClick={()=>handleFeatured({featured:0})} className='px-3 py-1 border rounded-full text-info'>UnFeature</button>
                     :
-                    <button onClick={()=>handleFeatured({postId:post.postId,featured:true})} className='px-3 py-1 border rounded-full text-info'>Featured</button>}
+                    <button onClick={()=>handleFeatured({featured:1})} className='px-3 py-1 border rounded-full text-info'>Featured</button>}
                 </li>
             </ul>
           </div>
