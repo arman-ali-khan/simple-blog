@@ -60,7 +60,7 @@ const handleInput = (e) =>{
           <form onSubmit={(e)=>handleInput(e)} className="relative mb-4 flex w-full flex-wrap items-stretch clear-input-container">
             <input
               onChange={(e) => setInputData(e.target.value)}
-              type="text"
+              type="search"
               defaultValue={q}
               className="relative clear-input m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6]  outline-none transition duration-200 ease-in-out focus:z-[3]  focus: focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none  "
               name="search"
@@ -68,12 +68,7 @@ const handleInput = (e) =>{
               aria-label="Search"
               aria-describedby="button-addon3"
             />
- <span
-    class=" cursor-pointer text-3xl"
-    aria-label="Clear input"
-    type="reset"
-    title="Clear input"
-  >×</span>
+
 
             <button
               onClick={() => handleInputData()}

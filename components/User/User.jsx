@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
 import { UserContext } from "../../context/ContextProvider";
@@ -12,7 +13,6 @@ import UserPostCard from "./UserPostCard";
 
 const User = ({ dbUser }) => {
   const user = dbUser[0];
-  console.log(user);
   const { user: fUser, logOut } = useContext(UserContext);
   //  get user posts
   const [userPost, setUserPost] = useState({});
@@ -61,6 +61,11 @@ const User = ({ dbUser }) => {
   return (
     <div>
       <section className="pt-16 bg-blueGray-50">
+        {
+          user.type==='admin' && <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
+          <Link href={'/admin'}><LuLayoutDashboard /></Link>
+        </div>
+        }
         <div className="w-full md:w-2/3 sm:px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words border w-full mb-6 shadow-xl rounded-lg mt-16">
             <div className="">

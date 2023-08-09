@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/ContextProvider";
+import User from "./User";
 
 const Users = () => {
   const { user } = useContext(UserContext);
@@ -18,22 +19,20 @@ const Users = () => {
         })
         .then((res) => {
           setUsers(res.data);
-          console.log(users);
         });
     }
   }, [user?.email]);
+  console.log(users);
   return (
     <div className="w-full">
-      <div className="bg-blue-400 px-4 py-2 w-full text-center text-white">
+      <div className="bg-blue-400 px-4 py-2 w-full text-center">
         <h2>Users</h2>
       </div>
-      <div className="w-full border">
-        <ul className="border">
-          {users.map(user => {
-            <li className="bg-red-200 py-4" key={user.id}>
-              {user.email}
-            </li>
-          })}
+      <div className="w-full border px-3 my-1">
+        <ul>
+        {
+          users.map(user=><User user={user} key={user.id} />)
+        }
         </ul>
       </div>
     </div>

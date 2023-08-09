@@ -1,11 +1,15 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import moment from 'moment';
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
 import { BiSolidCheckCircle } from 'react-icons/bi';
+import { UserContext } from '../../../context/ContextProvider';
 
 const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
+    // user
+    const {user } = useContext(UserContext)
     // aprove handle
     const handleAprove = (e) =>{
         axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/admin/posts/${post.id}`,e)
@@ -24,11 +28,22 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
     }
     // delete handle
     const handleDelete = (e) =>{
-        axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${post.id}`)
+        axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${post.id}`,{
+            headers:{
+              authorization: `Basic ${Cookies.get('token')}`,
+              email : user?.email
+            }
+          })
         .then(res=>{
             setPostUpdate(!postUpdate)
             toast.success('Deleted')
-        })
+        })  .catch(err=>{
+            if(err.response.status===401){
+              logOut().then(() => {
+                router.push(`/start/login`)
+              })
+            }
+          })
     }
 
     // handle featured 

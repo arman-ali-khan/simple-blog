@@ -107,24 +107,24 @@ const Create = () => {
       return  toast.error('Too Large File, Max Upload Limit 2 MB')
       }
       setUploadPhoto(true); 
-    // const photoData = new FormData();
-    // photoData.append("file", photo);
-    // photoData.append("upload_preset", "simpleblog");
-    // photoData.append("cloud_name", "dl1cxduy0");
-    // fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
-    //   method: "POST",
-    //   body: photoData,
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((photoData) => {
-    //     const photoUrl = photoData.secure_url;
-    //     setFeaturedImage(photoUrl);
-    //     setUploadPhoto(false);
-    //     setError("");
-    //   })
-    //   .catch((err) => {
-    //     setError(err.message);
-    //   });
+    const photoData = new FormData();
+    photoData.append("file", photo);
+    photoData.append("upload_preset", "simpleblog");
+    photoData.append("cloud_name", "dl1cxduy0");
+    fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
+      method: "POST",
+      body: photoData,
+    })
+      .then((resp) => resp.json())
+      .then((photoData) => {
+        const photoUrl = photoData.secure_url;
+        setFeaturedImage(photoUrl);
+        setUploadPhoto(false);
+        setError("");
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   };
 
   // handle featured image end

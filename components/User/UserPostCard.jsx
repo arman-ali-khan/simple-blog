@@ -1,7 +1,9 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineComment } from 'react-icons/ai';
@@ -10,8 +12,10 @@ import { IoCalendarClearOutline } from 'react-icons/io5';
 import { UserContext } from '../../context/ContextProvider';
 
 const UserPostCard = ({post,updatePost,setUpdatePost}) => {
+  // router '
+  const router = useRouter()
 // user
-const {user} = useContext(UserContext)
+const {user,logOut} = useContext(UserContext)
 
   // aprove handle
   const handlePublish = (e) =>{
@@ -49,11 +53,23 @@ const [deleteBtn,setDeleteBtn] = useState('Delete')
 // confirm delete 
 const handleDelete = (id) =>{
   setDeleteBtn('Deleting...')
-  axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${id}`)
+  axios.delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${id}`,{
+    headers:{
+      authorization: `Basic ${Cookies.get('token')}`,
+      email : user?.email
+    }
+  })
   .then(res=>{
     console.log(res.data)
     setDeleteBtn('Deleted')
     setUpdatePost(!updatePost)
+  })
+  .catch(err=>{
+    if(err.response.status===401){
+      logOut().then(() => {
+        router.push(`/start/login`)
+      })
+    }
   })
 }
     return (
