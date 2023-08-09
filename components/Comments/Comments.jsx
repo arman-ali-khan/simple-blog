@@ -122,7 +122,7 @@ const router = useRouter()
           <div>
             <Link
               className="text-blue-500 font-bold"
-              href={`/start/login?to=${blog.postId}`}
+              href={`/start/login?to=${blog.id}`}
             >
               Login
             </Link>{" "}

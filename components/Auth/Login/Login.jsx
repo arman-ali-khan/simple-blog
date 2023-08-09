@@ -9,6 +9,9 @@ import { UserContext } from "../../../context/ContextProvider";
 const Login = () => {
   // router
   const router = useRouter();
+
+  // get query
+  const query = router.query.to
   // context
   const { user, loginUser } = useContext(UserContext);
   // loading
@@ -29,8 +32,7 @@ const Login = () => {
     return loginUser(email, password)
       .then((res) => {
         const user = res.user;
-        setLoginError("");
-        setLoading(false);
+       
         if (user) {
           axios
             .post(`${process.env.NEXT_PUBLIC_API_PRO}/jwt`, {
@@ -39,11 +41,17 @@ const Login = () => {
             .then((res) => {
               if (res.data) {
                 Cookie.set("token", res.data.token, { expires: 7 });
+                setLoginError("");
+                setLoading(false);
                 setBtnText("Successfully logged in");
               }
               // redirect when login
               if ((user?.email && Cookie.get("token")) || loading) {
-                router.push("/");
+                if(query){
+                  router.push(`/blog/${query}#comments`)
+                }else{
+                  router.push("/");
+                }
               }
             });
         }
