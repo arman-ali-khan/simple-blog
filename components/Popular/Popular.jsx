@@ -31,7 +31,7 @@ const Popular = () => {
                 return(  <div key={i}
                   className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse"
                 >
-                  <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
+                  <div className="block md:w-44 w-28 bg-base-300 flex-none bg-cover md:h-auto h-24 object-cover animate-pulse"></div>
                   <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
                 </div>)
                 })

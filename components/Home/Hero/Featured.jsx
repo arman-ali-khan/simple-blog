@@ -28,7 +28,7 @@ const Featured = () => {
           <div
           className="bg-base-200 w-full flex flex-row-reverse overflow-hidden  shadow-lg animate-pulse"
         >
-          <div className="block md:w-44 w-28 bg-black flex-none bg-cover md:h-44 h-24 object-cover animate-pulse"></div>
+          <div className="block md:w-44 w-28 bg-base-300 flex-none bg-cover md:h-44 h-24 object-cover animate-pulse"></div>
           <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
         </div>
           :

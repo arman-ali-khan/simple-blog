@@ -12,6 +12,9 @@ const Login = () => {
 
   // get query
   const query = router.query.to
+  // page and next
+  const page  = router.query.page
+  const next  = router.query.next
   // context
   const { user, loginUser } = useContext(UserContext);
   // loading
@@ -49,7 +52,12 @@ const Login = () => {
               if ((user?.email && Cookie.get("token")) || loading) {
                 if(query){
                   router.push(`/blog/${query}#comments`)
-                }else{
+                }else if(page && next){
+                  router.push(`/${page}/${next}`)
+                }else if(page){
+                  router.push(`/${page}`)
+                }
+                else{
                   router.push("/");
                 }
               }
