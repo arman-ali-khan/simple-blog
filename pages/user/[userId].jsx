@@ -1,8 +1,8 @@
 import { useContext } from 'react';
+import NonPosts from '../../components/User/NonUser/NonPost';
 import User from '../../components/User/User';
 import { UserContext } from '../../context/ContextProvider';
 import Layout from '../../layout/Layout';
-import Posts from './posts';
 
 const userId = ({data}) => {
   const {user} = useContext(UserContext)
@@ -12,7 +12,7 @@ const userId = ({data}) => {
           user?.email === data[0].email?
             <User dbUser={data} />
             :
-            <Posts dbUser={data} />
+            <NonPosts dbUser={data} />
           
         }
         
