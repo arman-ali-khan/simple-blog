@@ -48,7 +48,7 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
 
     // handle featured 
     const handleFeatured = (e) =>{
-        axios.put(`http://localhost:5000/api/post/updatepost/${post.id}`,e)
+        axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/post/updatepost/${post.id}`,e)
         .then(res=>{
             setPostUpdate(!postUpdate)
         })
