@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import "react-quill/dist/quill.snow.css";
 import Select from "react-select";
 import { v4 as uuidv4 } from 'uuid';
 
