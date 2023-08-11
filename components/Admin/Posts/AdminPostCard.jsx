@@ -48,7 +48,7 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
 
     // handle featured 
     const handleFeatured = (e) =>{
-        axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/post/updatepost/${post.id}`,e)
+        axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/post/updatepost`,e)
         .then(res=>{
             setPostUpdate(!postUpdate)
         })
@@ -87,9 +87,9 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
                     <button className='px-3 py-1 border rounded-full text-warning'>Warning({post?.warn || 0})</button>
                 </li> */}
                 <li>
-                  {post?.featured!==0 ?  <button onClick={()=>handleFeatured({featured:0})} className='px-3 py-1 border rounded-full text-info'>Featured</button>
+                  {post?.featured!==0 ?  <button onClick={()=>handleFeatured({id:post.id,featured:0})} className='px-3 py-1 border rounded-full text-info'>Featured</button>
                     :
-                    <button onClick={()=>handleFeatured({featured:1})} className='px-3 py-1 border rounded-full text-info'>Add Featured</button>}
+                    <button onClick={()=>handleFeatured({id:post.id,featured:1})} className='px-3 py-1 border rounded-full text-info'>Add Featured</button>}
                 </li>
             </ul>
           </div>
