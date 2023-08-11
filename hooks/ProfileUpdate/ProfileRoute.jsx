@@ -24,7 +24,6 @@ const ProfileRoute = ({children}) => {
             if(dbUser){
                return setLoading(false)
             }
-            console.log(res.data);
         })
     },[user?.email])
 

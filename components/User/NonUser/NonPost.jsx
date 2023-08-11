@@ -32,7 +32,6 @@ const NonPosts = ({ dbUser }) => {
           `${process.env.NEXT_PUBLIC_API_PRO}/api/userpost?username=${user?.username}&limit=10&page=1`,
         )
         .then((res) => {
-          console.log(res.data);
           if (res.data) {
             setUserPost(res.data);
             setLoading(false);

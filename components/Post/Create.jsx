@@ -28,7 +28,6 @@ const Create = () => {
   const [updateCat, setUpdateCat] = useState(false);
   // Category
   const [categories, setCategories] = useState([]);
-  console.log(categories);
   // Category load from db
   const [category, setCategory] = useState([]);
   useEffect(() => {

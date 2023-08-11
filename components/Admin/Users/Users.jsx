@@ -22,7 +22,6 @@ const Users = () => {
         });
     }
   }, [user?.email]);
-  console.log(users);
   return (
     <div className="w-full">
       <div className="bg-blue-400 px-4 py-2 w-full text-center">

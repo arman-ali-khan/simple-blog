@@ -52,7 +52,6 @@ const handleInput = (e) =>{
   router.push(`/search?q=${inputData}`);
   setSearchQuery(inputData)
 }
-  console.log(searchData);
   return (
     <div className="md:flex md:gap-2">
       <div className="md:w-9/12  md:px-6">

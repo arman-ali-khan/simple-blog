@@ -57,7 +57,6 @@ const router = useRouter()
       })
       .catch(err=>{
         setCommentBtn("Try again");
-        console.log(err)
         if(err.response.status===401){
           logOut().then(() => {
             router.push(`/start/login`)

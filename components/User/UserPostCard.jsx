@@ -60,7 +60,6 @@ const handleDelete = (id) =>{
     }
   })
   .then(res=>{
-    console.log(res.data)
     setDeleteBtn('Deleted')
     setUpdatePost(!updatePost)
   })

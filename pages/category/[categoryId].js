@@ -7,7 +7,6 @@ import Layout from '../../layout/Layout';
 const categoryId = () => {
     const router = useRouter();
     const {categoryId} = router.query
-    console.log(categoryId);
      // loading
      const [loading, setLoading] = useState(true);
     const [categoriesPost, setCategoriesPost] = useState([]);

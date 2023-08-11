@@ -47,7 +47,6 @@ const UpdateProfile = () => {
       ...data,
       email: user.email
     };
-    console.log(submitData);
     axios
       .put(
         `${process.env.NEXT_PUBLIC_API_PRO}/api/users/${dbUser?.id}`,
@@ -60,7 +59,6 @@ const UpdateProfile = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         setUpdateBTN("Try again");
       });
   };
