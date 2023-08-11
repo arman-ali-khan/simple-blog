@@ -75,7 +75,7 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-64">
-        <h1 className="text-center text-xl">Login{user?.email}</h1>
+        <h1 className="text-center text-xl">Login</h1>
         <div className="flex flex-col gap-2">
           <input
             onChange={(e) => setEmail(e.target.value)}

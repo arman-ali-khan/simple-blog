@@ -13,9 +13,5 @@ module.exports = {
         pathname: '/dl1cxduy0/image/upload/**',
       },
     ],
-  },
-  output: {
-		// ...
-		globalObject: 'this',
-	  }
+  }
 }, nextConfig

@@ -13,6 +13,6 @@ export default function App({ Component, pageProps }) {
   position="top-center"
   reverseOrder={false}
 />
-    <NextProgress delay={300} options={{ showSpinner: false }} />
+    <NextProgress delay={300} default = "5px" options={{ showSpinner: false }} />
   </ContextProvider>
 }

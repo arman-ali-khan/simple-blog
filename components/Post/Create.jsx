@@ -1,66 +1,21 @@
-import dynamic from "next/dynamic";
-import { useContext, useEffect, useState } from "react";
-import "react-quill/dist/quill.snow.css";
-import Select from "react-select";
-import { UserContext } from "../../context/ContextProvider";
-
 import axios from "axios";
+import dynamic from "next/dynamic";
+
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
+import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
+import Select from "react-select";
 import makeAnimated from "react-select/animated";
-const ReactQuill =
-  typeof window === "object" ? require("react-quill") : () => false;
-const QuillNoSSRWrapper = dynamic(import("react-quill"), {
+import { UserContext } from "../../context/ContextProvider";
+const CKFullEditor = dynamic(import("rc-ckfulleditor"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 });
 
-const modules = {
-  toolbar: [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
-    ],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-};
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
-const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "blockquote",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "video",
-];
-
 const Create = () => {
   // context
-  const { user,dbUser,logOut } = useContext(UserContext);
-
-
+  const { user, dbUser, logOut } = useContext(UserContext);
 
   // router
   const router = useRouter();
@@ -86,7 +41,8 @@ const Create = () => {
 
   // categories end
   // post body
-  const [postBody, setPostBody] = useState("");
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
 
   // handle featured image
 
@@ -100,13 +56,12 @@ const Create = () => {
 
   // handle upload
   const handlePhotoUpload = (data) => {
-
     const photo = data;
-    
-      if(photo.size > 2097152){
-      return  toast.error('Too Large File, Max Upload Limit 2 MB')
-      }
-      setUploadPhoto(true); 
+
+    if (photo.size > 2097152) {
+      return toast.error("Too Large File, Max Upload Limit 2 MB");
+    }
+    setUploadPhoto(true);
     const photoData = new FormData();
     photoData.append("file", photo);
     photoData.append("upload_preset", "simpleblog");
@@ -132,7 +87,6 @@ const Create = () => {
   // publish btn
   const [publishBtn, setPublishBtn] = useState("Publish");
 
-
   // post title
   const [postTitle, setPostTitle] = useState("");
   // posting
@@ -155,9 +109,9 @@ const Create = () => {
     setPublishBtn("Publishing...");
     const postData = {
       title: postTitle,
-      body: JSON.stringify(postBody),
+      body: JSON.stringify(content),
       categories: JSON.stringify(categories),
-      description: removeTags(postBody),
+      description: removeTags(content),
       featured_image: featuredImage,
       date: Date(),
       email: user.email,
@@ -166,24 +120,24 @@ const Create = () => {
     };
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts`, postData,{
-        headers:{
-          authorization:`Basic ${Cookies.get('token')}`,
-          email: user.email
-        }
+      .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts`, postData, {
+        headers: {
+          authorization: `Basic ${Cookies.get("token")}`,
+          email: user.email,
+        },
       })
       .then((res) => {
         setPostLoading(false);
         setPublishBtn("Published");
-        router.push(`/user/${dbUser.username}`)
+        router.push(`/user/${dbUser.username}`);
       })
       .catch((err) => {
         setPublishBtn("Try Again");
         setPostLoading(false);
-        if(err.response?.status===401){
+        if (err.response?.status === 401) {
           logOut().then(() => {
-            router.push(`/start/login`)
-          })
+            router.push(`/start/login`);
+          });
         }
       });
   };
@@ -214,14 +168,19 @@ const Create = () => {
             <div className="bg-base-200 px-4 py-2">
               <p className="font-bold">Body</p>
             </div>
-            <QuillNoSSRWrapper
-              modules={modules}
-              formats={formats}
-              theme="snow"
-              value={postBody}
-              onChange={setPostBody}
-              placeholder="Write..."
-            ></QuillNoSSRWrapper>
+            <CKFullEditor
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setContent(data);
+              }}
+              config={{
+                // ...Ckeditor config
+                cloudinary: {
+                  cloudName: "dl1cxduy0",
+                  uploadPreset: "simpleblog",
+                },
+              }}
+            />
           </div>
         </div>
         <div className="md:w-1/3  space-y-2">
@@ -308,11 +267,20 @@ const Create = () => {
             <div className="px-2 py-1">
               <h3 className="font-bold">Post Publish Policy</h3>
               <ul className="mx-6">
-                <li className="list-decimal">পোষ্ট এর সাথে সম্পুর্কযুক্ত ক্যাটাগরী/ফিচারড ইমেজ/ট্যাগ ব্যবহার করুন</li>
+                <li className="list-decimal">
+                  পোষ্ট এর সাথে সম্পুর্কযুক্ত ক্যাটাগরী/ফিচারড ইমেজ/ট্যাগ
+                  ব্যবহার করুন
+                </li>
                 <li className="list-decimal">কপিপেষ্ট পরিহার করুন।</li>
                 {/* <li className="list-decimal">কেউ কপিপেষ্ট করেছে এমন প্রমান পেলে সাথে সাথে ট্রেইনার থেকে তাকে বাতিল করা হবে</li> */}
-                <li className="list-decimal">পোষ্ট এর একেবারে শেষ ছাড়া কোথাও পোষ্ট দাতার সাইট লিংক থাকতে পারবে না</li>
-                <li className="list-decimal">এপ/গেম এর রিভিও দিলে এপ/গেম ডাওনলোড এর ডাইরেক্ট লিংক দিতে হবে এবং বিস্তারিত পোষ্ট+স্ক্রিনশট দিতে হবে</li>
+                <li className="list-decimal">
+                  পোষ্ট এর একেবারে শেষ ছাড়া কোথাও পোষ্ট দাতার সাইট লিংক থাকতে
+                  পারবে না
+                </li>
+                <li className="list-decimal">
+                  এপ/গেম এর রিভিও দিলে এপ/গেম ডাওনলোড এর ডাইরেক্ট লিংক দিতে হবে
+                  এবং বিস্তারিত পোষ্ট+স্ক্রিনশট দিতে হবে
+                </li>
               </ul>
             </div>
             <div className="flex justify-end px-4 py-2">
@@ -322,7 +290,7 @@ const Create = () => {
                   postTitle.length < 30 ||
                   categories.length === 0 ||
                   featuredImage.length === 0 ||
-                  postBody.length < 300
+                  content.length < 300
                 }
                 className="px-4 hover:bg-opacity-80 py-2 bg-warning disabled:bg-indigo-100 text-black disabled:cursor-not-allowed"
               >

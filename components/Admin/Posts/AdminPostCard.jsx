@@ -56,14 +56,14 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
 
     
     return (
-        <div className={`flex flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
+        <div className={`flex ${post.featured===1 && 'bg-teal-100'} flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
         <img
           className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
           src={post.featured_image}
         />
         <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
           <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
-           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.postId}`}> {post.title}</Link>
+           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
           </div>
          <div>
          <div className='flex justify-between items-center w-full'>
@@ -75,9 +75,9 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
             <ul className='flex justify-between  items-center'>
                 <li>
                    {
-                   post.aproved===0? <button onClick={()=>handleAprove({aproved:1})} className='px-3 py-1 border rounded-full flex text-blue-400 items-center gap-2'>Aprove This <BiSolidCheckCircle /></button> 
+                   post.aproved===0? <button onClick={()=>handleAprove({aproved:1})} className='px-3 py-1 border rounded-full  text-blue-400'>Pending</button> 
                    :
-                   <button onClick={()=>handlePending({aproved:0})} className='px-3 py-1 border rounded-full text-purple-400'>Make Pending</button>
+                   <button onClick={()=>handlePending({aproved:0})} className='px-3 py-1 border rounded-full flex items-center  gap-2 text-purple-400'>Aproved <BiSolidCheckCircle /></button>
                    }
                 </li>
                 <li>
@@ -87,9 +87,9 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
                     <button className='px-3 py-1 border rounded-full text-warning'>Warning({post?.warn || 0})</button>
                 </li> */}
                 <li>
-                  {post?.featured!==0 ?  <button onClick={()=>handleFeatured({featured:0})} className='px-3 py-1 border rounded-full text-info'>UnFeature</button>
+                  {post?.featured!==0 ?  <button onClick={()=>handleFeatured({featured:0})} className='px-3 py-1 border rounded-full text-info'>Featured</button>
                     :
-                    <button onClick={()=>handleFeatured({featured:1})} className='px-3 py-1 border rounded-full text-info'>Featured</button>}
+                    <button onClick={()=>handleFeatured({featured:1})} className='px-3 py-1 border rounded-full text-info'>Add Featured</button>}
                 </li>
             </ul>
           </div>
