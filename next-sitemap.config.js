@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'http://localhost:3000/',
+    siteUrl: 'https://www.arman.top/',
     generateRobotsTxt: true,
     sitemapSize: 7000,
-    exclude: ['/admin/category/create','/admin', 'admin/category','/post/create','/user/update/profile'],
+    exclude: ['/admin/category/create','/admin', 'admin/category','admin/posts','/user/update/profile'],
   }
