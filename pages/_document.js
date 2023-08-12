@@ -4,11 +4,7 @@ export default function Document() {
   return (
     <Html  data-theme="light" lang="en">
       <Head>
-        
-        <meta
-          name="google-site-verification"
-          content="ZiyBEiGqRODvrZAxabxhF6org3HqInfnHcOgi3KK4iQ"
-        />
+      <link rel="icon" href="/favicon.svg" sizes="any" />
       </Head>
       <title>Arman's Blog</title>
       <body>
