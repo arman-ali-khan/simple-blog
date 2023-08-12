@@ -103,6 +103,9 @@ const Create = () => {
     return str.replace(/(<([^>]+)>)/gi, "");
   }
 
+  const todayDate = new Date().toISOString().slice(0, 10);
+
+
   const handlePost = () => {
     setPostLoading(true);
     setPublishBtn("Publishing...");
@@ -116,6 +119,7 @@ const Create = () => {
       email: user.email,
       username: dbUser.username,
       view: 0,
+      createdAt: todayDate
     };
 
     axios
