@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { BiCommentDots } from "react-icons/bi";
 import { HiOutlineEye } from "react-icons/hi";
 import { RiTimer2Line } from "react-icons/ri";
+import { TbUserEdit } from "react-icons/tb";
 import { UserContext } from "../../../context/ContextProvider";
 import Layout from "../../../layout/Layout";
 import Comments from "../../Comments/Comments";
@@ -54,12 +55,12 @@ const SingleBlog = ({ blog }) => {
             )}
             <div className="sm:p-6 px-2 pb-12 sm:mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10  lg:rounded-md bg-base-200">
               <div className="space-y-2">
-                <p className="inline-block text-lg leading-5 font-bold sm:text-2xl md:text-3xl">
+                <p className="inline-block py-2 text-lg leading-5 font-bold sm:text-2xl md:text-3xl">
                   {blog.title}
                 </p>
                 <div className="flex  sm:flex-row items-center gap-3">
                   <p className="text-sm flex items-center gap-3">
-                    By{" "}
+                   <TbUserEdit size={20} />
                     <Link
                       href={`/user/${blog.username}`}
                       className="text-base text-blue-400 hover:underline"
@@ -76,7 +77,7 @@ const SingleBlog = ({ blog }) => {
                   </div>
                 </div>
               </div>
-              <div className="leading-5  ">{parse(JSON.parse(blog.body))}</div>
+              <div>{parse(JSON.parse(blog.body))}</div>
             </div>
           </div>
           {/* Comments */}
