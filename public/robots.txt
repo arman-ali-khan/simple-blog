@@ -2,6 +2,10 @@
 User-agent: *
 Allow: /
 
+# Block all crawlers for /user
+User-agent: *
+Disallow: /user
+
 # Host
 Host: https://www.arman.top/
 
