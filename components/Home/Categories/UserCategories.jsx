@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { HiMenuAlt1 } from "react-icons/hi";
 import SingleCategory from "./SingleCategory";
 
 const UserCategories = () => {
@@ -17,7 +18,7 @@ const UserCategories = () => {
   return (
     <>
       <div className="bg-base-100 overflow-y-auto h-full  px-2">
-        <h2 className="bg-base-200 px-4 py-2 border-b my-2">Catgegories</h2>
+        <h2 className="bg-base-200 px-4 py-2 border-b my-2 flex items-center gap-2 text-base"><HiMenuAlt1 /> Catgegories</h2>
         <div className="">
           <ul className="mb-12">
             {loading

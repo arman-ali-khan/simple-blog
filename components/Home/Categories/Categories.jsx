@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/ContextProvider";
-import AboutAuthor from "../../User/AboutAuthor/AboutAuthor";
-import Related from "../Blogs/Related/Related";
+import UserCategories from "./UserCategories";
 
 const Categories = () => {
   // get user
@@ -22,8 +21,8 @@ const Categories = () => {
   }, []);
   return (
     <>
-      {user.email ? <AboutAuthor /> : ""}
-      <Related />
+     
+      <UserCategories />
     </>
   );
 };

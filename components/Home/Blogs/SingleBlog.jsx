@@ -11,11 +11,12 @@ import { TbUserEdit } from "react-icons/tb";
 import { UserContext } from "../../../context/ContextProvider";
 import Layout from "../../../layout/Layout";
 import Comments from "../../Comments/Comments";
+import AboutAuthor from "../../User/AboutAuthor/AboutAuthor";
 import Categories from "../Categories/Categories";
 
 const SingleBlog = ({ blog }) => {
   // get context user
-  const { dbUser } = useContext(UserContext);
+  const { dbUser,user } = useContext(UserContext);
 
   // get comments
   const [getComments, setGetComments] = useState({});
@@ -27,6 +28,15 @@ const SingleBlog = ({ blog }) => {
         setGetComments(res.data);
       });
   }, []);
+
+  // get author 
+  const [author,setAuthor] = useState({})
+  useEffect(()=>{
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/allusers?username=${blog?.username}`)
+    .then(res=>{
+      setAuthor(res.data[0])
+    })
+  },[blog])
   return (
     <Layout
       title={`${blog.title} || ${"Arman's Blog"}`}
@@ -65,9 +75,9 @@ const SingleBlog = ({ blog }) => {
                       href={`/user/${blog.username}`}
                       className="text-base text-blue-400 hover:underline"
                     >
-                      {dbUser.fullName}
+                      {author.fullName || 'Author'}
                     </Link>
-                    <Link className="flex items-center gap-1" href={"#comments"}>{getComments.count}<BiCommentDots size={20} /> </Link>
+                    <Link className="flex items-center gap-1" href={"#comments"}>{getComments.count || 0}<BiCommentDots size={20} /> </Link>
                   </p>
 
                   <div className="flex items-center text-sm gap-3">
@@ -86,6 +96,7 @@ const SingleBlog = ({ blog }) => {
           </div>
         </div>
         <div className="md:w-1/4">
+        {user?.email ? <AboutAuthor author={author} post={blog} /> : ""}
           <Categories />
         </div>
       </div>

@@ -90,6 +90,7 @@ const Blogs = () => {
           <div>
             <UserAnalytics />
             <Notifications />
+            <Categories />
           </div>
           :
           <Categories />
