@@ -105,7 +105,7 @@ const Create = () => {
 
   const todayDate = new Date().toISOString().slice(0, 10);
 
-
+// create post
   const handlePost = () => {
     setPostLoading(true);
     setPublishBtn("Publishing...");

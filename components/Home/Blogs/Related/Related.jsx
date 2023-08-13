@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { GiFireBowl } from 'react-icons/gi';
-import PopularCard from './PopularCard';
-const Popular = () => {
+import RelatedCard from './RelatedCard';
+const Related = () => {
     // loading
     const [loading,setLoading] = useState(true)
 
@@ -21,7 +21,7 @@ const Popular = () => {
       <div className="flex w-full  flex-wrap flex-row justify-start">
         <div className=" w-full">
           <div className="bg-base-200 border-b my-2 w-full px-4 py-2 ">
-            <h2 className="flex text-base items-center gap-2"><span><GiFireBowl /></span> Popular</h2>
+            <h2 className="flex text-base items-center gap-2"><span><GiFireBowl /></span> Related</h2>
           </div>
           <div className="space-y-2 h-auto w-full">
             {loading ? (
@@ -38,7 +38,7 @@ const Popular = () => {
                }
               </>
             ) : (
-                popular?.map((post) => <PopularCard key={post.id} post={post} />)
+                popular?.map((post) => <RelatedCard key={post.id} post={post} />)
             )}
           </div>
           
@@ -49,4 +49,4 @@ const Popular = () => {
     );
 };
 
-export default Popular;
+export default Related;

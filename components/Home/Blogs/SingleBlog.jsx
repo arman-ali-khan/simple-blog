@@ -34,7 +34,7 @@ const SingleBlog = ({ blog }) => {
       thumb={blog.featured_image}
     >
       <div className="md:flex justify-between">
-        <div className=" md:w-4/5 w-full sm:p-0 md:p-1 lg:p-14 bg-base-100">
+        <div className=" md:w-4/5 w-full sm:p-0 md:p-1 lg:p-5 bg-base-100">
           <div className="flex flex-col  overflow-hidden rounded">
             {blog.featured_image ? (
               <Image
@@ -53,7 +53,7 @@ const SingleBlog = ({ blog }) => {
                 className="w-full h-60 object-cover sm:h-96 bg-gray-500"
               />
             )}
-            <div className="sm:p-6 px-2 pb-12 sm:mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10  lg:rounded-md bg-base-200">
+            <div className="sm:p-6 px-2 pb-12 sm:mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10  lg:rounded-md bg-base-200 post-body">
               <div className="space-y-2">
                 <p className="inline-block py-2 text-lg leading-5 font-bold sm:text-2xl md:text-3xl">
                   {blog.title}
@@ -85,7 +85,7 @@ const SingleBlog = ({ blog }) => {
             <Comments blog={blog} />
           </div>
         </div>
-        <div className="md:w-1/5">
+        <div className="md:w-1/4">
           <Categories />
         </div>
       </div>
