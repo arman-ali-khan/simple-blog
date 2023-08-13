@@ -21,7 +21,7 @@ const Featured = () => {
     <section className="w-full md:flex justify-between">
       <div className="md:w-2/3  md:p-3 p-1">
         <div className="bg-base-200 w-full border-b my-2 px-4 py-2 flex items-center gap-2">
-          <BsBookmarks /> <h2>Featured</h2>
+          <BsBookmarks /> <h2 className="text-base">Featured</h2>
         </div>
         {loading ? (
           <div className="bg-base-200 w-full flex flex-row-reverse overflow-hidden  shadow-lg animate-pulse">

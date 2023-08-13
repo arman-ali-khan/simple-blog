@@ -39,7 +39,7 @@ const Blogs = () => {
         <Popular />
         </div>
           <div className="bg-base-300 w-full border-b my-2 px-4 py-2 flex items-center gap-2">
-          <BsViewList />  <h2>Recent</h2>
+          <BsViewList />  <h2 className="text-base">Recent</h2>
           </div>
           <div className="space-y-2">
             {loading ? (
