@@ -12,7 +12,7 @@ import { UserContext } from "../../../context/ContextProvider";
 import Layout from "../../../layout/Layout";
 import Comments from "../../Comments/Comments";
 import AboutAuthor from "../../User/AboutAuthor/AboutAuthor";
-import Categories from "../Categories/Categories";
+import Related from "./Related/Related";
 
 const SingleBlog = ({ blog }) => {
   // get context user
@@ -97,7 +97,7 @@ const SingleBlog = ({ blog }) => {
         </div>
         <div className="md:w-1/4">
         {user?.email ? <AboutAuthor author={author} post={blog} /> : ""}
-          <Categories />
+              <Related />
         </div>
       </div>
     </Layout>

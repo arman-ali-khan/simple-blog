@@ -9,16 +9,23 @@ const RelatedCard = ({post}) => {
     //  categories 
      const categories = JSON.parse(post.categories)
     return (
-        <div className={`flex md:flex-col w-full flex-row overflow-hidden md:h- bg-base-100 sm:h-  shadow-lg`}>
-        <Image
-          className="block md:w-full w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
+        <div className={`flex md:flex-col  w-full px-2 flex-row overflow-hidden md:h- bg-base-100 shadow-lg`}>
+          <div className="font-bold hidden md:flex sm:text-sm text-sm mb-2 leading-tight">
+           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
+          </div>
+      <div className='leading-4 flex text-sm'>
+        <p className='hidden md:flex'>{post.description.split(' ').slice(0,20).join(' ')}</p>
+      <Image
+          className="block md:w-14 w-28 border-4 flex-none bg-cover md:h-14 h-24 object-cover"
           src={post.featured_image}
-          width={176}
-          height={96}
+          width={120}
+          height={120}
           alt={post.email}
         />
-        <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
-          <div className="font-bold  sm:text-sm text-sm mb-2 leading-tight">
+ 
+      </div>
+        <div className="rounded-b lg:rounded-b-none lg:rounded-r md:px-2 p-1 flex flex-col justify-between leading-normal w-full">
+        <div className="font-bold md:hidden sm:text-sm text-sm mb-2 leading-tight">
            <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
           </div>
          <div className='w-full'>
