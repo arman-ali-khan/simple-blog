@@ -96,7 +96,7 @@ const SingleBlog = ({ blog }) => {
           </div>
         </div>
         <div className="md:w-1/4">
-        {user?.email ? <AboutAuthor author={author} post={blog} /> : ""}
+         <AboutAuthor author={author} post={blog} />
               <Related />
         </div>
       </div>
