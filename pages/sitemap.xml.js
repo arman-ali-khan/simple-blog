@@ -2,6 +2,7 @@ const EXTERNAL_DATA_URL = process.env.NEXT_PUBLIC_API_PRO;
 const INTERNAL_DATA_URL = process.env.SITE_URL;
 
 function generateSiteMap(posts) {
+
   return `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
      <!--We manually set the two URLs we know already-->
@@ -15,10 +16,7 @@ function generateSiteMap(posts) {
        .map((post,{ id }) => {
          return `
        <url>
-           <loc>${`${INTERNAL_DATA_URL}/blog/${post.id}`}</loc>
-           <lastmod>${post.date}</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.7</priority>
+           <loc>${`${INTERNAL_DATA_URL}/blog/${post.id}`}</loc> 
        </url>
      `;
        })
