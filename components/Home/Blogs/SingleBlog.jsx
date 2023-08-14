@@ -1,6 +1,6 @@
 import axios from "axios";
 import parse from "html-react-parser";
-import moment from "moment";
+import moment from 'moment';
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
@@ -81,7 +81,10 @@ const SingleBlog = ({ blog }) => {
                   </p>
 
                   <div className="flex items-center text-sm gap-3">
-                    <p className="flex items-center gap-1"><RiTimer2Line size={20} />{moment(blog.date).fromNow()}</p>
+                    <p className="flex items-center gap-1"><RiTimer2Line size={20} />
+                    <time dateTime={blog.date} suppressHydrationWarning />
+                    {moment(blog.date).fromNow()}
+</p>
                     <HiOutlineEye size={20} />
                     <span className="text-teal-500 font-bold">{blog.view}</span>
                   </div>

@@ -42,12 +42,12 @@ useEffect(()=>{
         </div>
         <div>
           <div className="flex justify-between gap-2 items-center w-full">
-          <Link href={`/category/${categories[0].value}`} className='hidden sm:block md:hidden text-blue-400 lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>
-            <p className="w-full flex items-center gap-2 text-xs sm:text-sm md:text-base">
-             <BiCommentDots size={20} /> {count.count > 1000 ?1 +'k+':count.count}
-            </p>
-            <p className="w-full text-xs sm:text-sm md:text-base flex items-center gap-1 ">
-            <AiOutlineFieldTime size={20} /> <span className="truncate">{moment(post?.date).fromNow()}</span>
+          <Link href={`/category/${categories[0].value}`} className=' text-blue-400  lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>
+            <Link href={`/blog/${post.id}#comments`} className="w-full truncate flex items-center gap-2 text-xs sm:text-sm md:text-base">
+             <BiCommentDots size={20} /> {count.count > 1000 ? 1 +'k+':count.count || 0}
+            </Link>
+            <p className="w-full text-xs sm:text-sm md:text-base truncate flex items-center gap-1 ">
+            <AiOutlineFieldTime size={20} /> <span className="">{moment(post?.createdAt).fromNow()}</span>
             </p>
             <span className="w-full text-xs sm:text-sm md:text-base flex items-center gap-2">
               <VscEye size={24} />{post.view > 1000 ?1 +'k+':post.view}

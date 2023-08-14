@@ -109,8 +109,10 @@ const animatedComponents = makeAnimated();
     return str.replace(/(<([^>]+)>)/gi, "");
   }
 
-
-
+// date
+  const now = new Date();
+  const isoString = now.toISOString();
+  
 
 
 
@@ -125,7 +127,7 @@ const handlePost = () => {
     categories: JSON.stringify(categories),
     description: removeTags(content),
     featured_image: featuredImage,
-    date: Date(),
+    date: isoString,
     email: post.email
   };
 

@@ -1,12 +1,26 @@
+import axios from 'axios';
 import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { AiOutlineFieldTime } from 'react-icons/ai';
+import { BiCommentDots } from 'react-icons/bi';
+import { VscEye } from 'react-icons/vsc';
 
 const PopularCard = ({post}) => {
     // popular post day
     const popularDays = 15
     //  categories 
      const categories = JSON.parse(post.categories)
+
+       // get comment count 
+const [count,setCount] = useState('')
+useEffect(()=>{
+  axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments?id=${post.id}`)
+  .then(res=>{
+    setCount(res.data)
+  })
+},[])
     return (
         <div className={`flex w-full flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
         <Image
@@ -21,10 +35,17 @@ const PopularCard = ({post}) => {
            <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
           </div>
          <div>
-         <div className='flex justify-between items-center w-full'>
-            <Link href={`/category/${categories[0].value}`} className='hidden sm:block md:hidden text-blue-400 lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>
-            <p className='w-full text-xs sm:text-sm md:text-base'>{moment(post.date).fromNow()}</p>
-            <span className='w-full text-xs sm:text-sm md:text-base'>View: {post.view}</span>
+         <div className="flex justify-between gap-2 items-center w-full">
+          <Link href={`/category/${categories[0].value}`} className=' text-blue-400  lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>
+            <Link href={`/blog/${post.id}#comments`} className="w-full flex items-center gap-2 text-xs sm:text-sm md:text-base">
+             <BiCommentDots size={20} /> {count.count > 1000 ? 1 +'k+':count.count || 0}
+            </Link>
+            <p className="w-full text-xs sm:text-sm md:text-base truncate flex items-center gap-1 ">
+            <AiOutlineFieldTime size={20} /> <span className="">{moment(post?.createdAt).fromNow()}</span>
+            </p>
+            <span className="w-full text-xs sm:text-sm md:text-base flex items-center gap-2">
+              <VscEye size={24} />{post.view > 1000 ?1 +'k+':post.view}
+            </span>
           </div>
          </div>
         </div>

@@ -104,8 +104,11 @@ const Create = () => {
     return str.replace(/(<([^>]+)>)/gi, "");
   }
 
-  const todayDate = new Date().toISOString().slice(0, 10);
+
  
+// date
+const now = new Date();
+const isoString = now.toISOString();
 
   
 // create post
@@ -118,11 +121,11 @@ const Create = () => {
       categories: JSON.stringify(categories),
       description: removeTags(content),
       featured_image: featuredImage,
-      date: Date(),
+      date: isoString,
       email: user.email,
       username: dbUser.username,
       view: 0,
-      createdAt: todayDate,
+      createdAt: isoString,
       tags: postTitle.split(' ').join(',')
     };
     axios
