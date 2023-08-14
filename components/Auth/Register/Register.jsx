@@ -28,10 +28,11 @@ const Register = () => {
 
   const handleRegisterUser = () => {
     setLoading(true);
+    setRegisterBtn('Creating...')
     return createUser(email, password)
       .then((res) => {
         const user = res.user;
-        setLoading(false);
+       
         setRegisterError("");
         const info = {
           fullName: "",
@@ -43,6 +44,8 @@ const Register = () => {
           phone: 0,
           discord: "",
           username: "",
+          work:'',
+          education:'',
           date: Date(),
           type:'contributor'
         };
@@ -54,6 +57,8 @@ const Register = () => {
               .then(res=>{
                 if(res.data){
                   Cookies.set('token', res.data.token, { expires: 7 }); 
+                  setLoading(false);
+                  setRegisterBtn('Account created!')
                 }
               })
               }
@@ -63,6 +68,7 @@ const Register = () => {
       .catch((err) => {
         setLoading(false);
         setRegisterError(err.message);
+        setRegisterBtn('Try again')
       });
   };
   return (

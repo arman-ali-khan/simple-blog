@@ -102,7 +102,6 @@ const handleDelete = (id) =>{
       {
       post.email === user?.email ? 
       <div className="flex gap-3">
-        {/* <Link href={`/update/${post.postId}`} className="px-2 py-1 text-blue-400" onClick={()=>setEditId(post?.postId)}>Edit</Link> */}
        {
         post?.publish===0 ? <button onClick={()=>handlePublish({publish:1})} className={`px-2 py-1 border rounded-full sm:font-bold ${post?.publish===1?'text-warning':'text-success'}`}>Publish</button>
         :
@@ -123,7 +122,10 @@ const handleDelete = (id) =>{
         {/* Delete modal */}
        {
         deleteId ? <div  className='fixed z-40 flex items-center justify-center top-0 left-0 h-screen w-full'>
-          <button onClick={()=>setDeleteId()} className='fixed top-0 left-0 w-full h-screen'></button>
+          <button onClick={()=>{
+            setDeleteId()
+            setInputEmail('')
+          }} className='fixed top-0 left-0 w-full h-screen'></button>
           <div className='sm:w-[450px] z-50 w-full sm:h-72 h-72 flex flex-col relative  justify-center bg-base-300 items-center border py-9'>
             <div className='text-left px-2 bg-blue-400 absolute top-0 h-12 items-center flex w-full'>
               <h2 className='md:text-xl text-white truncate font-bold w-full'>Delete {post.title}</h2>
@@ -138,13 +140,16 @@ const handleDelete = (id) =>{
             <div className='flex justify-center w-full'>
              
             <div className='w-full'>
-            <p className='flex items-center gap-2 pb-2 w-full px-2  text-xs sm:text-base'>Enter your email <span className='bg-blue-400 flex items-center px-2 text-black'>{user?.email}</span></p>
+            <p className='flex items-center gap-2 pb-2 w-full px-2  text-xs sm:text-base'>Enter your email <span className='bg-blue-400 text-white flex items-center px-2 text-black'>{user?.email}</span></p>
            <div className='flex items-center w-full'>
-           <input onChange={(e)=>setInputEmail(e.target.value)} placeholder={'email'} className={`px-3 w-full text-error border py-2 ${inputEmail===user?.email ? 'border-success focus-visible:outline-success focus-visible:outline text-success':'border-error focus-visible:outline-error focus-visible:outline text-error'}`} type="text" id="username" />
+           <input autocomplete="off" onChange={(e)=>setInputEmail(e.target.value)} placeholder={'email'} className={`px-3 w-full text-error border py-2 ${inputEmail===user?.email ? 'border-success focus-visible:outline-success focus-visible:outline text-success':'border-error focus-visible:outline-error focus-visible:outline text-error'}`} type="text" id="username" />
               <button disabled={inputEmail!==user?.email} onClick={()=>handleDelete(deleteId)} className='px-4 py-2 disabled:bg-neutral disabled:text-white disabled:cursor-not-allowed border border-error bg-error hover:bg-opacity-80 duration-300 text-black'>{deleteBtn}</button>
            </div>
-              <div onClick={()=>setDeleteId()} className='flex justify-center my-2'>
-              <button  className='px-4 py-2 bg-success text-black flex justify-center text-center'>Cancel</button>
+              <div onClick={()=>{
+                setDeleteId()
+                setInputEmail('')
+              }} className='flex justify-center my-2'>
+              <button  className='px-4 py-2 w-full bg-success text-black flex justify-center text-center'>Cancel</button>
               </div>
             </div>
             </div>

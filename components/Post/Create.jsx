@@ -1,6 +1,6 @@
-import axios from "axios";
 import dynamic from "next/dynamic";
 
+import axios from "axios";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -88,6 +88,7 @@ const Create = () => {
 
   // post title
   const [postTitle, setPostTitle] = useState("");
+
   // posting
   const [postLoading, setPostLoading] = useState(false);
 
@@ -104,7 +105,9 @@ const Create = () => {
   }
 
   const todayDate = new Date().toISOString().slice(0, 10);
+ 
 
+  
 // create post
   const handlePost = () => {
     setPostLoading(true);
@@ -119,9 +122,9 @@ const Create = () => {
       email: user.email,
       username: dbUser.username,
       view: 0,
-      createdAt: todayDate
+      createdAt: todayDate,
+      tags: postTitle.split(' ').join(',')
     };
-
     axios
       .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts`, postData, {
         headers: {

@@ -3,13 +3,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineEye } from 'react-icons/hi';
 
-const RelatedCard = ({post}) => {
+const RelatedCard = ({post,blog}) => {
     // popular post day
     const popularDays = 15
     //  categories 
      const categories = JSON.parse(post.categories)
     return (
-        <div className={`flex md:flex-col  w-full px-2 flex-row overflow-hidden md:h- bg-base-100 shadow-lg`}>
+        <div className={`flex md:flex-col ${blog.id===post.id && 'hidden'} w-full px-2 flex-row overflow-hidden md:h- bg-base-100 shadow-lg`}>
           <div className="font-bold hidden md:flex sm:text-sm text-sm mb-2 leading-tight">
            <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
           </div>

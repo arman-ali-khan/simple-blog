@@ -14,28 +14,31 @@ import UserPostCard from "./UserPostCard";
 const User = ({ dbUser }) => {
   const user = dbUser[0];
   const { user: fUser, logOut } = useContext(UserContext);
+ 
   //  get user posts
   const [userPost, setUserPost] = useState({});
   // router
-  const router = useRouter()
+  const router = useRouter();
   //  post loading
   const [loading, setLoading] = useState(true);
 
   // post update
   const [updatePost, setUpdatePost] = useState(false);
-  // expire token 
-  const [expire,setExpire] = useState(false)
+  // expire token
+  const [expire, setExpire] = useState(false);
+ 
   // fetch user posts
   useEffect(() => {
     setLoading(true);
     if (user?.email) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${user?.username}&limit=10&page=1`,{
+          `${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${user?.username}&limit=10&page=1`,
+          {
             headers: {
-              'Authorization': `Basic ${Cookies.get('token')}` ,
-              email:user?.email
-            }
+              Authorization: `Basic ${Cookies.get("token")}`,
+              email: user?.email,
+            },
           }
         )
         .then((res) => {
@@ -44,14 +47,14 @@ const User = ({ dbUser }) => {
             setLoading(false);
           }
         })
-        .catch(err=>{
-          console.error(err)
-          if(err.response.status===401){
+        .catch((err) => {
+          console.error(err);
+          if (err.response.status === 401) {
             logOut().then(() => {
-              router.push(`/start/login`)
-            })
+              router.push(`/start/login`);
+            });
           }
-        })
+        });
     }
   }, [user?.username, updatePost]);
 
@@ -60,11 +63,13 @@ const User = ({ dbUser }) => {
   return (
     <div>
       <section className="pt-16 bg-blueGray-50">
-        {
-          user.type==='admin' && <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
-          <Link href={'/admin'}><LuLayoutDashboard /></Link>
-        </div>
-        }
+        {user.type === "admin" && (
+          <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
+            <Link href={"/admin"}>
+              <LuLayoutDashboard />
+            </Link>
+          </div>
+        )}
         <div className="w-full md:w-2/3 sm:px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words border w-full mb-6 shadow-xl rounded-lg mt-16">
             <div className="">
@@ -99,12 +104,10 @@ const User = ({ dbUser }) => {
                       <span className="text-sm text-blueGray-400">Posts</span>
                     </div>
                   </div>
-                  <div>
-                    Flow
-                  </div>
                 </div>
               </div>
-
+              {/* {fUser?.email &&
+                (user?.email !== fUser?.email ? <button>Follow</button> : "")} */}
               <div className="text-center mt-2">
                 <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 ">
                   {user?.fullName}({user?.username})
@@ -174,8 +177,7 @@ const User = ({ dbUser }) => {
                     </h2>
                   </div>
                 </div>
-                {
-                loading ? (
+                {loading ? (
                   <>
                     {[...Array(5).keys()].map((item, i) => {
                       return (

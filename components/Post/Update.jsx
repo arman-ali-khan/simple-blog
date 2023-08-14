@@ -8,13 +8,13 @@ import { toast } from "react-hot-toast";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { UserContext } from "../../context/ContextProvider";
+import PrivateRoute from "../../hooks/PrivateRouters/PrivateRoute";
 const CKFullEditor = dynamic(import("rc-ckfulleditor"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 });
 
 const Update = ({post}) => {
-  console.log(post)
 // context
 const { user, dbUser, logOut } = useContext(UserContext);
 
@@ -125,9 +125,9 @@ const handlePost = () => {
     categories: JSON.stringify(categories),
     description: removeTags(content),
     featured_image: featuredImage,
-    date: Date()
+    date: Date(),
+    email: post.email
   };
-  console.log(postData)
 
   axios
     .put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`, postData, {
@@ -145,9 +145,8 @@ const handlePost = () => {
       setPublishBtn("Try Again");
       setPostLoading(false);
       if (err.response?.status === 401) {
-        logOut().then(() => {
-          router.push(`/start/login`);
-        });
+        toast.error("You may not update other users' posts")
+          router.push(`/`);
       }
     });
 };
@@ -170,7 +169,8 @@ const handlePost = () => {
     }, []);
     return (
       mounted && (
-        <div className="md:flex gap-6 container mx-auto">
+       <PrivateRoute>
+         <div className="md:flex gap-6 container mx-auto">
           <div className="md:w-2/3 space-y-2">
             {/* Post title */}
             <div>
@@ -324,6 +324,7 @@ const handlePost = () => {
             </div>
           </div>
         </div>
+       </PrivateRoute>
       )
     );
 };

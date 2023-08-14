@@ -122,6 +122,26 @@ const UpdateProfile = () => {
                 />
               </div>
               <div className="flex flex-col">
+                <label>Education</label>
+                <input
+                  defaultValue={dbUser?.education}
+                  {...register("education", { required: false })}
+                  className="px-4 py-2 border"
+                  placeholder="Graduated"
+                  type="text"
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Work</label>
+                <input
+                  defaultValue={dbUser?.work}
+                  {...register("work", { required: false })}
+                  className="px-4 py-2 border"
+                  placeholder="Works at Discord"
+                  type="text"
+                />
+              </div>
+              <div className="flex flex-col">
                 <label>Your FB Profile</label>
                 <input
                   defaultValue={dbUser?.fbId}

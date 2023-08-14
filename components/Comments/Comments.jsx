@@ -31,7 +31,7 @@ const router = useRouter()
   } = useForm();
   // handle comment
   const handleComment = (data) => {
-    setCommentBtn(<Loader w={4} h={4} />);
+    setCommentBtn(<Loader w={4} h={4} py={2.5} px={2} />);
     const comment = {
       comment: data.comment,
       postId: blog.id,
@@ -53,7 +53,7 @@ const router = useRouter()
         toast.success("Commented");
         reset();
         setUpdate(!update);
-        setCommentBtn("Commented");
+        setCommentBtn("Comment");
       })
       .catch(err=>{
         setCommentBtn("Try again");
@@ -93,7 +93,14 @@ const router = useRouter()
   const count = Math.ceil((getComments?.count || 10) / 10);
   return (
     <div id="comments">
-      <div className="flex justify-center w-full">
+      
+      {/* Comment List */}
+      <div className="border">
+        <div className="px-4 py-3  w-full bg-blue-400 text-white font-bold text-xl">
+          <h2>Comments({getComments?.count || 0})</h2>
+        </div>
+        {/* Comment box */}
+      <div className="flex my-2 justify-center w-full">
         {user?.email ? (
           <form
             onSubmit={handleSubmit(handleComment)}
@@ -102,7 +109,7 @@ const router = useRouter()
             <div className="w-full">
               <textarea
                 {...register("comment", { required: true })}
-                className="sm:w-96 w-full md:h-24 h-14
+                className="sm:w-96 w-full h-12
               border px-4 py-2"
                 placeholder="Comment"
               ></textarea>
@@ -110,7 +117,7 @@ const router = useRouter()
             <div className="">
               <button
                 disabled={!dbUser.email}
-                className="px-4 disabled:bg-gray-500 py-2 bg-base-200 border"
+                className="px-4 disabled:bg-gray-500 py-[11px] bg-base-200 border"
               >
                 {" "}
                 {commentBtn}
@@ -129,11 +136,6 @@ const router = useRouter()
           </div>
         )}
       </div>
-      {/* Comment List */}
-      <div className="border">
-        <div className="px-4 py-3  w-full bg-blue-400 text-white font-bold text-xl">
-          <h2>Comments({getComments?.count || 0})</h2>
-        </div>
         {loading
           ? [...Array(getComments?.count).keys()].map((item, i) => {
               return (
@@ -154,7 +156,7 @@ const router = useRouter()
             ))}
       </div>
       {/* pagination */}
-      {
+      { getComments?.count > 10 &&
         <div className="flex justify-center my-3 space-x-1 ">
           {[...Array(count).keys()].map((item, i) => (
             <button

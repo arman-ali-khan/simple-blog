@@ -2,7 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { GiFireBowl } from 'react-icons/gi';
 import RelatedCard from './RelatedCard';
-const Related = () => {
+const Related = ({blog}) => {
+  // get category
+  const category = JSON.parse(blog.categories)[0]?.value
+
     // loading
     const [loading,setLoading] = useState(true)
 
@@ -10,14 +13,14 @@ const Related = () => {
     const [popular,setPopular] = useState([])
     // fetch data
     useEffect(()=>{
-        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/popular`)
+        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/catetgory/${category}`)
         .then(res=>{
-            setPopular(res.data)
+            setPopular(res.data?.posts)
             setLoading(false)
         })
     },[])
     return (
-        <div className="md:flex justify-between w-full">
+        <div className={`md:flex justify-between w-full `}>
       <div className="flex w-full  flex-wrap flex-row justify-start">
         <div className=" w-full">
           <div className="bg-base-200 border-b my-2 w-full px-4 py-2 ">
@@ -38,7 +41,7 @@ const Related = () => {
                }
               </>
             ) : (
-                popular?.map((post) => <RelatedCard key={post.id} post={post} />)
+                popular?.map((post) => <RelatedCard blog={blog} key={post.id} post={post} />)
             )}
           </div>
           

@@ -63,7 +63,7 @@ const SingleBlog = ({ blog }) => {
                 className="w-full h-60 object-cover sm:h-96 bg-gray-500"
               />
             )}
-            <div className="sm:p-6 px-2 pb-12 sm:mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10  lg:rounded-md bg-base-200 post-body">
+            <div className="sm:p-2 px-2 pb-12 sm:mx-2 rounded-t-lg -mt-16 space-y-6 lg:max-w-4xl sm:px-2 lg:rounded-md bg-base-100 border post-body">
               <div className="space-y-2">
                 <p className="inline-block py-2 text-lg leading-5 font-bold sm:text-2xl md:text-3xl">
                   {blog.title}
@@ -97,7 +97,7 @@ const SingleBlog = ({ blog }) => {
         </div>
         <div className="md:w-1/4">
          <AboutAuthor author={author} post={blog} />
-              <Related />
+              <Related blog={blog} />
         </div>
       </div>
     </Layout>
