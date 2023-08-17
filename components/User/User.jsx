@@ -88,7 +88,7 @@ const User = ({ dbUser }) => {
                       src={user?.photo ? user.photo : "https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"}
                       className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24 -top-12 md:w-44 w-24 bg-base-100 justify-center "
                     />
-                     <label htmlFor="photo" className="bg-base-200 p-2 rounded-full z-40"><BsCamera2 size={24} />
+                     <label htmlFor="photo" className="bg-base-200 p-2 hidden rounded-full z-40"><BsCamera2 size={24} />
                      <input type="file" hidden name="" id="photo" />
                      </label> 
                    </div>
