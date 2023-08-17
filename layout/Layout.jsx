@@ -16,7 +16,7 @@ const Layout = ({ children, title, thumb, desc }) => {
       <div>
         <Navbar />
       </div>
-      <div>{children}</div>
+      <div className="md:my-16">{children}</div>
       <div>
         <BottomBar />
         <Footer />

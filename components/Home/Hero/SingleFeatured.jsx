@@ -27,7 +27,7 @@ useEffect(()=>{
               }`}
             >
               <Image
-                className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
+                className="block md:w-44 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"
                 src={post.featured_image}
                 width={176}
                 height={96}

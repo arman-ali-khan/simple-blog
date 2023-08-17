@@ -63,7 +63,8 @@ const Blogs = () => {
           {
              <div className="flex justify-center my-3 space-x-1 ">
          
-            {[...Array(count).keys()].map((item, i) => (
+            {getPosts?.count > 10 &&
+            [...Array(count).keys()].map((item, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentPage(item+1)}

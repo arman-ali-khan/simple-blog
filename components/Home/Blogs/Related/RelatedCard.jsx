@@ -1,5 +1,4 @@
 import moment from 'moment';
-import Image from 'next/image';
 import Link from 'next/link';
 import { HiOutlineEye } from 'react-icons/hi';
 
@@ -15,13 +14,7 @@ const RelatedCard = ({post,blog}) => {
           </div>
       <div className='leading-4 flex text-sm'>
         <p className='hidden md:flex'>{post.description.split(' ').slice(0,20).join(' ')}</p>
-      <Image
-          className="block md:w-14 w-28 border-4 flex-none bg-cover md:h-14 h-24 object-cover"
-          src={post.featured_image}
-          width={120}
-          height={120}
-          alt={post.email}
-        />
+     
  
       </div>
         <div className="rounded-b lg:rounded-b-none lg:rounded-r md:px-2 p-1 flex flex-col justify-between leading-normal w-full">

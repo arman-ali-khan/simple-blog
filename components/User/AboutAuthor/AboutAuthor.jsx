@@ -15,6 +15,7 @@ const AboutAuthor = ({ post, author }) => {
   const { user, dbUser, logOut } = useContext(UserContext);
   //  get user posts
   const [userPost, setUserPost] = useState({});
+  console.log(userPost)
   // get user post
   useEffect(() => {
     if (user?.email) {
@@ -104,7 +105,7 @@ const AboutAuthor = ({ post, author }) => {
           <div className="flex justify-around px-3 my-2">
             <div title="Posts" className="flex flex-col justify-center text-center">
               <h2 className="text-base font-bold"><FiEdit3 size={24} /></h2>
-              <p>{posts?.length}</p>
+              <p>{userPost?.count}</p>
             </div>
             <div title="Followers" className="flex flex-col justify-center text-center">
               <h2 className="text-base font-bold"><PiUsersThree size={24} /></h2>

@@ -18,7 +18,8 @@ const Navbar = () => {
     
   }
     return (
-        <div className="navbar bg-base-100">
+      <div className="flex justify-center ">
+          <div className="navbar py-0  md:fixed w-9/12 mx-auto rounded-full border border-blue-400 px-4 z-50 min-h-0 md:top-0 bg-base-100">
         <div className="navbar-start">
           {/* <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost hidden">
@@ -29,7 +30,7 @@ const Navbar = () => {
               <li><Link href={'/search'}>Search</Link></li>
             </ul>
           </div> */}
-          <Link href={'/'} className="btn btn-ghost normal-case text-xl">
+          <Link href={'/'} className="flex items-center gap-2 normal-case text-xl">
             <Image width={30} height={30} alt='' src="/favicon.svg" />Arman's Blog</Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -41,6 +42,7 @@ const Navbar = () => {
         <div className="navbar-end">
           {user?.email ? <button onClick={()=>handleLogout()}>Logout</button>: <Link href={`/start/login`}>Login</Link>}
         </div>
+      </div>
       </div>
     );
 };

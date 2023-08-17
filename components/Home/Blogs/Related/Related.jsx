@@ -41,7 +41,7 @@ const Related = ({blog}) => {
                }
               </>
             ) : (
-                popular?.map((post) => <RelatedCard blog={blog} key={post.id} post={post} />)
+                popular.slice(0,6)?.map((post) => <RelatedCard blog={blog} key={post.id} post={post} />)
             )}
           </div>
           
