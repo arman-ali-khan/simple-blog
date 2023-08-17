@@ -33,7 +33,7 @@ const Featured = () => {
         )}
       </div>
       <div className="md:w-1/3 md:p-3 p-1">
-        <div className="bg-base-100 border relative flex justify-center items-center  h-56">
+        <div className="bg-base-100 border animate-pulse relative flex justify-center items-center  h-56">
           <p className="absolute right-0 top-0 text-xs px-1 bg-base-300">Ads </p>
           <img src="https://dummyimage.com/600x224/aaa/aaa" className="h-full w-full object-cover" alt="" />
         </div>

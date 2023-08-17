@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
+import { BsCamera2 } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
@@ -21,11 +22,16 @@ const User = ({ dbUser }) => {
   const router = useRouter();
   //  post loading
   const [loading, setLoading] = useState(true);
+    // pagination
+    const [currentPage, setCurrentPage] = useState(1);
 
   // post update
   const [updatePost, setUpdatePost] = useState(false);
   // expire token
   const [expire, setExpire] = useState(false);
+
+    // count
+    const count = Math.ceil((userPost?.count || 10 )/ 10)
  
   // fetch user posts
   useEffect(() => {
@@ -56,7 +62,7 @@ const User = ({ dbUser }) => {
           }
         });
     }
-  }, [user?.username, updatePost]);
+  }, [user?.username, updatePost,currentPage]);
 
   // posts
   const posts = userPost?.posts;
@@ -64,24 +70,30 @@ const User = ({ dbUser }) => {
     <div>
       <section className="pt-16 bg-blueGray-50">
         {user?.type === "admin" && (
-          <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
             <Link href={"/admin"}>
+          <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
               <LuLayoutDashboard />
-            </Link>
           </div>
+            </Link>
         )}
         <div className="w-full md:w-2/3 sm:px-4 mx-auto">
           <div className="relative flex flex-col min-w-0 break-words border w-full mb-6 shadow-xl rounded-lg mt-16">
             <div className="">
-              <div className="flex flex-wrap justify-center">
-                <div className="w-full px-4 flex justify-center">
-                  <div className="flex justify-center">
-                    <img
+              <div className="flex flex-wrap justify-center ">
+                <div className=" px-4 flex  justify-center">
+                  <div className="flex justify-center w-full items-center">
+                   <div className="flex justify-center items-center">
+                   <img
                       alt="..."
-                      src="https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                      src={user?.photo ? user.photo : "https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"}
                       className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24 -top-12 md:w-44 w-24 bg-base-100 justify-center "
                     />
+                     <label htmlFor="photo" className="bg-base-200 p-2 rounded-full z-40"><BsCamera2 size={24} />
+                     <input type="file" hidden name="" id="photo" />
+                     </label> 
+                   </div>
                   </div>
+                 
                 </div>
                 <div className="w-full px-4 text-center mt-20">
                   <div className="flex justify-center py-2 ">
@@ -204,6 +216,26 @@ const User = ({ dbUser }) => {
                   ""
                 )}
               </div>
+               {/* pagination */}
+          {
+             <div className="flex justify-center my-3 space-x-1 ">
+         
+            {userPost?.count > 10 &&
+            [...Array(count).keys()].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(item+1)}
+                type="button"
+                title="Page 1"
+                className={`inline-flex items-center justify-center w-8 h-8 text-sm font-semibold border hover:bg-blue-500  hover:text-base-200 duration-300 rounded shadow-md  border-blue-600 ${
+                  item+1 === currentPage? "bg-blue-500 text-black":"bg-base-200"
+                }`}
+              >
+                {item+1}
+              </button>
+            ))}
+          </div>
+          }
             </div>
           </div>
         </div>
