@@ -7,9 +7,9 @@ import Layout from '../../layout/Layout';
 const userId = ({data}) => {
   const {user} = useContext(UserContext)
     return (
-        <Layout title={`${data[0].fullName}, User at Arman's Blog`} thumb={data[0].photo || 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'} desc={data[0].about}>
+        <Layout title={`${data[0]?.fullName}, User at Arman's Blog`} thumb={data[0]?.photo || 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'} desc={data[0]?.about}>
         {
-          user?.email === data[0].email?
+          user?.email === data[0]?.email?
             <User dbUser={data} />
             :
             <NonPosts dbUser={data} />

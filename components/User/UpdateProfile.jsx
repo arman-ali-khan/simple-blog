@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../../context/ContextProvider";
@@ -7,6 +8,8 @@ const UpdateProfile = () => {
   // constext
   const { user,dbUser } = useContext(UserContext);
 
+  // router
+  const router = useRouter()
  
   // hook form
   const {
@@ -23,7 +26,7 @@ const UpdateProfile = () => {
   const [loading, setLoading] = useState(false);
 
   // get username from input
-  const [inputUserName, setInputUserName] = useState("");
+  const [inputUserName, setInputUserName] = useState(dbUser.username);
   // check User name from mongodb
   useEffect(() => {
     setLoading(true);
@@ -56,6 +59,8 @@ const UpdateProfile = () => {
         const result = res.data;
         if (result) {
           setUpdateBTN("Update Successful");
+          router.push(`/user/${data.username}`)
+          window.location.reload(false)
         }
       })
       .catch((err) => {
@@ -97,8 +102,8 @@ const UpdateProfile = () => {
                     placeholder="my_username"
                     type="text"
                   />
-                  {inputUserName.length ? (
-                    usernames.length ? (
+                  {inputUserName?.length ? (
+                    usernames?.length && (dbUser?.username!==inputUserName)  ? (
                       <span className="absolute right-0 px-2 z-30 top-2 text-error">
                         {loading ? "Loading..." : "Not OK"}
                       </span>
@@ -184,8 +189,8 @@ const UpdateProfile = () => {
                 />
               </div>
               <button
-                disabled={usernames.length || loading}
-                className="w-full disabled:bg-gray-400 my-2 border px-4 py-2 bg-base-300 hover:bg-base-100"
+                disabled={(usernames.length || loading) && dbUser.username!==inputUserName}
+                className="w-full disabled:bg-gray-400 my-2 bg-blue-400 text-white border px-4 py-2  hover:bg-blue-500"
               >
                 {updateBTN}
               </button>

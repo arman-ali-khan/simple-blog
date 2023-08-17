@@ -63,7 +63,7 @@ const User = ({ dbUser }) => {
   return (
     <div>
       <section className="pt-16 bg-blueGray-50">
-        {user.type === "admin" && (
+        {user?.type === "admin" && (
           <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
             <Link href={"/admin"}>
               <LuLayoutDashboard />
