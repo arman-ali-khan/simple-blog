@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
-import { BsCamera2 } from "react-icons/bs";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
@@ -15,6 +14,7 @@ import UserPostCard from "./UserPostCard";
 const User = ({ dbUser }) => {
   const user = dbUser[0];
   const { user: fUser, logOut } = useContext(UserContext);
+  
  
   //  get user posts
   const [userPost, setUserPost] = useState({});
@@ -85,12 +85,10 @@ const User = ({ dbUser }) => {
                    <div className="flex justify-center items-center">
                    <img
                       alt="..."
-                      src={user?.photo ? user.photo : "https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"}
-                      className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24 -top-12 md:w-44 w-24 bg-base-100 justify-center "
+                      src={user?.photo}
+                      className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24  -top-12 md:w-44 w-24 bg-base-100 justify-center "
                     />
-                     <label htmlFor="photo" className="bg-base-200 p-2 hidden rounded-full z-40"><BsCamera2 size={24} />
-                     <input type="file" hidden name="" id="photo" />
-                     </label> 
+                     
                    </div>
                   </div>
                  

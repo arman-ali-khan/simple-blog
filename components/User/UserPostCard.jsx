@@ -12,14 +12,20 @@ import { IoCalendarClearOutline } from 'react-icons/io5';
 import { UserContext } from '../../context/ContextProvider';
 
 const UserPostCard = ({post,updatePost,setUpdatePost}) => {
-  // router '
+  
+  // router
   const router = useRouter()
 // user
 const {user,logOut} = useContext(UserContext)
 
   // aprove handle
   const handlePublish = (e) =>{
-    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,e)
+    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,e,{
+      headers: {
+        authorization: `basic ${Cookies.get('token')}`,
+        email: post.email
+      }
+    })
     .then(res=>{
         setUpdatePost(!updatePost)
         toast.success('Updated')
@@ -27,7 +33,12 @@ const {user,logOut} = useContext(UserContext)
 }
 // aprove handle
 const handleDraft = (e) =>{
-    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,e)
+    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,e,{
+      headers: {
+        authorization: `basic ${Cookies.get('token')}`,
+        email: post.email
+      }
+    })
     .then(res=>{
         setUpdatePost(!updatePost)
         toast.success('Updated')

@@ -1,16 +1,18 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { UserContext } from "../../context/ContextProvider";
 
 const UpdateProfile = () => {
   // constext
-  const { user,dbUser } = useContext(UserContext);
+  const { user, dbUser } = useContext(UserContext);
 
   // router
-  const router = useRouter()
- 
+  const router = useRouter();
+
   // hook form
   const {
     register,
@@ -48,34 +50,114 @@ const UpdateProfile = () => {
     setUpdateBTN("Updating...");
     const submitData = {
       ...data,
-      email: user.email
+      email: user.email,
     };
     axios
       .put(
         `${process.env.NEXT_PUBLIC_API_PRO}/api/users/${dbUser?.id}`,
-        submitData
+        submitData,
+        {
+          headers: {
+            authorization: `basic ${Cookies.get("token")}`,
+            email: user.email,
+          },
+        }
       )
       .then((res) => {
         const result = res.data;
         if (result) {
           setUpdateBTN("Update Successful");
-          router.push(`/user/${data.username}`)
-          window.location.reload(false)
+          router.push(`/user/${data.username}`);
+          window.location.reload(false);
         }
       })
       .catch((err) => {
         setUpdateBTN("Try again");
       });
   };
+
+  // Uploading...
+  const [uploadLoading, setUploadPhoto] = useState(false);
+
+  // photo upload error
+  const [error, setError] = useState("");
+
+  const handlePhotoUpload = (data) => {
+    const photo = data[0];
+    if (photo.size > 2097152) {
+      return toast.error("Too Large File, Max Upload Limit 2 MB");
+    }
+    setUploadPhoto(true);
+    const photoData = new FormData();
+    photoData.append("file", photo);
+    photoData.append("upload_preset", "simpleblog");
+    photoData.append("cloud_name", "dl1cxduy0");
+    fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
+      method: "POST",
+      body: photoData,
+    })
+      .then((resp) => resp.json())
+      .then((photoData) => {
+        const photoUrl = photoData.secure_url;
+
+        axios
+          .put(
+            `${process.env.NEXT_PUBLIC_API_PRO}/api/users/${dbUser?.id}`,
+            { photo: photoUrl },
+            {
+              headers: {
+                authorization: `basic ${Cookies.get("token")}`,
+                email: user.email,
+              },
+            }
+          )
+          .then((res) => {
+            setUploadPhoto(false);
+            setError("");
+            toast.success('Photo updated')
+            router.push(`/user/${dbUser.username}`);
+          })
+          .catch((err) => {
+            toast.error("Error While Uploading");
+            setError(err.message);
+          });
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
   return (
-    <div>
-      <div>
+    <div className="flex justify-center ">
+      <div className="border">
+        <div className="mx-5">
+          <div>
+            <div className="w-full bg-base-300 px-4 py-2">
+              <p className="text-xl text-center">Update Photo</p>
+            </div>
+            <div className="flex flex-col">
+              {/* Update photo */}
+              <input
+                onChange={(e) => handlePhotoUpload(e.target.files)}
+                className="file-input my-2 file-input-warning file-input-bordered"
+                type="file"
+              />
+              {error ||
+                (uploadLoading && (
+                  <button className="my-2 py-2 inline-block">
+                    {error
+                      ? "Error While Uploading"
+                      : uploadLoading
+                      ? "Uploading..."
+                      : ""}
+                  </button>
+                ))}
+            </div>
+          </div>
+        </div>
         <div className="text-center">
           <div className="flex justify-center">
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="w-96 border p-6"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="w-96 p-6">
               <h1 className="text-xl py-2 bg-base-300">Update Profile</h1>
               <div className="flex flex-col">
                 <label>
@@ -103,7 +185,7 @@ const UpdateProfile = () => {
                     type="text"
                   />
                   {inputUserName?.length ? (
-                    usernames?.length && (dbUser?.username!==inputUserName)  ? (
+                    usernames?.length && dbUser?.username !== inputUserName ? (
                       <span className="absolute right-0 px-2 z-30 top-2 text-error">
                         {loading ? "Loading..." : "Not OK"}
                       </span>
@@ -189,7 +271,10 @@ const UpdateProfile = () => {
                 />
               </div>
               <button
-                disabled={(usernames.length || loading) && dbUser.username!==inputUserName}
+                disabled={
+                  (usernames.length || loading) &&
+                  dbUser.username !== inputUserName
+                }
                 className="w-full disabled:bg-gray-400 my-2 bg-blue-400 text-white border px-4 py-2  hover:bg-blue-500"
               >
                 {updateBTN}
