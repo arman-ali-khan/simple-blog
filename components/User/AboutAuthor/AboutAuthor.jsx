@@ -15,7 +15,6 @@ const AboutAuthor = ({ post, author }) => {
   const { user, dbUser, logOut } = useContext(UserContext);
   //  get user posts
   const [userPost, setUserPost] = useState({});
-  console.log(userPost)
   // get user post
   useEffect(() => {
     if (user?.email) {

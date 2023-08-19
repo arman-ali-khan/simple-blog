@@ -1,8 +1,11 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Blog from "../Home/Blogs/Blog";
 import Categories from "../Home/Categories/Categories";
 
 const CategoryPost = ({blog,loading}) => {
+  const router = useRouter()
+  const categoryName   = router.query.categoryId.split('-').join(' ')
   // error handling
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -14,7 +17,7 @@ const CategoryPost = ({blog,loading}) => {
         
         <div className="md:p-3 p-1 w-full">
         <div className="bg-base-200 w-full px-4 py-2 ">
-        <h2>Category Post</h2>
+        <h2 className="text-base flex items-center gap-2 capitalize">Archive by category '{categoryName}'</h2>
         </div>
         <div className="space-y-2">
             {loading ? (

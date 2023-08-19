@@ -9,7 +9,6 @@ const UserCategories = () => {
   // get all categories
   const [categories, setCategories] = useState([]);
   //
-  console.log(categories)
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/categories`).then((res) => {
       setCategories(res.data);
