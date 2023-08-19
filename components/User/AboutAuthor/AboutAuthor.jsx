@@ -57,7 +57,7 @@ const AboutAuthor = ({ post, author }) => {
       >
         <div className="w-full flex justify-center my-2">
           <img
-            className="w-12 h-12 object-cover rounded-full"
+            className="w-16 h-16 border-2 p-1 object-cover rounded-full"
             src={
               author.photo ||
               "https://www.ucae.es/wp-content/uploads/2021/03/dummy-user.jpg"

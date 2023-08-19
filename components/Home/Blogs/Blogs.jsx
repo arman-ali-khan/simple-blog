@@ -2,6 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BsViewList } from 'react-icons/bs';
 import { UserContext } from "../../../context/ContextProvider";
+import Loader from "../../../lib/Loader";
 import Popular from "../../Popular/Popular";
 import Notifications from "../../User/Sidebar/Notifications";
 import UserAnalytics from "../../User/Sidebar/UserAnalytics";
@@ -44,6 +45,9 @@ const Blogs = () => {
           <div className="space-y-2">
             {loading ? (
               <>
+              <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
+              <Loader />
+              </div>
                {
                 [...Array(10).keys()].map((item,i)=>{
                 return(  <div key={i}

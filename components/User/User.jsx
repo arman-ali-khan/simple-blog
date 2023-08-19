@@ -9,6 +9,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
 import { UserContext } from "../../context/ContextProvider";
+import Loader from "../../lib/Loader";
 import UserPostCard from "./UserPostCard";
 
 const User = ({ dbUser }) => {
@@ -189,6 +190,9 @@ const User = ({ dbUser }) => {
                 </div>
                 {loading ? (
                   <>
+                   <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
+              <Loader />
+              </div>
                     {[...Array(5).keys()].map((item, i) => {
                       return (
                         <div

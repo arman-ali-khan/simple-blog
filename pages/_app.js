@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
       <Toaster position="top-center" reverseOrder={false} />
       <NextProgress
         delay={300}
-        default="5px"
+        height="5px"
         options={{ showSpinner: false }}
       />
     </ContextProvider>

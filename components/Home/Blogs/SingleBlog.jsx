@@ -10,22 +10,29 @@ import { RiTimer2Line } from "react-icons/ri";
 import { TbUserEdit } from "react-icons/tb";
 import { UserContext } from "../../../context/ContextProvider";
 import Layout from "../../../layout/Layout";
+import Loader from "../../../lib/Loader";
 import Comments from "../../Comments/Comments";
 import AboutAuthor from "../../User/AboutAuthor/AboutAuthor";
 import Related from "./Related/Related";
 
 const SingleBlog = ({ blog }) => {
+
   // get context user
   const { dbUser,user } = useContext(UserContext);
+
+// loading
+const [loading,setLoading] = useState(true)
 
   // get comments
   const [getComments, setGetComments] = useState({});
 
   useEffect(() => {
+    setLoading(true)
     axios
       .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments?id=${blog.id}`)
       .then((res) => {
         setGetComments(res.data);
+        setLoading(false)
       });
   }, []);
 
@@ -43,7 +50,13 @@ const SingleBlog = ({ blog }) => {
       desc={blog?.description}
       thumb={blog.featured_image}
     >
-      <div className="md:flex justify-between">
+      {
+        loading ? 
+        <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
+        <Loader />
+        </div>
+        :
+         <div className="md:flex justify-between">
         <div className=" md:w-4/5 w-full sm:p-0 md:p-1 lg:p-5 bg-base-100">
           <div className="flex flex-col  overflow-hidden rounded">
             {blog.featured_image ? (
@@ -103,6 +116,8 @@ const SingleBlog = ({ blog }) => {
               <Related blog={blog} />
         </div>
       </div>
+      }
+     
     </Layout>
   );
 };
