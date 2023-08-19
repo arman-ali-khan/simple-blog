@@ -19,9 +19,7 @@ useEffect(()=>{
 },[])
   return (
     <div
-      className={`flex ${
-       ( post?.aproved === 0 || post?.publish === 0) && "hidden"
-      } flex-row overflow-hidden border-b my-1 md:h-32 bg-base-100 sm:h-24  shadow-lg`}
+      className={`flex  flex-row overflow-hidden border-b my-1 md:h-32 bg-base-100 sm:h-24  shadow-lg`}
     >
       <Image
         className="block md:w-44 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"

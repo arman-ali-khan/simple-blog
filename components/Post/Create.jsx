@@ -151,6 +151,38 @@ const isoString = now.toISOString();
       });
   };
 
+
+  // chenge body
+const handleChengeBody = () =>{
+  useUnsavedChange(true)
+}
+
+// page leave warning
+
+
+const warningText =
+  'You have unsaved changes - are you sure you wish to leave this page?'
+
+useEffect(() => {
+  const handleWindowClose = (e) => {
+    if (!unsavedChanges) return
+    e.preventDefault()
+    return (e.returnValue = warningText)
+  }
+  const handleBrowseAway = () => {
+    if (!unsavedChanges) return
+    if (window.confirm(warningText)) return
+    router.events.emit('routeChangeError')
+    throw 'routeChange aborted.'
+  }
+  window.addEventListener('beforeunload', handleWindowClose)
+  router.events.on('routeChangeStart', handleBrowseAway)
+  return () => {
+    window.removeEventListener('beforeunload', handleWindowClose)
+    router.events.off('routeChangeStart', handleBrowseAway)
+  }
+}, [unsavedChanges])
+
   // error handling
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -167,6 +199,7 @@ const isoString = now.toISOString();
             </div>
             <input
               onChange={(e) => setPostTitle(e.target.value)}
+              onChangeCapture={()=>handleChengeBody()}
               type="text"
               placeholder="Post Title"
               className="px-4 border py-2 w-full rounded"
@@ -181,6 +214,7 @@ const isoString = now.toISOString();
               onChange={(event, editor) => {
                 const data = editor.getData();
                 setContent(data);
+                handleChengeBody()
               }}
               config={{
                 // ...Ckeditor config
@@ -205,6 +239,7 @@ const isoString = now.toISOString();
                 components={animatedComponents}
                 isMulti
                 onChange={(e) => setCategories(e)}
+                onChangeCapture={()=>handleChengeBody()}
                 options={category}
               />
             ) : (
