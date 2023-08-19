@@ -1,7 +1,6 @@
-import dynamic from "next/dynamic";
-
 import axios from "axios";
 import Cookies from "js-cookie";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -14,16 +13,19 @@ const CKFullEditor = dynamic(import("rc-ckfulleditor"), {
   loading: () => <p>Loading ...</p>,
 });
 
-const Update = ({post}) => {
-// context
-const { user, dbUser, logOut } = useContext(UserContext);
+const Update = ({ post }) => {
+  // context
+  const { user, dbUser, logOut } = useContext(UserContext);
 
-// router
-const router = useRouter();
+  // router
+  const router = useRouter();
 
-// React Select
+  // confirm
+  const [unsavedChanges,useUnsavedChange] = useState(false) 
 
-const animatedComponents = makeAnimated();
+  // React Select
+
+  const animatedComponents = makeAnimated();
 
   // categories
   // category update
@@ -42,11 +44,10 @@ const animatedComponents = makeAnimated();
 
   // categories end
 
-
- // post body
- const editor = useRef(null);
- const [content, setContent] = useState(JSON.parse(post.body));
- // handle featured image
+  // post body
+  const editor = useRef(null);
+  const [content, setContent] = useState(JSON.parse(post.body));
+  // handle featured image
 
   // Photo upload
   const [featuredImage, setFeaturedImage] = useState(post.featured_image);
@@ -59,46 +60,44 @@ const animatedComponents = makeAnimated();
   // posting
   const [postLoading, setPostLoading] = useState(false);
 
-    // handle upload
-    const handlePhotoUpload = (data) => {
-      const photo = data;
-  
-      if (photo.size > 2097152) {
-        return toast.error("Too Large File, Max Upload Limit 2 MB");
-      }
-      setUploadPhoto(true);
-      const photoData = new FormData();
-      photoData.append("file", photo);
-      photoData.append("upload_preset", "simpleblog");
-      photoData.append("cloud_name", "dl1cxduy0");
-      fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
-        method: "POST",
-        body: photoData,
+  // handle upload
+  const handlePhotoUpload = (data) => {
+    const photo = data;
+
+    if (photo.size > 2097152) {
+      return toast.error("Too Large File, Max Upload Limit 2 MB");
+    }
+    setUploadPhoto(true);
+    const photoData = new FormData();
+    photoData.append("file", photo);
+    photoData.append("upload_preset", "simpleblog");
+    photoData.append("cloud_name", "dl1cxduy0");
+    fetch("https://api.cloudinary.com/v1_1/dl1cxduy0/image/upload", {
+      method: "POST",
+      body: photoData,
+    })
+      .then((resp) => resp.json())
+      .then((photoData) => {
+        const photoUrl = photoData.secure_url;
+        setFeaturedImage(photoUrl);
+        setUploadPhoto(false);
+        setError("");
       })
-        .then((resp) => resp.json())
-        .then((photoData) => {
-          const photoUrl = photoData.secure_url;
-          setFeaturedImage(photoUrl);
-          setUploadPhoto(false);
-          setError("");
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    };
-  
-    // publish btn
-    const [publishBtn, setPublishBtn] = useState("Update");
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
 
-    // post title
-    const [postTitle, setPostTitle] = useState(post.title);
-    // posting
-    const [updating, setUpdating] = useState(false);
+  // publish btn
+  const [publishBtn, setPublishBtn] = useState("Update");
 
-
+  // post title
+  const [postTitle, setPostTitle] = useState(post.title);
+  // posting
+  const [updating, setUpdating] = useState(false);
 
   // get desc
- // remove tags from description
+  // remove tags from description
   function removeTags(str) {
     if (str === null || str === "") return false;
     else str = str.toString();
@@ -109,70 +108,94 @@ const animatedComponents = makeAnimated();
     return str.replace(/(<([^>]+)>)/gi, "");
   }
 
-// date
+  // date
   const now = new Date();
   const isoString = now.toISOString();
-  
 
+  // ======================
+  // create post
+  const handlePost = () => {
+    setPostLoading(false);
+    setPublishBtn("Updating...");
+    const postData = {
+      title: postTitle,
+      body: JSON.stringify(content),
+      categories: JSON.stringify(categories),
+      description: removeTags(content),
+      featured_image: featuredImage,
+      date: isoString,
+      email: post.email,
+    };
 
-
-// ======================
-// create post
-const handlePost = () => {
-  setPostLoading(false);
-  setPublishBtn("Updating...");
-  const postData = {
-    title: postTitle,
-    body: JSON.stringify(content),
-    categories: JSON.stringify(categories),
-    description: removeTags(content),
-    featured_image: featuredImage,
-    date: isoString,
-    email: post.email
+    axios
+      .put(
+        `${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`,
+        postData,
+        {
+          headers: {
+            authorization: `Basic ${Cookies.get("token")}`,
+            email: user.email,
+          },
+        }
+      )
+      .then((res) => {
+        setPostLoading(false);
+        setPublishBtn("Post Updated");
+        router.push(`/blog/${post.id}`);
+      })
+      .catch((err) => {
+        setPublishBtn("Try Again");
+        setPostLoading(false);
+        if (err.response?.status === 401) {
+          toast.error("You may not update other users' posts");
+          router.push(`/`);
+        }
+      });
   };
 
-  axios
-    .put(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/update/${post.id}`, postData, {
-      headers: {
-        authorization: `Basic ${Cookies.get("token")}`,
-        email: user.email,
-      },
-    })
-    .then((res) => {
-      setPostLoading(false);
-      setPublishBtn("Post Updated");
-      router.push(`/blog/${post.id}`);
-    })
-    .catch((err) => {
-      setPublishBtn("Try Again");
-      setPostLoading(false);
-      if (err.response?.status === 401) {
-        toast.error("You may not update other users' posts")
-          router.push(`/`);
-      }
-    });
-};
-
-// ======================
+  // ======================
 
 
+// chenge body
+const handleChengeBody = () =>{
+  useUnsavedChange(true)
+}
+
+// page leave warning
 
 
+const warningText =
+  'You have unsaved changes - are you sure you wish to leave this page?'
 
+useEffect(() => {
+  const handleWindowClose = (e) => {
+    if (!unsavedChanges) return
+    e.preventDefault()
+    return (e.returnValue = warningText)
+  }
+  const handleBrowseAway = () => {
+    if (!unsavedChanges) return
+    if (window.confirm(warningText)) return
+    router.events.emit('routeChangeError')
+    throw 'routeChange aborted.'
+  }
+  window.addEventListener('beforeunload', handleWindowClose)
+  router.events.on('routeChangeStart', handleBrowseAway)
+  return () => {
+    window.removeEventListener('beforeunload', handleWindowClose)
+    router.events.off('routeChangeStart', handleBrowseAway)
+  }
+}, [unsavedChanges])
 
-
-
-
-
-    // error handling
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-      setMounted(true);
-    }, []);
-    return (
-      mounted && (
-       <PrivateRoute>
-         <div className="md:flex gap-6 container mx-auto">
+  // error handling
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return (
+    mounted && (
+      <PrivateRoute>
+        <div className="md:flex gap-6 container mx-auto">
           <div className="md:w-2/3 space-y-2">
             {/* Post title */}
             <div>
@@ -180,9 +203,10 @@ const handlePost = () => {
                 <p className="font-bold">Title</p>
               </div>
               <input
-              defaultValue={post.title}
+                defaultValue={post.title}
                 onChange={(e) => setPostTitle(e.target.value)}
                 type="text"
+                onChangeCapture={()=>handleChengeBody()}
                 placeholder="Post Title"
                 className="px-4 border py-2 w-full rounded"
               />
@@ -193,10 +217,11 @@ const handlePost = () => {
                 <p className="font-bold">Body</p>
               </div>
               <CKFullEditor
-              data={JSON.parse(post.body)}
+                data={JSON.parse(post.body)}
                 onChange={(event, editor) => {
-                  const data = editor.getData()
-                  setContent(data)
+                  const data = editor.getData();
+                  setContent(data);
+                  handleChengeBody()
                 }}
                 config={{
                   // ...Ckeditor config
@@ -216,7 +241,7 @@ const handlePost = () => {
               </div>
               {category.length > 0 ? (
                 <Select
-                defaultValue={JSON.parse(post.categories)}
+                  defaultValue={JSON.parse(post.categories)}
                   className="p-3  bg-transparent text-black"
                   closeMenuOnSelect={false}
                   components={animatedComponents}
@@ -255,7 +280,10 @@ const handlePost = () => {
                     </span>
                   ) : (
                     <span className="underline text-blue-500 flex items-center justify-center">
-                      <label htmlFor="image" className="py-32 px-[23%] relative">
+                      <label
+                        htmlFor="image"
+                        className="py-32 px-[23%] relative"
+                      >
                         <input
                           hidden
                           id="image"
@@ -304,8 +332,8 @@ const handlePost = () => {
                     পারবে না
                   </li>
                   <li className="list-decimal">
-                    এপ/গেম এর রিভিও দিলে এপ/গেম ডাওনলোড এর ডাইরেক্ট লিংক দিতে হবে
-                    এবং বিস্তারিত পোষ্ট+স্ক্রিনশট দিতে হবে
+                    এপ/গেম এর রিভিও দিলে এপ/গেম ডাওনলোড এর ডাইরেক্ট লিংক দিতে
+                    হবে এবং বিস্তারিত পোষ্ট+স্ক্রিনশট দিতে হবে
                   </li>
                 </ul>
               </div>
@@ -326,9 +354,9 @@ const handlePost = () => {
             </div>
           </div>
         </div>
-       </PrivateRoute>
-      )
-    );
+      </PrivateRoute>
+    )
+  );
 };
 
 export default Update;
