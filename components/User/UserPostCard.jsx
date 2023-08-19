@@ -88,7 +88,7 @@ const handleDelete = (id) =>{
           <div className="w-full">
           <div className="flex flex-row overflow-hidden bg-base-100 border shadow-lg">
     <Image
-      className="block md:w-32 w-24  flex-none bg-cover md:h-auto h-24 object-cover"
+      className="block md:w-32 w-24 p-2 border-2 flex-none bg-cover md:h-32 h-24 object-cover"
       src={post.featured_image}
       width={128}
       alt={post.email}
@@ -96,23 +96,24 @@ const handleDelete = (id) =>{
     />
    
       <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal">
-      <div className="font-bold md:text-lg sm:text-base text-xs mb-2 leading-tight">
-       <Link className='text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
+      <div className="font-bold sm:text-base text-xs mb-2 leading-tight">
+       <Link className='text-blue-500 md:text-base' href={`/blog/${post.id}`}> {post.title}</Link>
+       {
+        post.email === user?.email ?  <span className='border text-sm px-2 ml-2 text-info rounded-full py-0 inline-block'>{post?.publish?'':'Darft'} { post?.publish ?  (post?.aproved ? 'Aproved':'Pending') :''}</span>:''
+       }
      <div className='flex items-center flex-wrap'>
      <div className='text-sm flex gap-7'>
         <p className='flex items-center gap-2'><GrLineChart /> {post.view}</p>
         <p className='flex items-center gap-2'><AiOutlineComment size={20} /> {count.count}</p>
         <p className='flex items-center gap-2'><IoCalendarClearOutline />{moment(post.date).fromNow()}</p>
        </div>
-       {
-        post.email === user?.email ?  <span className='border text-sm px-2 ml-2 text-info rounded-full py-0 inline-block'>{post?.publish?'':'Darft'} { post?.publish ?  (post?.aproved ? 'Aproved':'Pending') :''}</span>:''
-       }
+      
       
      </div>
       </div>
       {
       post.email === user?.email ? 
-      <div className="flex gap-3">
+      <div className="flex text-sm gap-3">
        {
         post?.publish===0 ? <button onClick={()=>handlePublish({publish:1})} className={`px-2 py-1 border rounded-full sm:font-bold ${post?.publish===1?'text-warning':'text-success'}`}>Publish</button>
         :
