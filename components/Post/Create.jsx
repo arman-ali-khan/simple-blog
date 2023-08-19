@@ -8,9 +8,12 @@ import { toast } from "react-hot-toast";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import { UserContext } from "../../context/ContextProvider";
+import Loader from "../../lib/Loader";
 const CKFullEditor = dynamic(import("rc-ckfulleditor"), {
   ssr: false,
-  loading: () => <p>Loading ...</p>,
+  loading: () => <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
+  <Loader />
+  </div>,
 });
 
 const Create = () => {

@@ -1,6 +1,7 @@
 import Cookies from "js-cookie";
 import { useContext } from "react";
 import { UserContext } from "../../context/ContextProvider";
+import Loader from "../../lib/Loader";
 import Redirect from "../../utl/Redirect/Redirect";
 
 const PrivateRoute = ({ children }) => {
@@ -10,7 +11,9 @@ const PrivateRoute = ({ children }) => {
   if (userLoading) {
     return (
       <div className="flex h-screen items-center justify-center w-full">
-        Loading...
+        <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
+        <Loader />
+        </div>
       </div>
     );
   }
