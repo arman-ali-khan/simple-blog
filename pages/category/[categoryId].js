@@ -1,11 +1,14 @@
 import CategoryPost from "../../components/Category/CategoryPost";
 import Layout from "../../layout/Layout";
 
-const categoryId = ({ data, loading }) => {
+const categoryId = ({ data, loading,categoryId }) => {
     loading=false
+    console.log(categoryId)
     const blog = data?.posts
+
+    const category = JSON.parse(blog[0]?.categories)
   return (
-    <Layout title={"Category"}>
+    <Layout className="capitalize" title={`Archive By Category '${categoryId.split('-').join(' ')}'`}>
       <CategoryPost blog={blog} loading={loading} />
     </Layout>
   );
@@ -23,7 +26,7 @@ export async function getServerSideProps({ params }) {
   const data = await res.json();
 
   // Pass data to the page via props
-  return { props: { data, loading } };
+  return { props: { data, loading,categoryId } };
 }
 
 export default categoryId;
