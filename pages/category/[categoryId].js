@@ -1,28 +1,29 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import CategoryPost from '../../components/Category/CategoryPost';
-import Layout from '../../layout/Layout';
+import CategoryPost from "../../components/Category/CategoryPost";
+import Layout from "../../layout/Layout";
 
-const categoryId = () => {
-    const router = useRouter();
-    const {categoryId} = router.query
-     // loading
-     const [loading, setLoading] = useState(true);
-    const [categoriesPost, setCategoriesPost] = useState([]);
-    const blog = categoriesPost?.posts  
-    useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/catetgory/${categoryId}`)
-        .then(res=>{
-            setCategoriesPost(res.data)
-            setLoading(false)
-        })
-    },[loading,categoryId])
-    return (
-        <Layout title={'Category'}>
-       <CategoryPost blog={blog} loading={loading} />
-        </Layout>
-    );
+const categoryId = ({ data, loading }) => {
+    loading=false
+    const blog = data?.posts
+  return (
+    <Layout title={"Category"}>
+      <CategoryPost blog={blog} loading={loading} />
+    </Layout>
+  );
 };
+
+// This gets called on every request
+export async function getServerSideProps({ params }) {
+    
+  let loading = true;
+  const { categoryId } = params;
+  // Fetch data from external API
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_PRO}/api/catetgory/${categoryId}`
+  );
+  const data = await res.json();
+
+  // Pass data to the page via props
+  return { props: { data, loading } };
+}
 
 export default categoryId;
