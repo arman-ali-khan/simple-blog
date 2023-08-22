@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { FiEdit3 } from "react-icons/fi";
@@ -17,33 +16,16 @@ const AboutAuthor = ({ post, author }) => {
   const [userPost, setUserPost] = useState({});
   // get user post
   useEffect(() => {
-    if (user?.email) {
       axios
         .get(
-          `${process.env.NEXT_PUBLIC_API_PRO}/api/alluserpost?username=${author?.username}`,
-          {
-            headers: {
-              Authorization: `Basic ${Cookies.get("token")}`,
-              email: user?.email,
-            },
-          }
+          `${process.env.NEXT_PUBLIC_API_PRO}/api/userpostcount?username=${author?.username}`
         )
         .then((res) => {
           if (res.data) {
             setUserPost(res.data);
           }
         })
-        .catch((err) => {
-          console.error(err);
-          if (err.response.status === 401) {
-            logOut().then(() => {
-              router.push(`/start/login`);
-            });
-          }
-        });
-    }
   }, [author?.username]);
-  const posts = userPost.posts;
 
   return (
     <div className="border border-t-0 w-full h-72 my-6">
