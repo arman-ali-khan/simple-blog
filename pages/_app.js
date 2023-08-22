@@ -3,7 +3,7 @@ import NextProgress from "next-progress";
 import { Toaster } from "react-hot-toast";
 import ContextProvider from "../context/ContextProvider";
 import "../styles/globals.css";
-import './effect';
+import Effect from "./effect";
 export default function App({ Component, pageProps }) {
  
   return (
@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }) {
         height="5px"
         options={{ showSpinner: false }}
       />
+      <Effect />
     </ContextProvider>
   );
 }
