@@ -103,7 +103,7 @@ const [loading,setLoading] = useState(true)
                   </div>
                 </div>
               </div>
-              <div>{parse(JSON.parse(blog.body))}</div>
+              <div className="postbody">{parse(JSON.parse(blog.body))}</div>
             </div>
           </div>
           {/* Comments */}

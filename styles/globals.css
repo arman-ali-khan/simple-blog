@@ -44,3 +44,10 @@ body {
   background-color: #000 !important;
   padding: 5px !important;
 }
+.postbody a {
+  color: rgb(0, 102, 255);
+}
+.postbody a:hover {
+  color: rgb(0, 102, 255);
+  text-decoration: underline;
+}
