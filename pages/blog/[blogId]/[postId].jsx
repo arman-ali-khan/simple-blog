@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import SingleBlog from '../../components/Home/Blogs/SingleBlog';
+import SingleBlog from '../../../components/Home/Blogs/SingleBlog';
 
 
 const index = ({data}) => {
@@ -18,7 +18,7 @@ const index = ({data}) => {
 };
 
 export async function getServerSideProps({ params }) {
-  const { blogId } = params;
+  const { postId,blogId } = params;
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts/${parseInt(blogId)}`);
   const data = await response.json();
 

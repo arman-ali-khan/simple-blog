@@ -32,7 +32,7 @@ useEffect(()=>{
         />
         <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
           <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
-           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}`}> {post.title}</Link>
+           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}/${post.title.split(' ').join('-').toLowerCase()}`}> {post.title}</Link>
           </div>
          <div>
          <div className="flex justify-between gap-2 items-center w-full">

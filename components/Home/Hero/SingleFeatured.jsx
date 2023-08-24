@@ -37,7 +37,7 @@ useEffect(()=>{
                 <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
                   <Link
                     className="hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500"
-                    href={`/blog/${post.id}`}
+                    href={`/blog/${post.id}/${post.title.split(' ').join('-').toLowerCase()}`}
                   >
                     {post.title}
                   </Link>

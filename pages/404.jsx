@@ -4,7 +4,7 @@ import Layout from '../layout/Layout';
 
 const Custom404 = () => {
     return (
-        <Layout title={'404 Not Found'}>
+        <Layout title={'404 Page Not Found'}>
             <Page404 />
         </Layout>
     );
