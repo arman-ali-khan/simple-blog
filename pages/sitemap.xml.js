@@ -15,8 +15,9 @@ function generateSiteMap(posts) {
        .map((post, { id }) => {
          return `
        <url>
-           <loc>${`${INTERNAL_DATA_URL}/blog/${post.id}`}</loc> 
+           <loc>${`${INTERNAL_DATA_URL}/blog/${post.id}/${post.title.split(' ').join('-').toLowerCase()}`}</loc> 
            <changefreq>daily</changefreq>
+           <lastmod>${post.createdAt}</lastmod>
           <priority>0.7</priority>
        </url>
      `;

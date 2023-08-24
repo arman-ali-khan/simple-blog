@@ -6,7 +6,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../../context/ContextProvider";
-import Loader from "../Loader/Loader";
 import Comment from "./Comment";
 
 const Comments = ({ blog }) => {
@@ -31,7 +30,7 @@ const router = useRouter()
   } = useForm();
   // handle comment
   const handleComment = (data) => {
-    setCommentBtn(<Loader w={4} h={4} py={2.5} px={2} />);
+    setCommentBtn('Loading...');
     const comment = {
       comment: data.comment,
       postId: blog.id,
@@ -96,7 +95,7 @@ const router = useRouter()
       
       {/* Comment List */}
       <div className="border">
-        <div className="px-4 py-3  w-full bg-blue-400 text-white font-bold text-xl">
+        <div className="px-4 py-3 2xl:w-96 w-full bg-blue-400 text-white font-bold text-xl">
           <h2>Comments({getComments?.count || 0})</h2>
         </div>
         {/* Comment box */}
@@ -104,12 +103,12 @@ const router = useRouter()
         {user?.email ? (
           <form
             onSubmit={handleSubmit(handleComment)}
-            className="flex w-full sm:w-auto"
+            className="flex w-full  2xl:w-96 sm:w-auto"
           >
             <div className="w-full">
               <textarea
                 {...register("comment", { required: true })}
-                className="sm:w-96 w-full h-12
+                className="sm:w-96  2xl:w-64 w-full h-12
               border px-4 py-2"
                 placeholder="Comment"
               ></textarea>
