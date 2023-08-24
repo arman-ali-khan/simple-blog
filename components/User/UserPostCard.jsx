@@ -75,7 +75,7 @@ const handleDelete = (id) =>{
     setUpdatePost(!updatePost)
   })
   .catch(err=>{
-    if(err.response.status===401){
+    if(err?.response?.status===401){
       logOut().then(() => {
         router.push(`/start/login`)
       })
@@ -88,7 +88,7 @@ const handleDelete = (id) =>{
           <div className="w-full">
           <div className="flex flex-row overflow-hidden bg-base-100 border shadow-lg">
     <Image
-      className="block md:w-32 w-24 p-2 border-2 flex-none bg-cover md:h-32 h-24 object-cover"
+      className="block md:w-24 w-24 p-2 border-2 flex-none bg-cover md:h-24 h-24 object-cover"
       src={post.featured_image}
       width={128}
       alt={post.email}

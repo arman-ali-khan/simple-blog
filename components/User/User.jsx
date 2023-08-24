@@ -67,6 +67,7 @@ const User = ({ dbUser }) => {
 
   // posts
   const posts = userPost?.posts;
+
   return (
     <div>
       <section className="pt-16 bg-blueGray-50">
@@ -86,8 +87,8 @@ const User = ({ dbUser }) => {
                    <div className="flex justify-center items-center">
                    <img
                       alt="..."
-                      src={user?.photo}
-                      className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24  -top-12 md:w-44 w-24 bg-base-100 justify-center "
+                      src={user?.photo || 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'}
+                      className="shadow-xl rounded-full object-cover absolute md:h-44 h-24 align-middle border-none md:-top-24  -top-12 md:w-44 w-24 bg-base-100 justify-center "
                     />
                      
                    </div>
@@ -115,6 +116,19 @@ const User = ({ dbUser }) => {
                       <span className="text-sm text-blueGray-400">Posts</span>
                     </div>
                   </div>
+                  {/* balance */}
+                  <div>
+                 <div>
+                 {fUser?.email === user?.email && (
+                    <Link
+                      className="px-4 py-1 rounded bg-base-200 border inline-block my-3"
+                      href={"/user/balance"}
+                    >
+                      Balance:  {parseFloat(user?.balance || 0).toFixed(2)} ৳
+                    </Link>
+                  )}
+                 </div>
+                  </div>
                 </div>
               </div>
               {/* {fUser?.email &&
@@ -135,7 +149,7 @@ const User = ({ dbUser }) => {
                 </div>
                 <div className="flex justify-center">
                   <p className="flex items-center gap-2">
-                    <BiCalendar size={30} /> {moment(user?.date).fromNow()}
+                    <BiCalendar size={20}  /> {moment(user?.date).fromNow()}
                   </p>
                 </div>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
@@ -152,7 +166,7 @@ const User = ({ dbUser }) => {
                 <ul className="flex items-center gap-4">
                   {user?.fbId ? (
                     <li className="border p-2 rounded-full">
-                      <a href={user?.fbId}>
+                      <a href={user?.fbId} target="_blank">
                         <RiFacebookFill size={20} />
                       </a>
                     </li>
@@ -161,7 +175,7 @@ const User = ({ dbUser }) => {
                   )}
                   {user?.phone ? (
                     <li className="border p-2 rounded-full">
-                      <a href={`tel:${user?.phone}`}>
+                      <a href={`tel:${user?.phone}`} target="_blank">
                         <RiPhoneLine size={20} />
                       </a>
                     </li>
@@ -170,7 +184,7 @@ const User = ({ dbUser }) => {
                   )}
                   {user?.email ? (
                     <li className="border p-2 rounded-full">
-                      <a href={`mailto:${user?.email}`}>
+                      <a href={`mailto:${user?.email}`} target="_blank">
                         <MdAlternateEmail size={20} />
                       </a>
                     </li>

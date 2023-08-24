@@ -56,7 +56,7 @@ const NonPosts = ({ dbUser }) => {
                   <div className="flex justify-center">
                     <img
                       alt="..."
-                      src="https://images.pexels.com/photos/61100/pexels-photo-61100.jpeg?crop=faces&fit=crop&h=200&w=200&auto=compress&cs=tinysrgb"
+                      src={user.photo || 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'}
                       className="shadow-xl rounded-full absolute md:h-44 h-24 align-middle border-none md:-top-24 -top-12 md:w-44 w-24 bg-base-100 justify-center "
                     />
                   </div>
@@ -94,7 +94,7 @@ const NonPosts = ({ dbUser }) => {
                 </div>
                 <div className="flex justify-center">
                   <p className="flex items-center gap-2">
-                    <BiCalendar size={30} /> {moment(user?.date).fromNow()}
+                    <BiCalendar size={20} /> {moment(user?.date).fromNow()}
                   </p>
                 </div>
                 <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">

@@ -24,7 +24,7 @@ const useDbUser = ({ email,logOut }) => {
       setDbUser(res.data);
     })
     .catch(err=>{
-      if(err.response.status===401){
+      if(err?.response?.status===401){
         logOut().then(() => {
           router.push(`/start/login`)
         })

@@ -32,7 +32,7 @@ const Comment = ({comment,blog,update,setUpdate}) => {
       .catch(err=>{
         console.error(err);
         setdeleteBtn('Try again')
-        if(err.response.status===401){
+        if(err?.response?.status===401){
           logOut().then(() => {
             router.push(`/start/login`)
           })
