@@ -16,7 +16,7 @@ const RelatedCard = ({post,blog}) => {
       <div className='leading-4 flex text-sm'>
         <p className='hidden md:flex'>{post.description.split(' ').slice(0,20).join(' ')}</p>
       <Image
-          className="block md:w-16 md:hidden w-20 sm:w-24 border-4 flex-none bg-cover md:h-14 h-16 sm:h-24 object-cover"
+          className="block md:w-16  w-20 sm:w-24 border-4 flex-none bg-cover md:h-14 h-16 sm:h-24 object-cover"
           src={post.featured_image}
           width={120}
           height={120}

@@ -57,7 +57,7 @@ const [loading,setLoading] = useState(true)
         </div>
         :
          <div className="md:flex justify-between">
-        <div className=" md:w-4/5 w-full sm:p-0 md:p-1 lg:p-5 bg-base-100">
+        <div className=" md:w-8/12 2xl:flex 2xl:w-full justify-between 2xl:gap-5 w-full sm:p-0 md:p-1 lg:p-5 bg-base-100">
           <div className="flex flex-col  overflow-hidden rounded">
             {blog.featured_image ? (
               <Image
@@ -107,11 +107,11 @@ const [loading,setLoading] = useState(true)
             </div>
           </div>
           {/* Comments */}
-          <div>
+          <div className="2xl:w-96">
             <Comments blog={blog} />
           </div>
         </div>
-        <div className="md:w-1/4">
+        <div className="md:w-4/12 2xl:w-3/12">
          <AboutAuthor author={author} post={blog} />
               <Related blog={blog} />
         </div>
