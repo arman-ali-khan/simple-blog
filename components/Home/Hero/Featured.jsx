@@ -35,7 +35,8 @@ const Featured = () => {
       <div className="md:w-1/3 md:p-3 p-1">
         <div className="bg-base-100 border animate-pulse relative flex justify-center items-center  h-56">
           <p className="absolute right-0 top-0 text-xs px-1 bg-base-300">Ads </p>
-          <img src="https://dummyimage.com/600x224/aaa/aaa" className="h-full w-full object-cover" alt="" />
+          <iframe data-aa='2251710' src='//ad.a-ads.com/2251710?size=468x60' style={{width:'468px', height:'60px', border:'0px', padding:'0', overflow:'hidden', backgroundColor: 'transparent'}}></iframe>
+
         </div>
       </div>
     </section>
