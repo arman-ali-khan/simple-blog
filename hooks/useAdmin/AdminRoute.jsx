@@ -8,9 +8,9 @@ const AdminRoute = ({ children }) => {
   // router
   const router = useRouter()
   // context provider
-  const {user, dbUser, userLoading } = useContext(UserContext);
+  const {user, dbUser, userLoading,dbLoading } = useContext(UserContext);
   const cookie = Cookies.get("token");
-  if (userLoading) {
+  if (userLoading || dbLoading) {
     return (
       <div className="flex h-screen items-center justify-center w-full">
         <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">

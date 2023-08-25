@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { AiOutlineHome } from "react-icons/ai";
 import { BiComment, BiUser } from "react-icons/bi";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { LuLayoutDashboard } from "react-icons/lu";
 import { RiSearch2Line } from "react-icons/ri";
 import { UserContext } from "../../../context/ContextProvider";
 import UserCategories from "../../Home/Categories/UserCategories";
@@ -32,6 +33,13 @@ const BottomBar = () => {
   // }, [user?.email]);
   return (
     <div className={`w-full ${router.pathname==='/post/create' && 'hidden'} flex justify-center`}>
+      {dbUser?.type === "admin" && (
+            <Link href={"/admin"}>
+          <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
+              <LuLayoutDashboard />
+          </div>
+            </Link>
+        )}
       {user?.email && (
         <div className="fixed bottom-0 border border-blue-600 dark:border-primary w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-60 backdrop-saturate-150 z-50 sm:rounded-full">
           <div className="sm:rounded-full">

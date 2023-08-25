@@ -38,11 +38,11 @@ const create = () => {
         <AdminLayout title={"Create Category"}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex justify-center w-full">
         <div className="w-96 px-3 py-2">
-          <div className="bg-base-300 flex  px-4 ">
+          <div className="bg-base-300 flex items-center justify-between px-4 ">
             <Link className="mr-5 bg-base-200 px-4 py-2" href={"/admin/category"}>
               <button><BiArrowBack /></button>
             </Link>
-            <h1 className="py-2">Create Category</h1>
+            <h1 className="px-4 text-base">Create Category</h1>
           </div>
           <div className="items-center gap-1 w-full mt-5">
             <label className="w-full" htmlFor="title">

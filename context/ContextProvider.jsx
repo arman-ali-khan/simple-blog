@@ -41,8 +41,8 @@ useEffect(()=>{
 // email
 const email = user?.email
 // get dbUser
-const [dbUser] = useDbUser({email,logOut})
-    const value = {user,createUser,logOut,dbUser,loginUser,userLoading}
+const [dbUser,dbLoading] = useDbUser({email,logOut})
+    const value = {user,createUser,logOut,dbLoading,dbUser,loginUser,userLoading}
     return (
         <UserContext.Provider value={value}>
             {children}

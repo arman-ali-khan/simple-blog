@@ -24,8 +24,8 @@ const Users = () => {
   }, [user?.email]);
   return (
     <div className="w-full">
-      <div className="bg-blue-400 px-4 py-2 w-full text-center">
-        <h2>Users</h2>
+      <div className="bg-blue-400 px-4 py-2 text-white w-full text-center">
+        <h2 className="text-base">Users</h2>
       </div>
       <div className="w-full border px-3 my-1">
         <ul>
