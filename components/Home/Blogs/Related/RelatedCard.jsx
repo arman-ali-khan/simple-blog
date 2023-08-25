@@ -11,7 +11,7 @@ const RelatedCard = ({post,blog}) => {
     return (
         <div className={`flex md:flex-col ${blog.id===post.id && 'hidden'} w-full px-2 flex-row overflow-hidden md:h- bg-base-100 shadow-lg`}>
           <div className="font-bold hidden md:flex sm:text-sm text-sm mb-2 leading-tight">
-           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}/${post.title.split(' ').join('-').toLowerCase()}`}> {post.title}</Link>
+           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}/${post.title.split(/[\s?=:"/',]+/).join('-').toLowerCase()}`}> {post.title}</Link>
           </div>
       <div className='leading-4 flex text-sm'>
         <p className='hidden md:flex'>{post.description.split(' ').slice(0,20).join(' ')}</p>
