@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import app from '../firebase/firebase.config';
 
+import Cookies from 'js-cookie';
 import { createContext, useEffect, useState } from "react";
 import useDbUser from '../hooks/useDbUser/useDbUser';
 
@@ -24,6 +25,7 @@ const loginUser = (email,password)=>{
 }
 // logout
 const logOut = ()=>{
+    Cookies.remove('token')
     return signOut(auth)
 }
 // set user
