@@ -27,7 +27,7 @@ const Update = ({ post }) => {
 
 
     // access for only authorized user
-    if(user.email !== post.email){
+    if(user?.email !== post?.email && dbUser?.type!=='admin'){
       
       router.push('/')
      return toast.error("Your can't access this post")
