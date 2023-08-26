@@ -116,6 +116,7 @@ const isoString = now.toISOString();
   
 // create post
   const handlePost = () => {
+    useUnsavedChange(false)
     setPostLoading(true);
     setPublishBtn("Publishing...");
     const postData = {
@@ -141,10 +142,12 @@ const isoString = now.toISOString();
       .then((res) => {
         setPostLoading(false);
         setPublishBtn("Published");
+        useUnsavedChange(false)
         router.push(`/user/${dbUser.username}`);
       })
       .catch((err) => {
         setPublishBtn("Try Again");
+        useUnsavedChange(false)
         setPostLoading(false);
         if (err.response?.status === 401) {
           logOut().then(() => {

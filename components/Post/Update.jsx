@@ -20,8 +20,18 @@ const Update = ({ post }) => {
   // context
   const { user, dbUser, logOut } = useContext(UserContext);
 
+
+
   // router
   const router = useRouter();
+
+
+    // access for only authorized user
+    if(user.email !== post.email){
+      
+      router.push('/')
+     return toast.error("Your can't access this post")
+    }
 
   // confirm
   const [unsavedChanges,useUnsavedChange] = useState(false) 
@@ -66,7 +76,7 @@ const Update = ({ post }) => {
   // handle upload
   const handlePhotoUpload = (data) => {
     const photo = data;
-
+    useUnsavedChange(false)
     if (photo.size > 2097152) {
       return toast.error("Too Large File, Max Upload Limit 2 MB");
     }
@@ -84,6 +94,7 @@ const Update = ({ post }) => {
         const photoUrl = photoData.secure_url;
         setFeaturedImage(photoUrl);
         setUploadPhoto(false);
+        useUnsavedChange(false)
         setError("");
       })
       .catch((err) => {
@@ -110,6 +121,10 @@ const Update = ({ post }) => {
     // HTML tag with a null string.
     return str.replace(/(<([^>]+)>)/gi, "");
   }
+// chenge body
+const handleChengeBody = () =>{
+  useUnsavedChange(true)
+}
 
   // date
   const now = new Date();
@@ -119,6 +134,7 @@ const Update = ({ post }) => {
   // create post
   const handlePost = () => {
     setPostLoading(false);
+    useUnsavedChange(false)
     setPublishBtn("Updating...");
     const postData = {
       title: postTitle,
@@ -149,6 +165,7 @@ const Update = ({ post }) => {
       .catch((err) => {
         setPublishBtn("Try Again");
         setPostLoading(false);
+        useUnsavedChange(false)
         if (err.response?.status === 401) {
           toast.error("You may not update other users' posts");
           router.push(`/`);
@@ -159,10 +176,6 @@ const Update = ({ post }) => {
   // ======================
 
 
-// chenge body
-const handleChengeBody = () =>{
-  useUnsavedChange(true)
-}
 
 // page leave warning
 
