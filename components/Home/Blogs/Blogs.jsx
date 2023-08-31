@@ -39,7 +39,7 @@ const Blogs = () => {
         <div className="w-full my-4">
         <Popular />
         </div>
-          <div className="bg-base-300 w-full border-b my-2 px-4 py-2 flex items-center gap-2">
+          <div className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
           <BsViewList />  <h2 className="text-base">Recent</h2>
           </div>
           <div className="space-y-2">

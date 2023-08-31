@@ -32,8 +32,8 @@ const AboutAuthor = ({ post, author }) => {
   const [hover, setHover] = useState(false);
   return (
     <div className="border border-t-0 w-full h-72 my-6">
-      <div className="py-2 text-lg font-bold bg-blue-500 text-white text-center">
-        <h2 className="text-base">About Author</h2>
+      <div className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
+        <p className="text-base">About Author</p>
       </div>
       <div
         className="h-full 
@@ -59,64 +59,7 @@ const AboutAuthor = ({ post, author }) => {
               {author?.fullName}
             </h2>
           </Link>
-          {/* hover data */}
-          <div
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            className={`${
-              hover
-                ? "absolute bg-gray-200 border z-30 flex justify-center h-auto py-3 w-full"
-                : "hidden"
-            }`}
-          >
-            <div>
-              <div className="flex justify-center mt-2">
-                {/* hover image */}
-                <img
-                  className="w-16 h-16 border-2 p-1 object-cover rounded-full"
-                  src={
-                    author.photo ||
-                    "https://www.ucae.es/wp-content/uploads/2021/03/dummy-user.jpg"
-                  }
-                  alt=""
-                />
-              </div>
-              <h2>{author.fullName}</h2>
-              <div>{author.about}</div>
-              {/* Social hover data */}
-              <div className="flex justify-center">
-                <ul className="flex items-center gap-4">
-                  {author?.fbId ? (
-                    <li className="border p-2 rounded-full">
-                      <a href={author?.fbId} target="_blank">
-                        <RiFacebookFill size={20} />
-                      </a>
-                    </li>
-                  ) : (
-                    ""
-                  )}
-                  {author?.phone ? (
-                    <li className="border p-2 rounded-full">
-                      <a href={`tel:${author?.phone}`} target="_blank">
-                        <RiPhoneLine size={20} />
-                      </a>
-                    </li>
-                  ) : (
-                    ""
-                  )}
-                  {author?.email ? (
-                    <li className="border p-2 rounded-full">
-                      <a href={`mailto:${author?.email}`} target="_blank">
-                        <MdAlternateEmail size={20} />
-                      </a>
-                    </li>
-                  ) : (
-                    ""
-                  )}
-                </ul>
-              </div>
-            </div>
-          </div>
+        
           <p>{author?.about}</p>
         </div>
         {/* Post */}

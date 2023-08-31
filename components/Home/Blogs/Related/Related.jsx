@@ -23,7 +23,7 @@ const Related = ({blog}) => {
         <div className={`md:flex justify-between w-full `}>
       <div className="flex w-full  flex-wrap flex-row justify-start">
         <div className=" w-full">
-          <div className="bg-base-200 border-b my-2 w-full px-4 py-2 ">
+          <div className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
             <h2 className="flex text-base items-center gap-2"><span><GiFireBowl /></span> Related</h2>
           </div>
           <div className="space-y-2 h-auto w-full">

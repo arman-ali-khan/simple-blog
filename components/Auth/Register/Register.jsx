@@ -99,7 +99,7 @@ const Register = () => {
           <button
             disabled={!email && !password}
             onClick={() => handleRegisterUser()}
-            className="px-3 py-2  bg-teal-500 text-white hover:bg-teal-600 duration-300 font-bold disabled:bg-gray-600"
+            className="px-3 py-2  bg-orange-500 text-white hover:bg-orange-600 duration-300 font-bold disabled:bg-gray-600"
           >
             {registerBtn}
           </button>
@@ -122,7 +122,7 @@ const Register = () => {
             </p>
             <p className="text-center text-sm">
               Already have an account?{" "}
-              <Link className="text-teal-500" href={`/start/login`}>
+              <Link className="text-blue-500" href={`/start/login`}>
                 Login
               </Link>
             </p>

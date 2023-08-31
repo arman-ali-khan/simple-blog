@@ -141,10 +141,10 @@ const NonPosts = ({ dbUser }) => {
               {/* User posts */}
               <div className="md:px-4 py-2">
                 <div>
-                  <div className="w-full py-2 px-4 bg-base-300">
-                    <h2 className="text-xl font-bold">
+                  <div className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
+                    <p>
                       Articles posted by {user?.username} ({posts?.length || 0})
-                    </h2>
+                    </p>
                   </div>
                 </div>
                 {

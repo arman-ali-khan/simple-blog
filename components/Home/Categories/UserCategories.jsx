@@ -17,8 +17,8 @@ const UserCategories = () => {
   }, []);
   return (
     <>
-      <div className="bg-base-100 overflow-y-auto h-full  px-2">
-        <h2 className="bg-base-200 px-4 py-2 border-b my-2 flex items-center gap-2 text-base"><HiMenuAlt1 /> Catgegories</h2>
+      <div className="bg-base-100 overflow-y-auto h-full">
+        <p className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold"><HiMenuAlt1 /> Catgegories</p>
         <div className="">
           <ul className="mb-12">
             {loading

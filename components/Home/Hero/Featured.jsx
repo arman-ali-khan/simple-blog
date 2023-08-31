@@ -20,7 +20,7 @@ const Featured = () => {
   return (
     <section className="w-full md:flex justify-between">
       <div className="md:w-2/3  md:p-3 p-1">
-        <div className="bg-base-200 w-full border-b my-2 px-4 py-2 flex items-center gap-2">
+        <div className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
           <BsBookmarks /> <h2 className="text-base">Featured</h2>
         </div>
         {loading ? (
@@ -32,12 +32,12 @@ const Featured = () => {
           featured.map((post) => <SingleFeatured post={post} key={post.id} />)
         )}
       </div>
-      <div className="md:w-1/3 md:p-3 p-1">
+      {/* <div className="md:w-1/3 md:p-3 p-1">
         <div className="bg-base-100 border animate-pulse relative flex justify-center items-center  h-56">
           <p className="absolute right-0 top-0 text-xs px-1 bg-base-300">Ads </p>
           <img src="https://dummyimage.com/600x224/aaa/aaa" className="h-full w-full object-cover" alt="" />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

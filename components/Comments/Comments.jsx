@@ -95,8 +95,8 @@ const router = useRouter()
       
       {/* Comment List */}
       <div className="border">
-        <div className="px-4 py-3 2xl:w-96 w-full bg-blue-400 text-white font-bold text-xl">
-          <h2>Comments({getComments?.count || 0})</h2>
+        <div className="pborder-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
+          <p>Comments({getComments?.count || 0})</p>
         </div>
         {/* Comment box */}
       <div className="flex my-2 justify-center w-full">

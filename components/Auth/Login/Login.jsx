@@ -99,7 +99,7 @@ const Login = () => {
           <button
             disabled={!email && !password}
             onClick={() => handleLoginUser()}
-            className="px-3 py-2 bg-blue-500 text-white hover:bg-blue-600 duration-300 font-bold disabled:bg-gray-600"
+            className="px-3 py-2 bg-orange-500 text-white hover:bg-orange-600 duration-300 font-bold disabled:bg-gray-600"
           >
             {loading ? "Logging in..." : btnText}
           </button>

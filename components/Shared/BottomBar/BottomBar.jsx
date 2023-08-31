@@ -41,13 +41,13 @@ const BottomBar = () => {
             </Link>
         )}
       {user?.email && (
-        <div className="fixed bottom-0 border border-blue-600 dark:border-primary w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-60 backdrop-saturate-150 z-50 sm:rounded-full">
+        <div className="fixed bottom-0 border border-orange-600 w-full sm:w-96 md:mx-auto backdrop-blur-sm backdrop-hue-rotate-10 backdrop-saturate-150 z-50 sm:rounded-full">
           <div className="sm:rounded-full">
             <ul className="flex w-full justify-between items-center">
               <li className="w-full">
                 <button
                   onClick={() => setShowCategory(!showCategory)}
-                  className="w-full py-3  flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 rounded-l-full hover:text-white flex justify-center"
                   href={"/"}
                 >
                   <HiOutlineMenuAlt1 size={24} />
@@ -55,20 +55,20 @@ const BottomBar = () => {
               </li>
               <li className="w-full">
                 <Link
-                  className="w-full py-3  flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center"
                   href={"/search"}
                 >
                   <RiSearch2Line size={24} />
                 </Link>
               </li>
               <li className="w-full">
-                <Link className="w-full py-3  flex justify-center" href={"/"}>
+                <Link className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center" href={"/"}>
                   <AiOutlineHome size={24} />
                 </Link>
               </li>
               <li className="w-full">
                 <Link
-                  className="w-full py-3 relative flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:text-white relative flex justify-center"
                   href={"/notification"}
                 >
                   <BiComment size={24} />
@@ -79,16 +79,16 @@ const BottomBar = () => {
               <li className="w-full">
                 {!dbUser.username ? (
                   dbUser.username==='' ? <Link
-                  className="w-full py-3 flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center"
                   href={`/user/update/profile`}
                 >
                   <BiUser size={24} />
-                </Link>: <div className="w-full py-3 flex justify-center">
+                </Link>: <div className="w-full py-3 hover:bg-orange-400 rounded-r-full hover:border-white  flex justify-center">
                   <Loader w={5} h={5} />
                 </div>
                 ) : (
                   <Link
-                    className="w-full py-3 flex justify-center"
+                    className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center"
                     href={`/user/${dbUser?.username}`}
                   >
                     <BiUser size={24} />

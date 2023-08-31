@@ -62,7 +62,7 @@ const AdminPostCard = ({post,postUpdate,setPostUpdate}) => {
 
     
     return (
-        <div className={`flex ${post.featured===1 && 'bg-teal-100'} flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
+        <div className={`flex ${post.featured===1 && 'bg-orange-100'} flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
         <img
           className="block md:w-44 w-28 border-4 flex-none bg-cover md:h-auto h-24 object-cover"
           src={post.featured_image}

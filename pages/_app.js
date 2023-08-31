@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }) {
       <NextProgress
         delay={300}
         height="5px"
+        color="orange"
         options={{ showSpinner: false }}
       />
       <Effect />

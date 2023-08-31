@@ -81,7 +81,7 @@ const SingleBlog = ({ blog }) => {
                   className="w-full h-60 object-cover sm:h-96 bg-gray-500"
                 />
               )}
-              <div className="sm:p-2 px-2 pb-12 sm:mx-2 rounded-t-lg -mt-16 space-y-6 lg:max-w-4xl sm:px-2 lg:rounded-md bg-base-100 border post-body">
+              <div className="sm:p-2 border-orange-600 px-2 pb-12 sm:mx-2 rounded-t-lg -mt-16 space-y-6 lg:max-w-4xl sm:px-2 lg:rounded-md bg-base-100 border post-body">
                 <div className="space-y-2">
                   <p className="inline-block py-2 text-lg leading-5 font-bold sm:text-2xl md:text-3xl">
                     {blog.title}
@@ -104,7 +104,7 @@ const SingleBlog = ({ blog }) => {
                           onMouseLeave={() => setHover(false)}
                           className={`${
                             hover
-                              ? "absolute bg-gray-200 border z-30 flex justify-center h-auto py-3 w-64 top-6"
+                              ? "absolute bg-base-100 rounded-xl border-orange-500 border z-30 flex justify-center h-auto py-3 w-64 top-6"
                               : "hidden"
                           }`}
                         >
@@ -126,7 +126,7 @@ const SingleBlog = ({ blog }) => {
                             >
                               <h2>{author.fullName}</h2>
                             </Link>
-                            <div className="flex justify-center">
+                            <div className="flex my-3 justify-center">
                               {author.about}
                             </div>
                             {/* Social hover data */}
@@ -186,22 +186,29 @@ const SingleBlog = ({ blog }) => {
                         {moment(blog.date).fromNow()}
                       </p>
                       <HiOutlineEye size={20} />
-                      <span className="text-teal-500 font-bold">
+                      <span className="text-black font-bold">
                         {blog.view}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="postbody">{parse(JSON.parse(blog.body))}</div>
+                <div className="postbody overflow-hidden">{parse(JSON.parse(blog.body))}</div>
               </div>
             </div>
+                                  {/* Show about user for mobile users */}
+            <div className="block md:hidden">
+         <AboutAuthor author={author} post={blog} />
+         </div>
+
             {/* Comments */}
             <div className="2xl:w-96">
               <Comments blog={blog} />
             </div>
           </div>
           <div className="md:w-4/12 2xl:w-3/12">
-            <AboutAuthor author={author} post={blog} />
+         <div className="hidden md:block">
+         <AboutAuthor author={author} post={blog} />
+         </div>
             <Related blog={blog} />
           </div>
         </div>

@@ -17,6 +17,8 @@ useEffect(()=>{
     setCount(res.data)
   })
 },[])
+const view = JSON.stringify(post?.view)
+
   return (
     <div
       className={`flex  flex-row overflow-hidden border-b my-1 md:h-32 bg-base-100 sm:h-24  shadow-lg`}
@@ -42,13 +44,13 @@ useEffect(()=>{
           <div className="flex justify-between gap-2 items-center w-full">
           <Link href={`/category/${categories[0].value}`} className=' text-blue-400  lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>
             <Link href={`/blog/${post.id}#comments`} className="w-full truncate flex items-center gap-2 text-xs sm:text-sm md:text-base">
-             <BiCommentDots size={20} /> {count.count > 1000 ? 1 +'k+':count.count || 0}
+            <span className="w-5"> <BiCommentDots size={20} /></span> {count.count > 1000 ? `${count.count}k+` : (count.count || 0)}
             </Link>
             <p className="w-full text-xs sm:text-sm md:text-base truncate flex items-center gap-1 ">
-            <AiOutlineFieldTime size={20} /> <span className="">{moment(post?.createdAt).fromNow()}</span>
+           <span className="w-5"> <AiOutlineFieldTime size={20} /></span> <span className="w-full">{moment(post?.createdAt).fromNow().split(' ').slice(0,2).join(' ')}</span>
             </p>
             <span className="w-full text-xs sm:text-sm md:text-base flex items-center gap-2">
-              <VscEye size={24} />{post.view > 1000 ?1 +'k+':post.view}
+              <VscEye size={24} />{post.view > 1000 ? view?.split('').slice(0,1).join('') +`k+`:post.view}
             </span>
           </div>
         </div>

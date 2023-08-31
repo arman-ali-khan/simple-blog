@@ -19,7 +19,7 @@ const Navbar = () => {
   }
     return (
       <div className="flex justify-center ">
-          <div className="navbar md:fixed md:w-9/12 mx-auto py-2 sm:py-0 sm:rounded-full border sm:border-blue-400 px-4 z-50 min-h-0 md:top-0 bg-base-100">
+          <div className="navbar md:fixed md:w-9/12 mx-auto py-2 sm:py-0 sm:rounded-full border sm:border-orange-400 px-4 z-50 min-h-0 md:top-0 bg-base-100">
         <div className="navbar-start">
          
           <Link href={'/'} className="flex items-center gap-2 normal-case text-xl">

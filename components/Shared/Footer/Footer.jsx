@@ -14,8 +14,8 @@ const Footer = () => {
         <p>Copyright © {new Date().getFullYear()} - All right reserved by Arman Ali Khan</p>
       </div>
       <BackToUp
-      className='!bottom-14 sm:!right-16'
-      fixed={false}
+      className='!bottom-14 !bg-orange-400 backtotop rounded-full z-50 sm:!right-16'
+      color='#fff'
       step={500}
       speed={10}
     >
