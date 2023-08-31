@@ -88,7 +88,7 @@ const BottomBar = () => {
                 </div>
                 ) : (
                   <Link
-                    className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center"
+                    className="w-full py-3 hover:bg-orange-400 rounded-r-full hover:text-white flex justify-center"
                     href={`/user/${dbUser?.username}`}
                   >
                     <BiUser size={24} />
