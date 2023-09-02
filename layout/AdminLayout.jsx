@@ -34,6 +34,9 @@ const AdminLayout = ({ children, title }) => {
               <li>
                 <Link href={"/admin/users"}>Users</Link>
               </li>
+              <li>
+                <Link href={"/admin/settings"}>Settings</Link>
+              </li>
             </ul>
           </div>
         </div>
