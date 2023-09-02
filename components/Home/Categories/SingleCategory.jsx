@@ -15,7 +15,7 @@ const SingleCategory = ({category}) => {
           })
       },[loading,category.value])
             
-          return  (posts?.length> 0 && <li key={category.id} className={`border-b flex items-center `}>
+          return  (posts?.length> 0 && <li key={category.id} className={`border-b px-2 flex items-center `}>
             <Link className="hover:text-blue-300 capitalize visited:text-purple-400 duration-300 text-blue-500 w-full flex px-3 py-2" href={`/category/${category.value}`}>{category.label} </Link> <span>({loading?0:posts.length || 0})</span>
         </li>)
         

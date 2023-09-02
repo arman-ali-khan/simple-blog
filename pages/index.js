@@ -5,7 +5,7 @@ import Layout from "../layout/Layout";
 
 
  const Home = ({data})=> {
-  console.log(data)
+
   const settings = data[0]
   return (
     <Layout

@@ -46,9 +46,15 @@ const Comment = ({comment,blog,update,setUpdate}) => {
          <div>
          <div className="flex items-center gap-2">
             {/* name */}
-            <Link className="font-bold text-blue-500" href={`/user/${comment.username}`}>
+            {
+              comment?.username ?  <Link className="font-bold text-blue-500" href={`/user/${comment.username}`}>
               {comment?.username}
             </Link>
+            :
+            <Link className="font-bold text-blue-500" href={`#`}>
+            {'TrickZone User'}
+          </Link>
+            }
             (<span>{moment(comment?.date).fromNow()}</span>)
           </div>
           <p className="py-1">

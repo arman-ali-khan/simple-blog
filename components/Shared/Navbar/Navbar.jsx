@@ -35,7 +35,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          {user?.email ? <button onClick={()=>handleLogout()}>Logout</button>: <Link href={`/start/login`}>Login</Link>}
+          {user?.email ? <button className="hover:underline btn btn-sm btn-ghost" onClick={()=>handleLogout()}>Logout</button>: <Link href={`/start/login`} className="hover:underline btn btn-sm btn-ghost">Login</Link>}
         </div>
       </div>
       </div>

@@ -79,7 +79,7 @@ const BottomBar = () => {
               <li className="w-full">
                 {!dbUser.username ? (
                   dbUser.username==='' ? <Link
-                  className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white rounded-r-full flex justify-center"
                   href={`/user/update/profile`}
                 >
                   <BiUser size={24} />
@@ -120,7 +120,7 @@ const BottomBar = () => {
             </div>
             <div
               onClick={() => setShowCategory(!showCategory)}
-              className="bg-error text-black font-bold cursor-pointer w-full flex justify-center py-2 px-4"
+              className="bg-error text-white font-bold cursor-pointer w-full flex justify-center py-2 px-4"
             >
               Close
             </div>
