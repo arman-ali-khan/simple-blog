@@ -88,7 +88,7 @@ const User = ({ dbUser }) => {
                    <img
                       alt="..."
                       src={user?.photo || 'https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png'}
-                      className="shadow-xl rounded-full object-cover absolute md:h-44 h-24 align-middle border-none md:-top-24  -top-12 md:w-44 w-24 bg-base-100 justify-center "
+                      className="shadow-xl rounded-full object-cover absolute md:h-44 h-24 align-middle border-2 border-orange-400 md:-top-20  -top-12 md:w-44 w-24 bg-base-100 justify-center "
                     />
                      
                    </div>

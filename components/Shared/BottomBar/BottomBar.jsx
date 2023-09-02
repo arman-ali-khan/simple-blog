@@ -47,7 +47,7 @@ const BottomBar = () => {
               <li className="w-full">
                 <button
                   onClick={() => setShowCategory(!showCategory)}
-                  className="w-full py-3 hover:bg-orange-400 rounded-l-full hover:text-white flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 rounded-l-full hover:text-white flex justify-center"
                   href={"/"}
                 >
                   <HiOutlineMenuAlt1 size={24} />
@@ -55,20 +55,20 @@ const BottomBar = () => {
               </li>
               <li className="w-full">
                 <Link
-                  className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white flex justify-center"
                   href={"/search"}
                 >
                   <RiSearch2Line size={24} />
                 </Link>
               </li>
               <li className="w-full">
-                <Link className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center" href={"/"}>
+                <Link className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white flex justify-center" href={"/"}>
                   <AiOutlineHome size={24} />
                 </Link>
               </li>
               <li className="w-full">
                 <Link
-                  className="w-full py-3 hover:bg-orange-400 hover:text-white relative flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white relative flex justify-center"
                   href={"/notification"}
                 >
                   <BiComment size={24} />
@@ -79,16 +79,16 @@ const BottomBar = () => {
               <li className="w-full">
                 {!dbUser.username ? (
                   dbUser.username==='' ? <Link
-                  className="w-full py-3 hover:bg-orange-400 hover:text-white flex justify-center"
+                  className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white flex justify-center"
                   href={`/user/update/profile`}
                 >
                   <BiUser size={24} />
-                </Link>: <div className="w-full py-3 hover:bg-orange-400 rounded-r-full hover:border-white  flex justify-center">
+                </Link>: <div className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 rounded-r-full hover:border-white  flex justify-center">
                   <Loader w={5} h={5} />
                 </div>
                 ) : (
                   <Link
-                    className="w-full py-3 hover:bg-orange-400 rounded-r-full hover:text-white flex justify-center"
+                    className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 rounded-r-full hover:text-white flex justify-center"
                     href={`/user/${dbUser?.username}`}
                   >
                     <BiUser size={24} />
