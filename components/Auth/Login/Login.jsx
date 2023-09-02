@@ -16,7 +16,7 @@ const Login = () => {
   const page  = router.query.page
   const next  = router.query.next
   // context
-  const { user, loginUser } = useContext(UserContext);
+  const { user, loginUser,settings } = useContext(UserContext);
   // loading
   const [loading, setLoading] = useState(false);
 
@@ -99,7 +99,7 @@ const Login = () => {
           <button
             disabled={!email && !password}
             onClick={() => handleLoginUser()}
-            className="px-3 py-2 bg-orange-500 text-white hover:bg-orange-600 duration-300 font-bold disabled:bg-gray-600"
+            className={`px-3 py-2 bg-orange-500 text-white hover:bg-orange-600 duration-300 font-bold disabled:bg-gray-600`}
           >
             {loading ? "Logging in..." : btnText}
           </button>
