@@ -1,7 +1,7 @@
 const generateRssXml = (items) => {
     const channelTitle = 'My RSS Feed';
     const channelDescription = 'This is a sample RSS feed generated with Next.js';
-    const siteUrl = 'https://blog.arman.top';
+    const siteUrl = 'https://www.trickzone.top';
   
     const itemXml = items
       .map(item => `

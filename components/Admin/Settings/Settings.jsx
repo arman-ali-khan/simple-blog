@@ -164,7 +164,7 @@ const [subLoading,setSubLoading] = useState(false)
           uploadLoadLogo ? 'Uploading...':<div className="relative">
             <img
           className="h-auto w-20"
-          src={logo || 'https://blog.arman.top/favicon.svg'}
+          src={logo || ' /favicon.svg'}
           alt=""
         />
         <span onClick={()=>setLogo('')} className="px-2 cursor-pointer rounded-full bg-error text-white absolute right-0 top-0">X</span>
@@ -185,7 +185,7 @@ const [subLoading,setSubLoading] = useState(false)
         uploadLoadThumb ? 'Uploading...': <div className="relative">
           <img
         className="h-12"
-        src={thumb || 'https://blog.arman.top/favicon.svg'}
+        src={thumb || '/favicon.svg'}
         alt=""
       />
       <span onClick={()=>setThumb('')} className="absolute cursor-pointer right-0 px-2 rounded-full flex top-0 bg-error text-white">X</span>

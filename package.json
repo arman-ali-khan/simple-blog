@@ -28,6 +28,7 @@
     "next": "13.4.9",
     "next-progress": "^2.3.1",
     "next-sitemap": "^4.1.8",
+    "package_name": "^1.0.2",
     "postcss": "8.4.25",
     "rc-ckfulleditor": "^2.0.0",
     "react-hook-form": "^7.45.2",

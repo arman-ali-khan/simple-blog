@@ -7,7 +7,7 @@ User-agent: *
 Disallow: /user
 
 # Host
-Host: https://www.arman.top/
+Host: https://www.trickzone.top
 
 # Sitemaps
-Sitemap: https://www.arman.top/sitemap.xml
+Sitemap: https://www.trickzone.top/sitemap.xml
