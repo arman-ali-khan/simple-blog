@@ -54,3 +54,24 @@ body {
 .backtotop svg circle {
   fill: transparent !important;
 }
+
+/* Noticeboard */
+/* width */
+.notice::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.notice::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.notice::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+.notice::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

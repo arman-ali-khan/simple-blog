@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BsBookmarks } from "react-icons/bs";
+import NoticeBoard from "../../NoticeBoard/NoticeBoard";
 import SingleFeatured from "./SingleFeatured";
 
 const Featured = () => {
@@ -32,12 +33,10 @@ const Featured = () => {
           featured.map((post) => <SingleFeatured post={post} key={post.id} />)
         )}
       </div>
-      {/* <div className="md:w-1/3 md:p-3 p-1">
-        <div className="bg-base-100 border animate-pulse relative flex justify-center items-center  h-56">
-          <p className="absolute right-0 top-0 text-xs px-1 bg-base-300">Ads </p>
-          <img src="https://dummyimage.com/600x224/aaa/aaa" className="h-full w-full object-cover" alt="" />
-        </div>
-      </div> */}
+      <div className="md:w-1/3 md:p-3 p-1 h-56 notice overflow-y-auto mt-2">
+          <NoticeBoard />
+      
+      </div>
     </section>
   );
 };

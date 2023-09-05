@@ -21,13 +21,13 @@ const view = JSON.stringify(post?.view)
 
   return (
     <div
-      className={`flex  flex-row overflow-hidden border-b my-1 md:h-32 bg-base-100 sm:h-24  shadow-lg`}
+      className={`flex  flex-row p-1 overflow-hidden border-b my-1 md:h-32 bg-base-100 sm:h-24  shadow-lg`}
     >
       <Image
-        className="block md:w-44 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"
+        className="block md:w-32 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"
         src={post?.featured_image}
-        width={176}
-        height={96}
+        width={200}
+        height={200}
         alt={post.email}
       />
       <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
@@ -36,7 +36,6 @@ const view = JSON.stringify(post?.view)
             className="hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500"
             href={`/blog/${post?.id}/${post.title.split(/[\s?=":/',]+/).join('-').toLowerCase()}`}
           >
-            {" "}
             {post?.title}
           </Link>
         </div>

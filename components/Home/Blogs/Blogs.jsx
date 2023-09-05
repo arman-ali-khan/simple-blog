@@ -42,7 +42,7 @@ const Blogs = () => {
           <div className="border-orange-500 bg-orange-400 w-full border-b my-2 px-4 py-1 flex items-center gap-2 text-white font-bold">
           <BsViewList />  <h2 className="text-base">Recent</h2>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-0">
             {loading ? (
               <>
               <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
@@ -53,7 +53,7 @@ const Blogs = () => {
                 return(  <div key={i}
                   className="bg-base-200 w-full flex flex-row overflow-hidden md:h-32  sm:h-24  shadow-lg animate-pulse"
                 >
-                  <div className="block md:w-44 w-16 sm:w-24 border-2 bg-base-300 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover animate-pulse"></div>
+                  <div className="block md:w-32 w-16 sm:w-24 border-2 bg-base-300 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover animate-pulse"></div>
                   <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full"></div>
                 </div>)
                 })
