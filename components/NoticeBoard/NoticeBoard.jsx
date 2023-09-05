@@ -22,7 +22,7 @@ const NoticeBoard = () => {
           <ul>
             {notice?.map((not) => {
               return (
-                <li className="leading-5">
+                <li className="leading-5 px-1">
                   {not?.notice}
                 </li>
               );
