@@ -22,7 +22,7 @@ const NoticeBoard = () => {
           <ul>
             {notice?.map((not) => {
               return (
-                <li className="list-decimal list-inside leading-5">
+                <li className="leading-5">
                   {not?.notice}
                 </li>
               );
