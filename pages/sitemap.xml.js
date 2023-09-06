@@ -15,7 +15,7 @@ function generateSiteMap(posts) {
        .map(({ id,title }) => {
          return `
        <url>
-           <loc>${`${process.env.SITE_URL}/${id}/${title.split(' ').join('-').replace(/\[|]|&|()|\&]/g, '').toLowerCase()}`}</loc>
+           <loc>${`${process.env.SITE_URL}/blog/${id}/${title.split(' ').join('-').replace(/\[|]|&|()|\&]/g, '').toLowerCase()}`}</loc>
        </url>
      `;
        })
