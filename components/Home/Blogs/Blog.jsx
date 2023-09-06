@@ -23,13 +23,13 @@ const view = JSON.stringify(post?.view)
     <div
       className={`flex  flex-row p-1 overflow-hidden border-b my-1 md:h-32 bg-base-100 sm:h-24  shadow-lg`}
     >
-      <Image
-        className="block md:w-32 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"
-        src={post?.featured_image}
-        width={200}
-        height={200}
-        alt={post.email}
-      />
+     <Image
+          className="block md:w-44 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"
+          src={post.featured_image}
+          width={176}
+          height={96}
+          alt={post.email}
+        />
       <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
         <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
           <Link

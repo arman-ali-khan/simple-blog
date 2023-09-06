@@ -23,6 +23,14 @@ const Create = () => {
   // router
   const router = useRouter();
 
+  const [notice, setNotice] = useState();
+  // featch data
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/notice`).then((res) => {
+      setNotice(res.data);
+    });
+  }, []);
+
   // React Select
 
   const animatedComponents = makeAnimated();
@@ -318,20 +326,19 @@ useEffect(() => {
             <div className="px-2 py-1">
               <h3 className="font-bold">Post Publish Policy</h3>
               <ul className="mx-6">
-                <li className="list-decimal">
-                  পোষ্ট এর সাথে সম্পুর্কযুক্ত ক্যাটাগরী/ফিচারড ইমেজ/ট্যাগ
-                  ব্যবহার করুন
+              {notice?.map((not) => {
+              return (
+                <>
+                {
+                  not.type === 'medium' &&  <li key={not.id} className=" list-decimal px-1">
+                  {not?.notice}
                 </li>
-                <li className="list-decimal">কপিপেষ্ট পরিহার করুন।</li>
-                {/* <li className="list-decimal">কেউ কপিপেষ্ট করেছে এমন প্রমান পেলে সাথে সাথে ট্রেইনার থেকে তাকে বাতিল করা হবে</li> */}
-                <li className="list-decimal">
-                  পোষ্ট এর একেবারে শেষ ছাড়া কোথাও পোষ্ট দাতার সাইট লিংক থাকতে
-                  পারবে না
-                </li>
-                <li className="list-decimal">
-                  এপ/গেম এর রিভিও দিলে এপ/গেম ডাওনলোড এর ডাইরেক্ট লিংক দিতে হবে
-                  এবং বিস্তারিত পোষ্ট+স্ক্রিনশট দিতে হবে
-                </li>
+                }
+                </>
+               
+              );
+            })}
+                
               </ul>
             </div>
             <div className="flex justify-end px-4 py-2">

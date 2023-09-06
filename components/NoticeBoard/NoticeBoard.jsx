@@ -22,9 +22,14 @@ const NoticeBoard = () => {
           <ul>
             {notice?.map((not) => {
               return (
-                <li className="leading-5 px-1">
+                <>
+                {
+                  not.type === 'normal' &&  <li key={not.id} className="leading-5 px-1">
                   {not?.notice}
                 </li>
+                }
+                </>
+               
               );
             })}
           </ul>
