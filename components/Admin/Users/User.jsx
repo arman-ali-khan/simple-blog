@@ -1,10 +1,31 @@
-import React from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import React, { useContext } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FaBan, FaPencilAlt } from "react-icons/fa";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { UserContext } from "../../../context/ContextProvider";
 
 const User = ({ user }) => {
+
+ const {dbUser} = useContext(UserContext)
+  // update user
+  const handleUpdateUser = (data) =>{
+    axios.put(`${process.env.NEXT_PUBLIC_API_PRO}/api/admin/users/${user.id}`,{type:data},{
+      headers:{
+        authorization: `basic ${Cookies.get('token')}`,
+        email: dbUser.email
+      }
+    })
+    .then(res=>{
+      console.log(res.data)
+      // toast.error(res.data.message)
+    }).catch(err=>{
+      console.error(err.message)
+    })
+    console.log(data,user.id)
+  }
   return (
    <>
    
@@ -20,8 +41,14 @@ const User = ({ user }) => {
           }
           alt=""
         />{" "}
-        {user.fullName}
+        {user.fullName || user.email} ({user.type})
       </p>
+      <select onChange={(e)=>handleUpdateUser(e.target.value)} className="select select-sm rounded select-bordered" id="role">
+    <option value="contributor">contributor</option>
+    <option value="author">Author</option>
+    <option value="moderator">Moderator</option>
+    <option value="admin">Admin</option>
+   </select>
       <p className="flex items-center gap-2">
         <label title="Make Admin" className="p-1 cursor-pointer border rounded-full border-blue-400">
           <MdOutlineAdminPanelSettings size={20} />
@@ -56,10 +83,18 @@ const User = ({ user }) => {
 
 <input type="checkbox" id="edit_user" className="modal-toggle" />
 <div className="modal">
-  <div className="modal-box">
+  <form onSubmit={e=>handleUpdateUser({e,user})} className="modal-box">
     <h3 className="text-lg font-bold">Edit User</h3>
-    <p className="py-4">This modal works with a hidden checkbox!</p>
+  <div className="flex items-center gap-3">
+  <select name="userUpdate" className="select select-sm rounded select-bordered" id="role">
+    <option value="contributor">contributor</option>
+    <option value="author">Author</option>
+    <option value="moderator">Moderator</option>
+    <option value="admin">Admin</option>
+   </select>
+   <button className="btn btn-neutral btn-sm rounded">Save</button>
   </div>
+  </form>
   <label className="modal-backdrop" htmlFor="edit_user">Close</label>
 </div>
 

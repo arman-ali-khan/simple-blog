@@ -138,6 +138,7 @@ const isoString = now.toISOString();
       username: dbUser.username,
       view: 0,
       createdAt: isoString,
+      aproved: dbUser.type === 'author' ? 1 : 0,
       tags: postTitle.split(' ').join(',')
     };
     axios
