@@ -11,7 +11,7 @@ const Users = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:5000/api/getallusers`, {
+        .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/getallusers`, {
           headers: {
             authorization: `Basic ${Cookies.get("token")}`,
             email: user?.email,
