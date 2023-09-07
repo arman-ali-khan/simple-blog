@@ -3,8 +3,8 @@ import { Toaster } from "react-hot-toast";
 import ContextProvider from "../context/ContextProvider";
 import "../styles/globals.css";
 import Effect from "./effect";
+import './googleal.js';
 export default function App({ Component, pageProps }) {
- 
   return (
     <>   
 

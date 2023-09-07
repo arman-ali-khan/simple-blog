@@ -15,13 +15,6 @@ export default function Document() {
           rel="stylesheet"
         />
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLRN2J4SEM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){typeof window !== 'undefined' && window && window.dataLayer &&  dataLayer.push(arguments)}
-  gtag('js', new Date());
-
-  gtag('config', 'G-WLRN2J4SEM');
-</script>
       </Head>
       <title>Arman's Blog</title>
       <body>

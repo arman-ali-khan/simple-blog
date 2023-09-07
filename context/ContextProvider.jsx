@@ -36,7 +36,7 @@ const logOut = ()=>{
 
 // site settings
 const [settings,setSettings] = useState({})
-console.log(settings)
+// console.log(settings)
 
 
 async function getServerSideProps() {

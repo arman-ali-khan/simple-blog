@@ -11,7 +11,7 @@ const NoticeBoard = () => {
   }, []);
   return (
     <div>
-      <div className="bg-white border h-full">
+      <div className="bg-white border">
         <div className="flex px-4 gap-2 py-1 items-center font-bold text-white bg-orange-400">
           <span>
             <FiAlertTriangle />
@@ -20,16 +20,11 @@ const NoticeBoard = () => {
         </div>
         <div className="p-2">
           <ul>
-            {notice?.map((not) => {
+            {notice?.map((not, i) => {
               return (
-                <>
-                {
-                  not.type === 'normal' &&  <li key={not.id} className="leading-5 px-1">
-                  {not?.notice}
+                <li key={i} className="leading-5 px-1">
+                {not.type === "normal" && not?.notice}
                 </li>
-                }
-                </>
-               
               );
             })}
           </ul>

@@ -33,7 +33,7 @@ const Featured = () => {
           featured.map((post) => <SingleFeatured post={post} key={post.id} />)
         )}
       </div>
-      <div className="md:w-1/3 md:p-3 p-1 h-56 notice overflow-y-auto mt-2">
+      <div className="md:w-1/3 md:p-3 p-1 max-h-56 notice overflow-y-auto mt-2">
           <NoticeBoard />
       
       </div>
