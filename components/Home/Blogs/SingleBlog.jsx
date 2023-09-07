@@ -18,8 +18,8 @@ import Related from "./Related/Related";
 
 const SingleBlog = ({ blog }) => {
   // get context user
-  const { dbUser, user } = useContext(UserContext);
-
+  const { dbUser, user,settings } = useContext(UserContext);
+console.log(settings)
   // loading
   const [loading, setLoading] = useState(true);
 
@@ -52,7 +52,7 @@ const SingleBlog = ({ blog }) => {
   const [hover, setHover] = useState(false);
   return (
     <Layout
-      title={`${blog.title} || ${"Arman's Blog"}`}
+      title={`${blog.title} || ${settings.title}`}
       desc={blog?.description}
       thumb={blog.featured_image}
     >
