@@ -1,7 +1,6 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
-  
   return (
     <Html data-theme="light" lang="en">
       <Head>
@@ -14,7 +13,19 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800;900&family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap"
           rel="stylesheet"
         />
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLRN2J4SEM"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-WLRN2J4SEM"
+        ></script>
+        <script>
+          typeof window !== 'undefined' && window && (window.dataLayer =
+          window.dataLayer || []); function gtag()
+          {typeof window !== "undefined" &&
+            window &&
+            window.dataLayer &&
+            dataLayer.push(arguments)}
+          gtag('js', new Date()); gtag('config', 'G-WLRN2J4SEM');
+        </script>
       </Head>
       <title>Arman's Blog</title>
       <body>
