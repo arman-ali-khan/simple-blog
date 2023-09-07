@@ -50,16 +50,20 @@ const AboutAuthor = ({ post, author }) => {
           />
         </div>
         <div className="text-center justify-center relative">
-          <Link
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            href={`/user/${author?.username}`}
-          >
-            <h2 className="text-lg text-blue-600 font-bold">
-              {author?.fullName}
-            </h2>
-          </Link>
-        
+          {author?.username ? (
+            <Link
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+              href={`/user/${author?.username}`}
+            >
+              <h2 className="text-lg text-blue-600 font-bold">
+                {author?.fullName || author?.email}
+              </h2>
+            </Link>
+          ) : (
+            <h2 className="text-lg text-blue-600 font-bold">{author?.email}</h2>
+          )}
+
           <p>{author?.about}</p>
         </div>
         {/* Post */}
