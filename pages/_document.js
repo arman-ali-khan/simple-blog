@@ -1,5 +1,4 @@
 import { Head, Html, Main, NextScript } from "next/document";
-
 export default function Document() {
   return (
     <Html data-theme="light" lang="en">
@@ -17,15 +16,6 @@ export default function Document() {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-WLRN2J4SEM"
         ></script>
-        <script>
-          typeof window !== 'undefined' && window && (window.dataLayer =
-          window.dataLayer || []); function gtag()
-          {typeof window !== "undefined" &&
-            window &&
-            window.dataLayer &&
-            dataLayer.push(arguments)}
-          gtag('js', new Date()); gtag('config', 'G-WLRN2J4SEM');
-        </script>
       </Head>
       <title>Arman's Blog</title>
       <body>
