@@ -1,5 +1,5 @@
 typeof window !== "undefined" && (window.dataLayer = window.dataLayer || []); 
-function gtag()
+    function gtag()
 {typeof window !== "undefined" &&
   window &&
   window.dataLayer &&
