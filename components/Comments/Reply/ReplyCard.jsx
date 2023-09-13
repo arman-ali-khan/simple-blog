@@ -11,7 +11,7 @@ import { UserContext } from "../../../context/ContextProvider";
 
 const ReplyCard = ({ reply,blog, update, setUpdate }) => {
   // context
-  const { user, logOut } = useContext(UserContext);
+  const { user, logOut,dbUser } = useContext(UserContext);
   // router
   const router = useRouter();
 
@@ -60,7 +60,7 @@ const ReplyCard = ({ reply,blog, update, setUpdate }) => {
   const [hover, setHover] = useState(false);
   return (
     <div className="relative">
-      <div className="ml-5  before:absolute before:border-gray-400 before:border-l before:rounded-bl-full before:w-2 before:h-4/6 before:ml-4 mt-3 before:-left-2 before:top-2 ">
+      <div className="ml-5   ">
         <div className="flex items-center gap-2">
           {/* name */}
           {reply?.username ? (
@@ -70,7 +70,7 @@ const ReplyCard = ({ reply,blog, update, setUpdate }) => {
               className={`font-bold  ${blog?.email === author.email && 'bg-orange-100 px-2 rounded-full'} text-blue-500 flex items-center gap-1`}
               href={`/user/${reply.username}`}
             >
-              {reply?.username}
+              {reply?.name ? reply?.name : reply?.username}
               <p className="bg-orange-100 font-thin capitalize px-2 rounded-full text-orange-600">{author?.type}</p>
             </Link>
           ) : (
@@ -144,7 +144,7 @@ const ReplyCard = ({ reply,blog, update, setUpdate }) => {
          <span className="text-xs"> ({moment(reply?.date).fromNow()})</span>
         </div>
         <p className="py-1">{reply?.reply}</p>
-        {user?.email === reply.email && (
+        {(user?.email === reply.email  || dbUser?.type==='admin') && (
           <button
             onClick={() => handleDeleteComment(reply.id)}
             className="text-error text-xs px-2 py-1 border border-error rounded-full"

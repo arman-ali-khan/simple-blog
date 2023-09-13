@@ -11,7 +11,7 @@ import Reply from "./Reply/Reply";
 
 const Comment = ({ comment,blog, update, setUpdate }) => {
   // context
-  const { user, logOut } = useContext(UserContext);
+  const { user, logOut,dbUser } = useContext(UserContext);
   // router
   const router = useRouter();
 
@@ -84,13 +84,13 @@ const Comment = ({ comment,blog, update, setUpdate }) => {
                 </Link>
               )}
              
-              (<span>{moment(comment?.date).fromNow()}</span>)
+              <span className="text-xs">({moment(comment?.date).fromNow()})</span>
             </div>
             <p className="py-1">{comment?.comment}</p>
-            {user?.email === comment.email && (
+            {(user?.email === comment.email || dbUser?.type==='admin') && (
               <button
                 onClick={() => handleDeleteComment(comment.id)}
-                className="text-error px-2 py-1 border border-error rounded-full"
+                className="text-error text-xs px-2 py-1 border border-error rounded-full"
               >
                 {deleteBtn}
               </button>

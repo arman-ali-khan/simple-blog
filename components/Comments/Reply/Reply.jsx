@@ -96,7 +96,8 @@ const Reply = ({ comment, blog }) => {
   return (
     <div>
       <div>
-        {user?.email ? (
+       <div className="flex justify-end">
+       {user?.email ? (
           <button
             className="bg-base-200 border-orange-500 border px-2 py-1 rounded-md"
             onClick={() => setShow(!show)}
@@ -110,10 +111,11 @@ const Reply = ({ comment, blog }) => {
               href={`/start/login?to=${blog.id}`}
             >
               Login
-            </Link>
+            </Link>{' '}
             to Reply
           </div>
         )}
+       </div>
 
         {show && user?.email ? (
           <form onSubmit={handleSubmit(handleReply)}>
@@ -133,17 +135,22 @@ const Reply = ({ comment, blog }) => {
         )}
       </div>
       {/* Replies */}
-      {replies?.length
-        ? replies.map((reply) => (
-            <ReplyCard
-              blog={blog}
-              update={update}
-              setUpdate={setUpdate}
-              reply={reply}
-              key={reply.id}
-            />
-          ))
-        : ""}
+     <div className="relative">
+     <div className="before:absolute before:border-gray-400 before:border-l before:rounded-l-full before:w-2 before:h-5/6 before:ml-4 mt-3 before:-left-2 before:top-2">
+
+{replies?.length
+  ? replies.map((reply) => (
+    <ReplyCard
+    blog={blog}
+    update={update}
+    setUpdate={setUpdate}
+    reply={reply}
+        key={reply.id}
+        />
+    ))
+    : ""}
+    </div>
+     </div>
       {getComments?.count > 10 && (
         <div className="flex justify-center my-3 space-x-1 ">
           {[...Array(count).keys()].map((item, i) => (

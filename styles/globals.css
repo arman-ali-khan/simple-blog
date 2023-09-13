@@ -55,6 +55,12 @@ body {
   fill: transparent !important;
 }
 
+blockquote {
+  background: #ddd;
+  padding: 4px 11px;
+  border-left: 4px solid #aaa;
+}
+
 /* Noticeboard */
 /* width */
 .notice::-webkit-scrollbar {
