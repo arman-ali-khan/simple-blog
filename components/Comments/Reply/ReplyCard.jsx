@@ -4,12 +4,12 @@ import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
-import { UserContext } from "../../context/ContextProvider";
-import Reply from "./Reply/Reply";
+import { UserContext } from "../../../context/ContextProvider";
 
-const Comment = ({ comment, blog, update, setUpdate }) => {
+const ReplyCard = ({ reply, update, setUpdate }) => {
   // context
   const { user, logOut } = useContext(UserContext);
   // router
@@ -22,7 +22,7 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
   const handleDeleteComment = (id) => {
     setdeleteBtn("Deleting...");
     axios
-      .delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/comments/${id}`, {
+      .delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/reply/${id}`, {
         headers: {
           authorization: `Basic ${Cookies.get("token")}`,
           email: user.email,
@@ -31,6 +31,7 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
       .then((res) => {
         setUpdate(!update);
         setdeleteBtn("Deleted");
+        toast.success("Deleted");
       })
       .catch((err) => {
         console.error(err);
@@ -48,51 +49,35 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_API_PRO}/api/allusers?username=${comment?.username}`
+        `${process.env.NEXT_PUBLIC_API_PRO}/api/allusers?username=${reply?.username}`
       )
       .then((res) => {
         setAuthor(res.data[0]);
       });
-  }, [comment?.username]);
+  }, [reply]);
 
   // on hover
   const [hover, setHover] = useState(false);
-  console.log(hover)
   return (
-    <div>
-      <div className="mb-1 ">
-        <div className="p-2 border-b">
-          <div className="relative">
-            <div className="flex  items-center gap-2">
-              {/* name */}
-              {comment?.username ? (
-                <Link
-                  onMouseEnter={() => setHover(true)}
-                  onMouseLeave={() => setHover(false)}
-                  className="font-bold text-blue-500"
-                  href={`/user/${comment.username}`}
-                >
-                  {comment?.username}
-                </Link>
-              ) : (
-                <Link className="font-bold text-blue-500" href={`#`}>
-                  {"TrickZone User"}
-                </Link>
-              )}
-             
-              (<span>{moment(comment?.date).fromNow()}</span>)
-            </div>
-            <p className="py-1">{comment?.comment}</p>
-            {user?.email === comment.email && (
-              <button
-                onClick={() => handleDeleteComment(comment.id)}
-                className="text-error px-2 py-1 border border-error rounded-full"
-              >
-                {deleteBtn}
-              </button>
-            )}
-
-             {/* HOver data */}
+    <div className="relative">
+      <div className="ml-5  before:absolute before:border-gray-400 before:border-l before:rounded-bl-full before:w-2 before:h-4/6 before:ml-4 mt-3 before:-left-2 before:top-2 ">
+        <div className="flex items-center gap-2">
+          {/* name */}
+          {reply?.username ? (
+            <Link
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+              className="font-bold text-blue-500"
+              href={`/user/${reply.username}`}
+            >
+              {reply?.username}
+            </Link>
+          ) : (
+            <Link className="font-bold text-blue-500" href={`#`}>
+              {"TrickZone User"}
+            </Link>
+          )}
+          {/* HOver data */}
           <div
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -116,7 +101,7 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
               </div>
               <Link
                 className="text-blue-500 font-bold"
-                href={`/user/${comment.username}`}
+                href={`/user/${reply.username}`}
               >
                 <h2>{author.fullName}</h2>
               </Link>
@@ -155,13 +140,20 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
               </div>
             </div>
           </div>
-            {/* reply */}
-            <Reply comment={comment} />
-          </div>
+          (<span>{moment(reply?.date).fromNow()}</span>)
         </div>
+        <p className="py-1">{reply?.reply}</p>
+        {user?.email === reply.email && (
+          <button
+            onClick={() => handleDeleteComment(reply.id)}
+            className="text-error px-2 py-1 border border-error rounded-full"
+          >
+            {deleteBtn}
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-export default Comment;
+export default ReplyCard;
