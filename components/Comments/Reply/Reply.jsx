@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,7 +8,7 @@ import { toast } from "react-hot-toast";
 import { UserContext } from "../../../context/ContextProvider";
 import ReplyCard from "./ReplyCard";
 
-const Reply = ({ comment }) => {
+const Reply = ({ comment, blog }) => {
   const [show, setShow] = useState(false);
   // comment btn
   const [replyBtn, setReplyBtn] = useState("Reply");
@@ -64,6 +65,7 @@ const Reply = ({ comment }) => {
         }
       });
   };
+
   // current page
   const [currentPage, setCurrentPage] = useState(1);
   // get comments
@@ -94,13 +96,26 @@ const Reply = ({ comment }) => {
   return (
     <div>
       <div>
-        <button
-          className="bg-base-200 border-orange-500 border px-2 py-1 rounded-md"
-          onClick={() => setShow(!show)}
-        >
-          Reply
-        </button>
-        {show ? (
+        {user?.email ? (
+          <button
+            className="bg-base-200 border-orange-500 border px-2 py-1 rounded-md"
+            onClick={() => setShow(!show)}
+          >
+            Reply
+          </button>
+        ) : (
+          <div>
+            <Link
+              className="text-blue-500 font-bold"
+              href={`/start/login?to=${blog.id}`}
+            >
+              Login
+            </Link>
+            to Reply
+          </div>
+        )}
+
+        {show && user?.email ? (
           <form onSubmit={handleSubmit(handleReply)}>
             <input
               {...register("reply", { required: true })}
@@ -118,10 +133,36 @@ const Reply = ({ comment }) => {
         )}
       </div>
       {/* Replies */}
-      {replies?.length ?
-      replies.map((reply) => <ReplyCard update={update} setUpdate={setUpdate} reply={reply} key={reply.id} />):''
-    
-    }
+      {replies?.length
+        ? replies.map((reply) => (
+            <ReplyCard
+              blog={blog}
+              update={update}
+              setUpdate={setUpdate}
+              reply={reply}
+              key={reply.id}
+            />
+          ))
+        : ""}
+      {getComments?.count > 10 && (
+        <div className="flex justify-center my-3 space-x-1 ">
+          {[...Array(count).keys()].map((item, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(item + 1)}
+              type="button"
+              title="Page 1"
+              className={`inline-flex items-center justify-center w-8 h-8 text-sm font-semibold border hover:bg-blue-500  hover:text-base-200 duration-300 rounded shadow-md  border-blue-600 ${
+                item + 1 === currentPage
+                  ? "bg-blue-500 text-black"
+                  : "bg-base-200"
+              }`}
+            >
+              {item + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

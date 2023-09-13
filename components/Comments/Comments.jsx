@@ -89,6 +89,8 @@ const router = useRouter()
   /// comments
   const comments = getComments.comments;
 
+ 
+
   const count = Math.ceil((getComments?.count || 10) / 10);
   return (
     <div id="comments">

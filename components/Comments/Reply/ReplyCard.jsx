@@ -9,7 +9,7 @@ import { MdAlternateEmail } from "react-icons/md";
 import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
 import { UserContext } from "../../../context/ContextProvider";
 
-const ReplyCard = ({ reply, update, setUpdate }) => {
+const ReplyCard = ({ reply,blog, update, setUpdate }) => {
   // context
   const { user, logOut } = useContext(UserContext);
   // router
@@ -67,10 +67,11 @@ const ReplyCard = ({ reply, update, setUpdate }) => {
             <Link
               onMouseEnter={() => setHover(true)}
               onMouseLeave={() => setHover(false)}
-              className="font-bold text-blue-500"
+              className={`font-bold  ${blog?.email === author.email && 'bg-orange-100 px-2 rounded-full'} text-blue-500 flex items-center gap-1`}
               href={`/user/${reply.username}`}
             >
               {reply?.username}
+              <p className="bg-orange-100 font-thin capitalize px-2 rounded-full text-orange-600">{author?.type}</p>
             </Link>
           ) : (
             <Link className="font-bold text-blue-500" href={`#`}>
@@ -140,13 +141,13 @@ const ReplyCard = ({ reply, update, setUpdate }) => {
               </div>
             </div>
           </div>
-          (<span>{moment(reply?.date).fromNow()}</span>)
+         <span className="text-xs"> ({moment(reply?.date).fromNow()})</span>
         </div>
         <p className="py-1">{reply?.reply}</p>
         {user?.email === reply.email && (
           <button
             onClick={() => handleDeleteComment(reply.id)}
-            className="text-error px-2 py-1 border border-error rounded-full"
+            className="text-error text-xs px-2 py-1 border border-error rounded-full"
           >
             {deleteBtn}
           </button>

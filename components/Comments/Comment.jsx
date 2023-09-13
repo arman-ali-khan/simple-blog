@@ -9,7 +9,7 @@ import { RiFacebookFill, RiPhoneLine } from "react-icons/ri";
 import { UserContext } from "../../context/ContextProvider";
 import Reply from "./Reply/Reply";
 
-const Comment = ({ comment, blog, update, setUpdate }) => {
+const Comment = ({ comment,blog, update, setUpdate }) => {
   // context
   const { user, logOut } = useContext(UserContext);
   // router
@@ -57,7 +57,7 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
 
   // on hover
   const [hover, setHover] = useState(false);
-  console.log(hover)
+  console.log(comment,blog)
   return (
     <div>
       <div className="mb-1 ">
@@ -66,7 +66,9 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
             <div className="flex  items-center gap-2">
               {/* name */}
               {comment?.username ? (
-                <Link
+               <div className={`flex ${blog?.email === author.email && 'bg-orange-100 px-2 rounded-full'} items-center gap-1`}>
+                
+                 <Link
                   onMouseEnter={() => setHover(true)}
                   onMouseLeave={() => setHover(false)}
                   className="font-bold text-blue-500"
@@ -74,9 +76,11 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
                 >
                   {comment?.username}
                 </Link>
+                <p className="bg-orange-100 capitalize px-2 rounded-full text-orange-600">{author?.type}</p>
+               </div>
               ) : (
-                <Link className="font-bold text-blue-500" href={`#`}>
-                  {"TrickZone User"}
+                <Link className="font-bold text-blue-500 flex items-center gap-1" href={`#`}>
+                  {"TrickZone User"}  <p className="bg-orange-100 capitalize px-2 rounded-full text-orange-600">{author?.type}</p>
                 </Link>
               )}
              
@@ -156,7 +160,7 @@ const Comment = ({ comment, blog, update, setUpdate }) => {
             </div>
           </div>
             {/* reply */}
-            <Reply comment={comment} />
+            <Reply blog={blog} comment={comment} />
           </div>
         </div>
       </div>
