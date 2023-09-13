@@ -6,16 +6,19 @@ function generateSiteMap(posts) {
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <!--We manually set the two URLs we know already-->
      <url>
-       <loc>${process.env.SITE_URL}</loc>
+       <loc>${process.env.NEXT_PUBLIC_SITE_URL}</loc>
      </url>
      <url>
-       <loc>${`${process.env.SITE_URL}/guestbook`}</loc>
+       <loc>${`${process.env.NEXT_PUBLIC_SITE_URL}/guestbook`}</loc>
      </url>
      ${posts.posts
-       .map(({ id,title }) => {
+       .map(({ id,title,date }) => {
          return `
        <url>
-           <loc>${`${process.env.SITE_URL}/blog/${id}/${title.split(' ').join('-').replace(/\[|]|&|()|\&]/g, '').toLowerCase()}`}</loc>
+           <loc>${`${process.env.NEXT_PUBLIC_SITE_URL}/blog/${id}/${title.split(' ').join('-').replace(/\[|]|&|()|\&]/g, '').toLowerCase()}`}</loc>
+           <lastmod>${date}</lastmod>
+           <changefreq>daily</changefreq>
+           <priority>0.5</priority>
        </url>
      `;
        })
