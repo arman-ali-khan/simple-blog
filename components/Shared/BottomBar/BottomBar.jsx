@@ -32,7 +32,7 @@ const BottomBar = () => {
   //     });
   // }, [user?.email]);
   return (
-    <div className={`w-full ${router.pathname==='/post/create' && 'hidden'} flex justify-center`}>
+    <div className={`w-full ${(router.pathname==='/post/create' || router.pathname==='/guestbook' ) && 'hidden'} flex justify-center`}>
       {dbUser?.type === "admin" && (
             <Link href={"/admin"}>
           <div className="fixed z-50 bg-base-300 left-3 border border-info px-4 py-2 rounded-full bottom-14">
@@ -69,7 +69,7 @@ const BottomBar = () => {
               <li className="w-full">
                 <Link
                   className="w-full py-3 hover:bg-orange-400 hover:duration-300 duration-300 hover:text-white relative flex justify-center"
-                  href={"/notification"}
+                  href={"/guestbook"}
                 >
                   <BiComment size={24} />
                   {/* {
