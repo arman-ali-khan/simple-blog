@@ -123,7 +123,7 @@ const GusetBook = () => {
       <div className="md:flex flex-row h-full w-full md:w-[70%] lg:w-[50%] mx-auto overflow-x-hidden">
         <div className="flex flex-col md:w-96 flex-auto h-full md:p-6">
           <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-base-100 h-full md:p-4 pb-6">
-            <div className="flex flex-col mb-28 sm:mb-4 h-full overflow-x-auto">
+            <div className="flex flex-col mb-44 sm:mb-4 h-full overflow-x-auto">
               <div className="flex flex-col h-full">
                 <div className="flex flex-col sm:w-[90%] gap-y-2">
                   {dataMessage?.map((message, i) => {
