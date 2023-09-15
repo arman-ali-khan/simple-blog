@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@uiw/react-back-to-top": "^1.2.3",
+    "@vercel/analytics": "^1.0.2",
     "auth0-js": "^9.22.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",

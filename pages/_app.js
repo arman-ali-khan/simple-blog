@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import NextProgress from "next-progress";
 import { Toaster } from "react-hot-toast";
 import ContextProvider from "../context/ContextProvider";
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }) {
         options={{ showSpinner: false }}
       />
       <Effect />
+      <Analytics />
     </ContextProvider>
     </>
   );
