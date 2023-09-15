@@ -1,43 +1,76 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { BiDownArrow } from "react-icons/bi";
 import { RiCloseLine, RiReplyLine, RiSendPlane2Line } from "react-icons/ri";
 import io from "socket.io-client";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { UserContext } from "../../context/ContextProvider";
 const GusetBook = () => {
-  const { dbUser, user } = useContext(UserContext);
+  // hook form
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  // get context user
+  const { dbUser, user: fireUser } = useContext(UserContext);
+  // socket
   const socket = io.connect(process.env.NEXT_PUBLIC_API_PRO);
+  // get input message
   const [message, setMessage] = useState("");
+  // get data from socket
   const [getMessage, setGetMessage] = useState([]);
+
   const [reply, setReply] = useState({});
+  // update
+  const [update, setUpdate] = useState(false);
 
-  const messageData = {
-    message,
-    date: new Date(),
-    reply: JSON?.stringify(reply),
-    messageId:uuidv4(),
-    user: JSON?.stringify({
-      id: dbUser.id,
-      fullName: dbUser.fullName,
-      email: dbUser.email,
-      username: dbUser.username,
-    }),
-  };
+  // scroll bottom
+  const messagesEndRef = useRef(null)
 
-  const handleSend = () => {
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+
+  const handleSend = (data) => {
+
+    setMessage(data.message)
+  
+    console.log(data);
+    const messageData = {
+      message: data.message,
+      date: new Date(),
+      reply: JSON?.stringify(reply),
+      messageId: uuidv4(),
+      user: JSON?.stringify({
+        id: dbUser.id,
+        fullName: dbUser.fullName,
+        photo: dbUser.photo,
+        email: dbUser.email,
+        username: dbUser.username,
+      }),
+    };
     socket.emit("react", [...getMessage, messageData]);
     axios
       .post(`${process.env.NEXT_PUBLIC_API_PRO}/api/message`, messageData, {
         headers: {
           authorization: `basic ${Cookies.get("token")}`,
-          email: user?.email,
+          email: fireUser?.email,
         },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        if (res.data) {
+          reset();
+          setReply({});
+        }
       });
   };
 
@@ -51,27 +84,40 @@ const GusetBook = () => {
   const [messagesData, setMessageData] = useState({});
 
   useEffect(() => {
+    scrollToBottom()
+  }, [message]);
+
+  useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/message?limit=100&page=1`, {
+      .get(`${process.env.NEXT_PUBLIC_API_PRO}/api/message?limit=100&page=1`, {
         headers: {
           authorization: `basic ${Cookies.get("token")}`,
-          email: user.email,
+          email: fireUser.email,
         },
       })
       .then((res) => {
         setMessageData(res.data);
       });
-  }, []);
+  }, [update]);
 
   // data
   const dataMessage = messagesData.message || [];
 
-
-
   // handle delete
-  const handleDelete = id =>{
-    console.log(id)
-  }
+  const handleDelete = (id) => {
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_API_PRO}/api/message/${id}`, {
+        headers: {
+          authorization: `basic ${Cookies.get("token")}`,
+          email: fireUser?.email,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        // toast.success()
+        setUpdate(!update);
+      });
+  };
   return (
     <div className="flex h-screen fixed mx-auto w-full antialiased">
       <div className="md:flex flex-row h-full w-full md:w-[70%] lg:w-[50%] mx-auto overflow-x-hidden">
@@ -82,6 +128,7 @@ const GusetBook = () => {
                 <div className="flex flex-col sm:w-[90%] gap-y-2">
                   {dataMessage?.map((message, i) => {
                     const user = JSON?.parse(message.user);
+                    // console.log(user)
                     const reply = JSON?.parse(message.reply);
                     return (
                       <div
@@ -121,19 +168,30 @@ const GusetBook = () => {
                               {message?.message}
                             </div>
                           </div>
-                             
-                          <button
-                            onClick={() =>
-                              setReply({
-                                reply: message?.message?.slice(0, 120),
-                                replyId: message?.messageId
-                              })
-                            }
-                            className="-right-3 flex flex-col space-y-4 sm:flex-row items-center relative w-20 sm:space-x-2 px-2 sm:px-4"
-                          >
-                            <RiReplyLine className="p-1" size={25} />
-                            <button className="w-6  flex justify-center rounded-full py-1 text-rose-500" onClick={()=>handleDelete(message.id)}><RiCloseLine /></button>
-                          </button>
+
+                          <div className="flex flex-col space-y-1 sm:flex-row items-center relative w-12 sm:space-x-2">
+                            <button
+                              onClick={() =>
+                                setReply({
+                                  reply: message?.message?.slice(0, 100),
+                                  replyId: message?.messageId,
+                                })
+                              }
+                              className="-right-3  px-2 sm:px-4"
+                            >
+                              <RiReplyLine className="p-1" size={25} />
+                            </button>
+                            {fireUser.email === user.email ? (
+                              <button
+                                className="w-6  flex justify-center rounded-full py-1 text-rose-500"
+                                onClick={() => handleDelete(message.id)}
+                              >
+                                <RiCloseLine />
+                              </button>
+                            ) : (
+                              ""
+                            )}
+                          </div>
                         </div>
                       </div>
                     );
@@ -160,11 +218,11 @@ const GusetBook = () => {
                             </div>
                           )}
 
-                          <div className="relative">
+                          <div className="relative w-full">
                             {reply?.reply ? (
                               <a
                                 href={`#${reply.replyId}`}
-                                className="absolute -top-5 opacity-50 text-xs bg-base-300 py-1 px-2 rounded-lg text-gray-400 left-0 truncate w-full"
+                                className="absolute -top-5 opacity-50 text-xs bg-base-300 py-1 px-2 truncate rounded-lg text-gray-400 left-0  w-fit max-w-full"
                               >
                                 {reply ? reply?.reply : ""}
                               </a>
@@ -174,16 +232,18 @@ const GusetBook = () => {
 
                             <div
                               id={message?.messageId}
-                              className="ml-3 w-full  bg-base-200 py-2 px-4 shadow rounded-xl"
+                              className="ml-3 w-fit bg-base-200 py-2 px-4 shadow rounded-xl"
                             >
                               {message?.message}
                             </div>
+                           
                           </div>
+                          <div ref={messagesEndRef} />
                           <button
                             onClick={() =>
                               setReply({
-                                reply: message?.message?.slice(0, 120),
-                                replyId: message?.messageId
+                                reply: message?.message?.slice(0, 100),
+                                replyId: message?.messageId,
                               })
                             }
                             className="-right-3 relative w-14"
@@ -191,15 +251,25 @@ const GusetBook = () => {
                             <RiReplyLine className="p-1" size={25} />
                           </button>
                         </div>
+                     
                       </div>
                     );
                   })}
                 </div>
-                <div id="down"></div>
+              
+                  <div id="down"></div>
               </div>
             </div>
-            <a href="#down" className="fixed bottom-20 p-1 right-1 z-50 rounded-full border"><BiDownArrow size={20} /></a>
-            <div className="flex sticky left-0 bottom-16 md:bottom-20 mt-12 flex-row items-center h-20 md:h-20 rounded-xl bg-base-300 w-full px-4">
+            <a
+              href="#down"
+              className="fixed bottom-20 p-1 right-1 z-50 rounded-full border"
+            >
+              <BiDownArrow size={32} />
+            </a>
+            <form
+              onSubmit={handleSubmit(handleSend)}
+              className="flex sticky left-0 bottom-16 md:bottom-20 mt-12 flex-row items-center h-20 md:h-20 rounded-xl bg-base-300 w-full px-4"
+            >
               {/* <div>
                 <button className="flex items-center justify-center ">
                   <svg
@@ -225,12 +295,12 @@ const GusetBook = () => {
                       <div className="absolute bg-base-300 px-5 w-full p-1 rounded-t-md -top-9 truncate flex items-center gap-1 left-0">
                         {reply.reply}
                         <RiReplyLine size={20} />
-                        <button
+                        <span
                           onClick={() => setReply({})}
-                          className="absolute  right-0 p-1 rounded-full border bg-base-100"
+                          className="absolute cursor-pointer right-0 p-1 rounded-full border bg-base-100"
                         >
                           <RiCloseLine size={20} />
-                        </button>
+                        </span>
                       </div>
                     </div>
                   ) : (
@@ -238,24 +308,23 @@ const GusetBook = () => {
                   )}
 
                   <textarea
-                  placeholder="Message"
-                    onBlur={(e) => setMessage(e.target.value)}
+                    {...register("message", { required: true })}
+                    placeholder="Message"
                     className="flex max-h-20 w-full border focus:outline-none focus:border-orange-300 md:px-4 textarea text-sm h-10 rounded-full"
                   />
                   <button className="absolute flex items-center justify-center h-full w-12 right-0 top-0 "></button>
                 </div>
               </div>
               <div className="ml-1 md:ml-4">
-                <button
-                  onClick={() => handleSend()}
-                  className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 rounded px-1 md:px-4 py-1 flex-shrink-0"
-                >
-                  <span className="ml-2 py-1">
-                    <RiSendPlane2Line size={24} />
-                  </span>
-                </button>
+                <a href="#down">
+                  <button className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 rounded px-1 md:px-4 py-1 flex-shrink-0">
+                    <span className="ml-2 py-1">
+                      <RiSendPlane2Line size={24} />
+                    </span>
+                  </button>
+                </a>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
