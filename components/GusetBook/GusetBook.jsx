@@ -123,7 +123,7 @@ const GusetBook = () => {
       <div className="md:flex flex-row h-full w-full md:w-[70%] lg:w-[50%] mx-auto overflow-x-hidden">
         <div className="flex flex-col md:w-96 flex-auto h-full md:p-6">
           <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-base-100 h-full md:p-4 pb-6">
-            <div className="flex flex-col h-full overflow-x-auto mb-4">
+            <div className="flex flex-col mb-28 sm:mb-4 h-full overflow-x-auto">
               <div className="flex flex-col h-full">
                 <div className="flex flex-col sm:w-[90%] gap-y-2">
                   {dataMessage?.map((message, i) => {
@@ -268,7 +268,7 @@ const GusetBook = () => {
             </a>
             <form
               onSubmit={handleSubmit(handleSend)}
-              className="flex sticky left-0 bottom-16 md:bottom-20 mt-12 flex-row items-center h-20 md:h-20 rounded-xl bg-base-300 w-full px-4"
+              className="flex fixed sm:sticky  left-0 bottom-0 sm:bottom-16 md:bottom-20 mt-12 flex-row items-center h-20 md:h-20 rounded-xl bg-base-300 w-full px-4"
             >
               {/* <div>
                 <button className="flex items-center justify-center ">
