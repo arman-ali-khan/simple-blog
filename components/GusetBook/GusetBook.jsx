@@ -153,7 +153,7 @@ const GusetBook = () => {
                             {reply?.reply ? (
                               <a
                                 href={`#${reply.replyId}`}
-                                className="absolute -top-5 opacity-50  text-xs  bg-base-300 py-1 px-2 rounded-lg text-gray-400 left-0 truncate w-full"
+                                className="absolute -top-5 opacity-70 italic text-xs  bg-base-300 py-1 px-2 rounded-lg left-0 truncate w-full"
                               >
                                 {reply ? reply?.reply : ""}
                               </a>
@@ -222,7 +222,7 @@ const GusetBook = () => {
                             {reply?.reply ? (
                               <a
                                 href={`#${reply.replyId}`}
-                                className="absolute -top-5 opacity-50 text-xs bg-base-300 py-1 px-2 truncate rounded-lg text-gray-400 left-0  w-fit max-w-full"
+                                className="absolute -top-5 opacity-70 italic text-xs bg-base-300 py-1 px-2 truncate rounded-lg left-0  w-fit max-w-full"
                               >
                                 {reply ? reply?.reply : ""}
                               </a>
