@@ -30,7 +30,7 @@
     "next-progress": "^2.3.1",
     "next-sitemap": "^4.1.8",
     "package_name": "^1.0.2",
-    "postcss": "8.4.25",
+    "postcss": "8.4.31",
     "rc-ckfulleditor": "^2.0.0",
     "react-hook-form": "^7.46.1",
     "react-hot-toast": "^2.4.1",
