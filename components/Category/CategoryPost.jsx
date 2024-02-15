@@ -37,7 +37,9 @@ const CategoryPost = ({blog,loading}) => {
               
              </>
             ) :   
+            blog?.length ?
               blog?.map(post => <Blog key={post.id} post={post} />)
+              :<div className="text-center my-12">No Post Found</div>
             }
           </div>
       

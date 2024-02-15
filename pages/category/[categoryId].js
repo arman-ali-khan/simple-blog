@@ -6,7 +6,7 @@ const categoryId = ({ data, loading,categoryId }) => {
     console.log(categoryId)
     const blog = data?.posts
 
-    const category = JSON.parse(blog[0]?.categories)
+    // const category = JSON.parse(blog[0]?.categories)
   return (
     <Layout className="capitalize" title={`Archive By Category '${categoryId.split('-').join(' ')}'`}>
       <CategoryPost blog={blog} loading={loading} />
