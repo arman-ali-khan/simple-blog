@@ -144,14 +144,14 @@ const ReplyCard = ({ reply,blog, update, setUpdate }) => {
          <span className="text-xs"> ({moment(reply?.date).fromNow()})</span>
         </div>
         <p className="py-1">{reply?.reply}</p>
-        {(user?.email === reply.email  || dbUser?.type==='admin') && (
+        { user?.email ? (user?.email === reply.email  || dbUser?.type==='admin') && (
           <button
             onClick={() => handleDeleteComment(reply.id)}
             className="text-error text-xs px-2 py-1 border border-error rounded-full"
           >
             {deleteBtn}
           </button>
-        )}
+        ):''}
       </div>
     </div>
   );

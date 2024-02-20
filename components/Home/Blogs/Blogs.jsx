@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { BsViewList } from 'react-icons/bs';
 import { UserContext } from "../../../context/ContextProvider";
-import Loader from "../../../lib/Loader";
 import Popular from "../../Popular/Popular";
 import Notifications from "../../User/Sidebar/Notifications";
 import UserAnalytics from "../../User/Sidebar/UserAnalytics";
@@ -15,18 +14,23 @@ const Blogs = () => {
   // posts get
   const [getPosts, setGetPosts] = useState({});
   // get post loading
-  const [loading, setLoading] = useState(true);
+  const [loadingBlog,setLoadingBlog] = useState(true)
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
-    setLoading(true);
+    setLoadingBlog(true)
     axios.get(`${process.env.NEXT_PUBLIC_API_PRO}/api/posts?limit=10&page=${currentPage}`).then((res) => {
       setGetPosts(res.data);
-      setLoading(false);
+      setLoadingBlog(false);
     });
   }, [currentPage]);
   const posts = getPosts?.posts;
 
+  // loading
+  // const [loadingBlog,setLoadingBlog] = useState(false)
+  // useEffect(()=>{
+  //   setLoadingBlog(false)
+  // },[currentPage])
   // count
   const count = Math.ceil((getPosts?.count || 10 )/ 10)
 
@@ -43,11 +47,11 @@ const Blogs = () => {
           <BsViewList />  <h2 className="text-base">Recent</h2>
           </div>
           <div className="space-y-0">
-            {loading ? (
+            {loadingBlog ? (
               <>
-              <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
+              {/* <div className="fixed top-0 left-0 w-screen h-screen z-[999]  backdrop-blur-3xl">
               <Loader />
-              </div>
+              </div> */}
                {
                 [...Array(10).keys()].map((item,i)=>{
                 return(  <div key={i}
@@ -65,9 +69,13 @@ const Blogs = () => {
 
             {/* pagination */}
           {
-             <div className="flex justify-center my-3 space-x-1 ">
-         
-            {getPosts?.count > 10 &&
+             <div className="flex justify-center my-12 py-12 space-x-1 ">
+             <div className="join grid grid-cols-3">
+  <button onClick={()=>setCurrentPage(currentPage-1)} disabled={currentPage===1} className="join-item btn btn-sm btn-outline">Previous</button>
+  <button disabled className="join-item btn btn-sm btn-outline">{currentPage}</button>
+  <button disabled={currentPage===count} onClick={()=>setCurrentPage(currentPage+1)} className="join-item btn btn-sm btn-outline">Next</button>
+</div>
+            {/* {getPosts?.count > 10 &&
             [...Array(count).keys()].map((item, i) => (
               <button
                 key={i}
@@ -80,7 +88,7 @@ const Blogs = () => {
               >
                 {item+1}
               </button>
-            ))}
+            ))} */}
           </div>
           }
           </div>

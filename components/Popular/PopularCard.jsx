@@ -24,18 +24,21 @@ useEffect(()=>{
   })
 },[])
     return (
-        <div className={`flex w-full flex-row overflow-hidden md:h-32 bg-base-100 sm:h-24  shadow-lg`}>
+        <div className={`flex w-full py-1 flex-row md:h-max min-h-full h-max bg-base-100 sm:h-fit  shadow-lg`}>
         <Image
-          className="block md:w-44 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-auto h-16 sm:h-24 object-cover"
+          className="block md:w-44 mr-1 w-16 sm:w-24 border-2 md:border-4 border-blue-400 flex-none bg-cover md:h-40 h-16 sm:h-24 object-fill"
           src={post.featured_image}
           width={176}
           height={96}
           alt={post.email}
         />
-        <div className="rounded-b lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between leading-normal w-full">
-          <div className="font-bold  sm:text-base text-sm mb-2 leading-tight">
-           <Link className='hover:text-blue-300 visited:text-purple-400 duration-300 text-blue-500' href={`/blog/${post.id}/${post.title.split(/[\s?=/"':,]+/).join('-').toLowerCase()}`}> {post.title}</Link>
+        <div className="rounded-b min-w-24 lg:rounded-b-none lg:rounded-r md:p-4 p-1 flex flex-col justify-between w-full">
+          <div className="font-bold sm:text-base text-sm mb-2 leading-tight">
+           <Link className='hover:text-blue-400 min-w-24 truncate visited:text-purple-500 duration-300 text-blue-500' href={`/blog/${post.id}/${post.title.split(/[\s?=/"':,]+/).join('-').toLowerCase()}`}> {post.title}</Link>
           </div>
+            {/* Content */}
+        <div className="text-base hidden lg:block leading-5">{post?.description?.split(' ').slice(0,44).join(' ')}...</div>
+        <div className="text-sm block lg:hidden leading-5">{post?.description?.split(' ').slice(0,22).join(' ')}...</div>
          <div>
          <div className="flex justify-between gap-2 items-center w-full">
           <Link href={`/category/${categories[0].value}`} className=' text-blue-400  lg:block w-full text-xs sm:text-sm md:text-base truncate'>{categories && categories[0].label}</Link>

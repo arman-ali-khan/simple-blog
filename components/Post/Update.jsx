@@ -122,7 +122,7 @@ const Update = ({ post }) => {
     return str.replace(/(<([^>]+)>)/gi, "");
   }
 // chenge body
-const handleChengeBody = () =>{
+const handleChangeBody = () =>{
   useUnsavedChange(true)
 }
 
@@ -222,7 +222,7 @@ useEffect(() => {
                 defaultValue={post.title}
                 onChange={(e) => setPostTitle(e.target.value)}
                 type="text"
-                onChangeCapture={()=>handleChengeBody()}
+                onChangeCapture={()=>handleChangeBody()}
                 placeholder="Post Title"
                 className="px-4 border py-2 w-full rounded"
               />
@@ -237,7 +237,7 @@ useEffect(() => {
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   setContent(data);
-                  handleChengeBody()
+                  handleChangeBody()
                 }}
                 config={{
                   // ...Ckeditor config

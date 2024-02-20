@@ -10,15 +10,15 @@ const NoticeBoard = () => {
     });
   }, []);
   return (
-    <div>
-      <div className="bg-white border">
+    <div className="h-full">
+      <div className="bg-white border shadow-xl rounded-b-md h-full">
         <div className="flex px-4 gap-2 py-1 items-center font-bold text-white bg-orange-400">
           <span>
             <FiAlertTriangle />
           </span>
           <p>Notice Board</p>
         </div>
-        <div className="p-2">
+        <div className="p-2 h-max ">
           <ul>
             {notice?.map((not, i) => {
               return (

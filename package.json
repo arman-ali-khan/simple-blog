@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ducanh2912/next-pwa": "^10.2.5",
     "@uiw/react-back-to-top": "^1.2.3",
     "@vercel/analytics": "^1.1.4",
     "auth0-js": "^9.24.1",
@@ -28,6 +29,7 @@
     "mongodb": "^6.3.0",
     "next": "^14.1.0",
     "next-progress": "^2.3.1",
+    "next-pwa": "^5.6.0",
     "next-sitemap": "^4.2.3",
     "package_name": "^1.0.2",
     "postcss": "8.4.35",
@@ -35,6 +37,7 @@
     "react-hook-form": "^7.50.1",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
+    "react-quill": "^2.0.0",
     "react-remove-scroll-bar": "^2.3.4",
     "react-select": "^5.8.0",
     "react-use": "^17.5.0",

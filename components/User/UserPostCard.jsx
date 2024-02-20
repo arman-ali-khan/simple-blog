@@ -8,7 +8,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlineComment } from 'react-icons/ai';
 import { GrLineChart } from 'react-icons/gr';
-import { IoCalendarClearOutline } from 'react-icons/io5';
+import { IoCalendarClearOutline, IoWarning } from 'react-icons/io5';
 import { UserContext } from '../../context/ContextProvider';
 
 const UserPostCard = ({post,updatePost,setUpdatePost}) => {
@@ -83,7 +83,7 @@ const handleDelete = (id) =>{
   })
 }
     return (
-        <div className="mt-1 border-t border-blueGray-200 ">
+        <div className="mt-1 border-t ">
         <div className="flex flex-wrap md:h-auto w-full justify-center">
           <div className="w-full">
           <div className="flex flex-row overflow-hidden bg-base-100 border shadow-lg">
@@ -138,30 +138,30 @@ const handleDelete = (id) =>{
             setDeleteId()
             setInputEmail('')
           }} className='fixed top-0 left-0 w-full h-screen'></button>
-          <div className='sm:w-[450px] z-50 w-full sm:h-72 h-72 flex flex-col relative  justify-center bg-base-300 items-center border py-9'>
-            <div className='text-left px-2 bg-blue-400 absolute top-0 h-12 items-center flex w-full'>
+          <div className='sm:w-[450px] z-50 w-full sm:h-72 h-72 flex flex-col relative  justify-center bg-base-100 shadow-xl rounded-md items-center border py-9'>
+            <div className='text-left px-2 bg-orange-400 rounded-md absolute top-0 h-12 items-center flex w-full'>
               <h2 className='md:text-xl text-white truncate font-bold w-full'>Delete {post.title}</h2>
             </div>
            <div className='mt-6'>
            <div className='px-4 flex justify-center'>
-              <p className='text-error text-xs sm:text-lg'>You can't restore this post after delete</p>
+              <p className='text-error text-xs sm:text-lg flex items-center gap-1'> <IoWarning /> You can't restore this post after delete</p>
             </div>
             <div className='px-4 py-2 flex justify-center'>
-              <p className='text-warning  text-xs sm:text-lg font-bold truncate'>Are you sure want to delete this post?</p>
+              <p className='text-xs sm:text-lg font-bold truncate'>Are you sure want to delete this post?</p>
             </div>
             <div className='flex justify-center w-full'>
              
             <div className='w-full'>
-            <p className='flex items-center gap-2 pb-2 w-full px-2  text-xs sm:text-base'>Enter your email <span className='bg-blue-400 text-white flex items-center px-2 text-black'>{user?.email}</span></p>
+            <p className='flex items-center gap-2 pb-2 w-full px-2  text-xs sm:text-base'>Enter your email <span className='bg-base-300 flex items-center px-2'>{user?.email}</span></p>
            <div className='flex items-center w-full'>
-           <input autocomplete="off" onChange={(e)=>setInputEmail(e.target.value)} placeholder={'email'} className={`px-3 w-full text-error border py-2 ${inputEmail===user?.email ? 'border-success focus-visible:outline-success focus-visible:outline text-success':'border-error focus-visible:outline-error focus-visible:outline text-error'}`} type="text" id="username" />
-              <button disabled={inputEmail!==user?.email} onClick={()=>handleDelete(deleteId)} className='px-4 py-2 disabled:bg-neutral disabled:text-white disabled:cursor-not-allowed border border-error bg-error hover:bg-opacity-80 duration-300 text-black'>{deleteBtn}</button>
+           <input autocomplete="off" onChange={(e)=>setInputEmail(e.target.value)} placeholder={'email'} className={`px-3 w-full text-error border py-2 ${inputEmail===user?.email ? 'border-success focus-visible:outline- focus-visible:outline text-success':'border-error focus-visible:outline-error focus-visible:outline text-error'}`} type="text" id="username" />
+              <button disabled={inputEmail!==user?.email} onClick={()=>handleDelete(deleteId)} className='px-4 py-2 disabled:bg-base-300 disabled:text-zinc-500 disabled:cursor-not-allowed border border-error bg-error hover:bg-opacity-80 duration-300 text-black'>{deleteBtn}</button>
            </div>
               <div onClick={()=>{
                 setDeleteId()
                 setInputEmail('')
               }} className='flex justify-center my-2'>
-              <button  className='px-4 py-2 w-full bg-success text-black flex justify-center text-center'>Cancel</button>
+              <button  className='px-4 py-2 w-full bg-orange-400 text-white flex justify-center text-center'>Cancel</button>
               </div>
             </div>
             </div>
