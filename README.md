@@ -2,8 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 ### Admin Access
-### email: admin@gmail.com
-### password: @Samrat726728
+### email: `admin@gmail.com`
+### password: `@Samrat726728`
 First, run the development server:
 
 ```bash
